@@ -34,6 +34,7 @@ import { hasHcm, hcmPlan, applyHcm } from './extension-stubs.js';
 import { hasTrifascicular, trifascicularPlan, applyTrifascicular } from './extension-stubs.js';
 import { hasRvh, rvhPlan, applyRvh } from './extension-stubs.js';
 import { hasBvh, bvhPlan, applyBvh } from './extension-stubs.js';
+import { hasAcs, acsPlan, applyAcs } from './extension-stubs.js';
 import { hasHemodialysis, hemodialysisPlan, applyHemodialysis } from './extension-stubs.js';
 import {hasDocumentGroups,documentGroupPlan,applyDocumentGroups} from './document-layout.js';
 
@@ -60,7 +61,7 @@ const optedFlow = slide => slide.layout === 'flow' && slide.animation?.type === 
 const flowBlocks = slide => slide.animation?.targets
   ? slide.animation.targets.map(id => slide.blocks.find(block => block.id === id)).filter(Boolean)
   : slide.blocks;
-export const hasMotion = (lecture, slide) => slide.animation?.type !== 'none' && (hasDocumentGroups(slide) || hasHdCircuit(slide) || hasHemodialysis(slide) || hasEcgAxis(slide) || hasEcgTransition(slide) || hasBundleBlock(slide) || hasFascicular(slide) || hasVentricularHypertrophy(slide) || hasLvhDetail(slide) || hasLvhCriteria(slide) || hasHcm(slide) || hasTrifascicular(slide) || hasRvh(slide) || hasBvh(slide) || hasAvDelay(slide) || hasLgl(slide) || hasWpwOrigin(slide) || hasWpwTypes(slide) || hasWpwMotion(slide) || hasEcgMeasure(slide) || hasEcgLeads(slide) || hasEcgVector(slide) || hasConduction(slide) || hasAnatomyFocus(slide) || hasEcgWaveform(slide) || usesPresentationMotion(lecture, slide) || ['chat', 'bars', 'code', 'timeline', 'cycle'].includes(slide.layout) || richMotion(lecture, slide) || optedFlow(slide));
+export const hasMotion = (lecture, slide) => slide.animation?.type !== 'none' && (hasDocumentGroups(slide) || hasHdCircuit(slide) || hasHemodialysis(slide) || hasEcgAxis(slide) || hasEcgTransition(slide) || hasBundleBlock(slide) || hasFascicular(slide) || hasVentricularHypertrophy(slide) || hasLvhDetail(slide) || hasLvhCriteria(slide) || hasHcm(slide) || hasTrifascicular(slide) || hasRvh(slide) || hasBvh(slide) || hasAcs(slide) || hasAvDelay(slide) || hasLgl(slide) || hasWpwOrigin(slide) || hasWpwTypes(slide) || hasWpwMotion(slide) || hasEcgMeasure(slide) || hasEcgLeads(slide) || hasEcgVector(slide) || hasConduction(slide) || hasAnatomyFocus(slide) || hasEcgWaveform(slide) || usesPresentationMotion(lecture, slide) || ['chat', 'bars', 'code', 'timeline', 'cycle'].includes(slide.layout) || richMotion(lecture, slide) || optedFlow(slide));
 
 // 動きの一覧：{ kind, target, cue（きっかけのcue時刻）, start, end }。音声の終わりまでに収める。
 export function motionPlan(lecture, slide, duration) {
@@ -68,7 +69,7 @@ export function motionPlan(lecture, slide, duration) {
   if (hasHdCircuit(slide)) return hdCircuitPlan(slide, duration);
   if (hasHemodialysis(slide)) return hemodialysisPlan(slide, duration);
   if (!hasMotion(lecture, slide)) return [];
-  if (usesPresentationMotion(lecture, slide)) return [...presentationPlan(lecture, slide, duration),...ecgMotionPlan(slide,duration),...anatomyMotionPlan(slide,duration),...conductionPlan(slide,duration),...wpwMotionPlan(slide,duration),...wpwTypePlan(slide,duration),...wpwOriginPlan(slide,duration),...lglPlan(slide,duration),...avDelayPlan(slide,duration),...ecgVectorPlan(slide,duration),...ecgLeadPlan(slide,duration),...ecgMeasurePlan(slide,duration),...sqlitePlan(slide,duration),...ecgAxisPlan(slide,duration),...transitionPlan(slide,duration),...bundleBlockPlan(slide,duration),...fascicularPlan(slide,duration),...ventricularHypertrophyPlan(slide,duration),...lvhDetailPlan(slide,duration),...lvhCriteriaPlan(slide,duration),...hcmPlan(slide,duration),...trifascicularPlan(slide,duration),...rvhPlan(slide,duration),...bvhPlan(slide,duration)];
+  if (usesPresentationMotion(lecture, slide)) return [...presentationPlan(lecture, slide, duration),...ecgMotionPlan(slide,duration),...anatomyMotionPlan(slide,duration),...conductionPlan(slide,duration),...wpwMotionPlan(slide,duration),...wpwTypePlan(slide,duration),...wpwOriginPlan(slide,duration),...lglPlan(slide,duration),...avDelayPlan(slide,duration),...ecgVectorPlan(slide,duration),...ecgLeadPlan(slide,duration),...ecgMeasurePlan(slide,duration),...sqlitePlan(slide,duration),...ecgAxisPlan(slide,duration),...transitionPlan(slide,duration),...bundleBlockPlan(slide,duration),...fascicularPlan(slide,duration),...ventricularHypertrophyPlan(slide,duration),...lvhDetailPlan(slide,duration),...lvhCriteriaPlan(slide,duration),...hcmPlan(slide,duration),...trifascicularPlan(slide,duration),...rvhPlan(slide,duration),...bvhPlan(slide,duration),...acsPlan(slide,duration)];
   const ai = richMotion(lecture, slide);
   const flow = slide.layout === 'flow' && (ai || optedFlow(slide));
   const path = flow ? flowBlocks(slide) : [];
@@ -122,7 +123,7 @@ export function motionPlan(lecture, slide, duration) {
   }
   if ((ai || optedFlow(slide)) && slide.note && at.has('note')) add('enter', 'note', at.get('note'), at.get('note'), ENTER);
   for (const item of items) { item.short = item.end > limit; item.end = Math.min(item.end, Math.max(item.start, limit)); }
-  return [...items,...ecgMotionPlan(slide,duration),...anatomyMotionPlan(slide,duration),...conductionPlan(slide,duration),...wpwMotionPlan(slide,duration),...wpwTypePlan(slide,duration),...wpwOriginPlan(slide,duration),...lglPlan(slide,duration),...avDelayPlan(slide,duration),...ecgVectorPlan(slide,duration),...ecgLeadPlan(slide,duration),...ecgMeasurePlan(slide,duration),...ecgAxisPlan(slide,duration),...transitionPlan(slide,duration),...bundleBlockPlan(slide,duration),...fascicularPlan(slide,duration),...ventricularHypertrophyPlan(slide,duration),...lvhDetailPlan(slide,duration),...lvhCriteriaPlan(slide,duration),...hcmPlan(slide,duration),...trifascicularPlan(slide,duration),...rvhPlan(slide,duration),...bvhPlan(slide,duration)];
+  return [...items,...ecgMotionPlan(slide,duration),...anatomyMotionPlan(slide,duration),...conductionPlan(slide,duration),...wpwMotionPlan(slide,duration),...wpwTypePlan(slide,duration),...wpwOriginPlan(slide,duration),...lglPlan(slide,duration),...avDelayPlan(slide,duration),...ecgVectorPlan(slide,duration),...ecgLeadPlan(slide,duration),...ecgMeasurePlan(slide,duration),...ecgAxisPlan(slide,duration),...transitionPlan(slide,duration),...bundleBlockPlan(slide,duration),...fascicularPlan(slide,duration),...ventricularHypertrophyPlan(slide,duration),...lvhDetailPlan(slide,duration),...lvhCriteriaPlan(slide,duration),...hcmPlan(slide,duration),...trifascicularPlan(slide,duration),...rvhPlan(slide,duration),...bvhPlan(slide,duration),...acsPlan(slide,duration)];
 }
 
 // 動いている時間帯（重なりはまとめる）。書き出しはこの間だけ1コマずつ撮る。
@@ -158,6 +159,7 @@ export function applyMotion(stage, lecture, slide, time, duration, { frames = fa
   applyTrifascicular(stage.querySelector('#slide-content'),slide,time,duration);
   applyRvh(stage.querySelector('#slide-content'),slide,time,duration);
   applyBvh(stage.querySelector('#slide-content'),slide,time,duration);
+  applyAcs(stage.querySelector('#slide-content'),slide,time,duration);
   applyEcgMotion(stage.querySelector('#slide-content'),slide,time,duration,slide.animation?.type==='none');
   applyAnatomyMotion(stage.querySelector('#slide-content'),slide,time,duration);
   applyConduction(stage.querySelector('#slide-content'),slide,time,duration);

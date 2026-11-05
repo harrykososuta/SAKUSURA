@@ -29,6 +29,7 @@ import { decorateHcm } from './extension-stubs.js';
 import { decorateTrifascicular } from './extension-stubs.js';
 import { decorateRvh } from './extension-stubs.js';
 import { decorateBvh } from './extension-stubs.js';
+import { decorateAcs } from './extension-stubs.js';
 import { decorateSqlite } from './extension-stubs.js';
 import { renderDocument } from './document-layout.js';
 import { decorateHemodialysis } from './extension-stubs.js';
@@ -314,6 +315,7 @@ export function renderSlide(stage, lecture, index, images = {}, categoryOverride
   decorateTrifascicular(content, slide);
   decorateRvh(content, slide);
   decorateBvh(content, slide);
+  decorateAcs(content, slide);
   decorateSqlite(content, slide);
   decorateHdCircuit(content, slide);
   decorateHemodialysis(content, slide);

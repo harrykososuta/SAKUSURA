@@ -28,6 +28,7 @@ import { validateHcm } from './extension-stubs.js';
 import { validateTrifascicular } from './extension-stubs.js';
 import { validateRvh } from './extension-stubs.js';
 import { validateBvh } from './extension-stubs.js';
+import { validateAcs } from './extension-stubs.js';
 import { validateDocument } from './document-layout.js';
 import { validateHemodialysis } from './extension-stubs.js';
 
@@ -302,6 +303,7 @@ export function validateLecture(lecture) {
     errors.push(...validateTrifascicular(slide).map(error=>`${label}: ${error}`));
     errors.push(...validateRvh(slide).map(error=>`${label}: ${error}`));
     errors.push(...validateBvh(slide).map(error=>`${label}: ${error}`));
+    errors.push(...validateAcs(slide).map(error=>`${label}: ${error}`));
     errors.push(...validateHemodialysis(slide).map(error=>`${label}: ${error}`));
     errors.push(...validateEcgLeads(slide).map(error=>`${label}: ${error}`));
     errors.push(...validateSqliteDiagram(slide).map(error=>`${label}: ${error}`));
