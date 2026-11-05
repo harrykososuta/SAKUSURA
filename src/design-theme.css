@@ -1,0 +1,14 @@
+#stage[data-custom-design] { font-family:var(--design-font); }
+#stage[data-custom-design] #slide-content { top:var(--design-top); bottom:var(--design-bottom); }
+#stage[data-custom-design] .layout-title h1 { font-size:var(--design-title); }
+#stage[data-custom-design] .deck-number { font-size:var(--design-number); }
+#stage[data-custom-design] .layout-flow .blocks { column-gap:var(--design-flow-gap); }
+#stage[data-custom-design] .layout-flow .block-body { min-height:var(--design-flow-height); }
+#stage[data-custom-design] .layout-flow .reveal + .reveal .block-body::before { left:calc(18px - var(--design-flow-gap)); width:calc(var(--design-flow-gap) - 48px); }
+#stage[data-custom-design] .layout-flow .reveal + .reveal .block-body::after { left:calc(52px - var(--design-flow-gap)); }
+#stage[data-custom-design] .layout-statement .reveal { padding-top:var(--design-statement-padding); padding-bottom:var(--design-statement-padding); }
+#stage[data-custom-design] .layout-compare .blocks { column-gap:var(--design-compare-gap); }
+#stage[data-custom-design] .layout-table .reveal { padding-top:var(--design-table-padding); padding-bottom:var(--design-table-padding); }
+#stage[data-custom-design] .layout-figure .slide-image { width:var(--design-figure-width); height:var(--design-figure-height); }
+#stage[data-custom-design] .layout-figure .blocks { margin-left:calc(var(--design-figure-width) + 60px); }
+#stage[data-custom-design] .layout-takehome .blocks { column-gap:var(--design-takehome-columns); row-gap:var(--design-takehome-rows); }

@@ -1,0 +1,529 @@
+/* ==========================================================================
+   血液透析の仕組み（Antigravity Exclusive Design & Animation）
+   ========================================================================== */
+
+@keyframes pulse-dialyzer {
+  0%, 100% {
+    box-shadow: 0 14px 36px rgba(0, 118, 133, 0.12), 0 0 0 1.5px rgba(0, 172, 193, 0.35);
+  }
+  50% {
+    box-shadow: 0 18px 44px rgba(0, 118, 133, 0.22), 0 0 0 3px rgba(0, 172, 193, 0.65);
+  }
+}
+
+@keyframes blood-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 2px 6px rgba(211, 47, 47, 0.25));
+  }
+  50% {
+    filter: drop-shadow(0 4px 12px rgba(211, 47, 47, 0.45));
+  }
+}
+
+@keyframes diffuse-shimmer {
+  0%, 100% {
+    transform: translateY(0);
+    filter: drop-shadow(0 2px 5px rgba(245, 124, 0, 0.2));
+  }
+  50% {
+    transform: translateY(-2px);
+    filter: drop-shadow(0 4px 10px rgba(245, 124, 0, 0.4));
+  }
+}
+
+@keyframes filter-shimmer {
+  0%, 100% {
+    transform: translateY(0);
+    filter: drop-shadow(0 2px 5px rgba(2, 136, 209, 0.2));
+  }
+  50% {
+    transform: translateY(-2px);
+    filter: drop-shadow(0 4px 10px rgba(2, 136, 209, 0.4));
+  }
+}
+
+#stage {
+  --paper: #f6fafb !important;
+  --primary: #007685 !important;
+  --accent: #d32f2f !important;
+  --soft: #e0f2f1 !important;
+  --marker: #e0f2f1 !important;
+  --text-strong: #142329;
+  --text: #455a64;
+  --text-meta: #607d8b;
+  --blood: #d32f2f;
+  --blood-light: #ffebee;
+  --teal-deep: #005f6b;
+  --teal-light: #e6f6f7;
+  --card-bg: #ffffff;
+  --card-border: #cfd8dc;
+  background:
+    radial-gradient(circle at 10% 15%, rgba(211, 47, 47, 0.04) 0%, transparent 400px),
+    radial-gradient(circle at 90% 15%, rgba(0, 118, 133, 0.05) 0%, transparent 450px),
+    linear-gradient(180deg, #f8fcfe 0%, #f1f7f9 100%);
+  font-family: 'Noto Sans JP', 'BIZ UDPGothic', sans-serif;
+}
+
+/* 左端アクセントバー（血液の赤 → 透析膜のシアン → 浄化のティール） */
+#stage::before {
+  width: 14px;
+  border-right: 0;
+  box-shadow: 2px 0 10px rgba(0, 118, 133, 0.15);
+  background: linear-gradient(180deg, #c62828 0%, #e53935 32%, #00acc1 68%, #007685 100%);
+}
+
+/* ヘッダー */
+#stage .slide-header {
+  top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#stage #eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 20px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);
+  color: #005f6b;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  box-shadow: 0 2px 6px rgba(0, 95, 107, 0.08);
+}
+
+#stage #brand {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: .22em;
+  color: #007685;
+}
+
+/* スライドコンテンツ枠 */
+#stage #slide-content {
+  top: 104px;
+  bottom: 110px;
+}
+
+/* 見出し */
+#stage h1 {
+  position: relative;
+  border: 0;
+  padding: 4px 0 12px 28px;
+  margin: 0;
+  font-size: 44px;
+  font-weight: 900;
+  line-height: 1.35;
+  color: var(--text-strong);
+  letter-spacing: .02em;
+}
+
+#stage h1::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 14px;
+  width: 8px;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #e53935 0%, #007685 100%);
+}
+
+#stage h1 .section-number {
+  display: none;
+}
+
+#stage strong {
+  color: var(--text-strong);
+  font-weight: 800;
+}
+
+/* フロー図の全体コンテナ */
+#stage .layout-flow .blocks {
+  position: relative;
+  display: block;
+  margin: 22px 0 0;
+  height: 540px;
+  padding: 0;
+}
+
+/* デフォルト矢印を一旦全リセット（下段への意図しない表示を防ぐ） */
+#stage .layout-flow .reveal + .reveal .block-body::before,
+#stage .layout-flow .reveal + .reveal .block-body::after {
+  content: none !important;
+}
+
+/* 上段3ブロック（体外循環ルート）と下段2ブロック（除去原理）の配置 */
+#stage .layout-flow .blocks > .reveal {
+  position: absolute;
+  display: block;
+  min-width: 0;
+}
+
+/* 1. 脱血 */
+#stage .layout-flow .blocks > .reveal[data-block="out"] {
+  left: 0;
+  top: 0;
+  width: 480px;
+}
+
+/* 2. ダイアライザ（主役・中央） */
+#stage .layout-flow .blocks > .reveal[data-block="dialyzer"] {
+  left: 558px;
+  top: 0;
+  width: 580px;
+}
+
+/* 3. 返血 */
+#stage .layout-flow .blocks > .reveal[data-block="return"] {
+  left: 1216px;
+  top: 0;
+  width: 480px;
+}
+
+/* 4. 拡散 */
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] {
+  left: 0;
+  top: 310px;
+  width: 820px;
+}
+
+/* 5. 限外濾過 */
+#stage .layout-flow .blocks > .reveal[data-block="filtration"] {
+  left: 876px;
+  top: 310px;
+  width: 820px;
+}
+
+/* 上段カードの共通ボディ */
+#stage .layout-flow .blocks > .reveal[data-block="out"] .block-body,
+#stage .layout-flow .blocks > .reveal[data-block="return"] .block-body {
+  position: relative;
+  height: 228px;
+  padding: 22px 28px 20px;
+  background: #ffffff;
+  border: 1.5px solid #d6e2e6;
+  border-radius: 20px;
+  box-shadow: 0 10px 24px rgba(20, 35, 41, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* 上段カードの上部アクセントライン */
+#stage .layout-flow .blocks > .reveal[data-block="out"] .block-body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #c62828, #ef5350);
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="return"] .block-body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #00acc1, #00897b);
+}
+
+/* 中央ダイアライザ：圧倒的ハイテク感・プレミアムカード */
+#stage .layout-flow .blocks > .reveal[data-block="dialyzer"] .block-body {
+  position: relative;
+  height: 234px;
+  margin-top: -3px;
+  padding: 22px 30px 20px;
+  background: linear-gradient(135deg, #ffffff 0%, #f4fbfb 100%);
+  border: 2px solid #00acc1;
+  border-radius: 22px;
+  animation: pulse-dialyzer 3.5s ease-in-out infinite;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* ダイアライザの中空糸半透膜グラフィック（微細な透析中空糸のテクスチャ） */
+#stage .layout-flow .blocks > .reveal[data-block="dialyzer"] .block-body::after {
+  content: '';
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 84px;
+  height: 84px;
+  border-radius: 14px;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 6px, rgba(0, 172, 193, 0.16) 6px 8px),
+    repeating-linear-gradient(90deg, transparent 0 6px, rgba(0, 172, 193, 0.16) 6px 8px),
+    #e8f8f9;
+  border: 1.5px solid #80deea;
+  z-index: 0;
+  opacity: 0.85;
+}
+
+/* アイコン */
+#stage .layout-flow .block-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="out"] .block-icon {
+  background: #ffebee;
+  color: #c62828;
+  animation: blood-pulse 2.8s ease-in-out infinite;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="dialyzer"] .block-icon {
+  background: #e0f7fa;
+  color: #007685;
+  z-index: 1;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="return"] .block-icon {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* 見出しラベル */
+#stage .layout-flow .block-label {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--text-strong);
+  margin-bottom: 6px;
+  letter-spacing: .02em;
+  z-index: 1;
+}
+
+/* 本文テキスト */
+#stage .layout-flow .block-text {
+  font-size: 22px;
+  line-height: 1.55;
+  color: var(--text);
+  z-index: 1;
+}
+
+/* 補足ディテール */
+#stage .layout-flow .block-detail {
+  font-size: 19px;
+  font-weight: 700;
+  margin-top: 10px;
+  padding: 4px 14px;
+  border-radius: 8px;
+  letter-spacing: .04em;
+  display: inline-block;
+  z-index: 1;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="out"] .block-detail {
+  background: #fff0f0;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="dialyzer"] .block-detail {
+  background: #e0f2f1;
+  color: #005f6b;
+  border: 1px solid #80cbc4;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="return"] .block-detail {
+  background: #f1f8e9;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+/* --------------------------------------------------------------------------
+   上段のフロー矢印とアニメーション（out → dialyzer → return のみ！）
+   -------------------------------------------------------------------------- */
+/* 矢印の線（左から伸びる） */
+#stage .motion-flow .reveal[data-block="dialyzer"] .block-body::before,
+#stage .motion-flow .reveal[data-block="return"] .block-body::before {
+  content: '' !important;
+  position: absolute;
+  left: -66px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(48px * var(--draw, 1));
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #e53935, #00acc1);
+  box-shadow: 0 0 10px rgba(0, 172, 193, 0.45);
+  z-index: 1;
+}
+
+/* 矢印の矢尻（先端で光る） */
+#stage .motion-flow .reveal[data-block="dialyzer"]::after,
+#stage .motion-flow .reveal[data-block="return"]::after {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 110px;
+  width: 0;
+  height: 0;
+  border-top: 11px solid transparent;
+  border-bottom: 11px solid transparent;
+  border-left: 17px solid #00acc1;
+  border-right: 0;
+  opacity: calc(var(--draw, 1) * 100);
+  translate: calc(-42px * (1 - var(--draw, 1))) 0;
+  filter: drop-shadow(0 0 calc(12px * var(--spark, 0)) var(--accent));
+  z-index: 2;
+}
+
+#stage .flow-packet {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 20%, #e53935 80%);
+  box-shadow: 0 0 18px 8px rgba(229, 57, 53, 0.65);
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   下段2ブロック（拡散・限外濾過）のグラフィカルカード
+   -------------------------------------------------------------------------- */
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] .block-body,
+#stage .layout-flow .blocks > .reveal[data-block="filtration"] .block-body {
+  position: relative;
+  height: 160px;
+  padding: 20px 28px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 24px rgba(20, 35, 41, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] .block-body {
+  border: 1.5px solid #ffe082;
+  border-left: 8px solid #f57c00;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] .block-icon {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  margin: 0;
+  background: #fff8e1;
+  color: #f57c00;
+  animation: diffuse-shimmer 3s ease-in-out infinite;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="filtration"] .block-body {
+  border: 1.5px solid #81d4fa;
+  border-left: 8px solid #0288d1;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="filtration"] .block-icon {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  margin: 0;
+  background: #e1f5fe;
+  color: #0288d1;
+  animation: filter-shimmer 3s ease-in-out infinite;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] .block-label,
+#stage .layout-flow .blocks > .reveal[data-block="filtration"] .block-label {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] .block-label {
+  color: #b75300;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="filtration"] .block-label {
+  color: #01579b;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] .block-text,
+#stage .layout-flow .blocks > .reveal[data-block="filtration"] .block-text {
+  font-size: 21px;
+  line-height: 1.5;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] .block-detail,
+#stage .layout-flow .blocks > .reveal[data-block="filtration"] .block-detail {
+  font-size: 18px;
+  margin-top: 8px;
+  padding: 3px 12px;
+  border-radius: 6px;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] .block-detail {
+  background: #fff3e0;
+  color: #e65100;
+  border: 1px solid #ffe0b2;
+}
+
+#stage .layout-flow .blocks > .reveal[data-block="filtration"] .block-detail {
+  background: #e1f5fe;
+  color: #01579b;
+  border: 1px solid #b3e5fc;
+}
+
+/* --------------------------------------------------------------------------
+   まとめの一文（note）
+   -------------------------------------------------------------------------- */
+#stage .slide-note {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px 28px 16px 40px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #e0f2f1 0%, #edf7f6 100%);
+  border: 1px solid #b2dfdb;
+  border-left: 8px solid #007685;
+  color: #004d40;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.4;
+  letter-spacing: .02em;
+  box-shadow: 0 4px 14px rgba(0, 118, 133, 0.08);
+}
+
+#stage .slide-note::before {
+  content: none;
+}
+
+/* フッター */
+#stage .slide-footer {
+  bottom: 34px;
+  border-top: 1px solid #d9e6e8;
+  padding-top: 14px;
+  font-size: 19px;
+  color: var(--text-meta);
+}
+
+#stage #lecture-title {
+  font-weight: 700;
+  color: #455a64;
+}
+
+#stage #slide-number {
+  font-weight: 900;
+  color: #007685;
+}

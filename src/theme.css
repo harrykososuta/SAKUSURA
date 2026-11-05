@@ -1,0 +1,58 @@
+/* ツールの画面（ライブラリ・編集・再生・設定）の配色。設定ページで選び、src/theme.js が html[data-ui-theme]（アクセント色）と
+   html[data-ui-mode]（ライト／ダーク）に反映する。
+   スライドのデザイン（#stage の中・サムネイル）には使わない。スライドの色は src/core.js の CATEGORIES と style.css の #stage で決まる。
+   各ページで最後に読み込み、ページ側の :root の値を上書きする。 */
+
+/* 画面の地色・文字・罫線（ライト） */
+:root { --ui-page: #f6f7fa; --ui-canvas: #eef0f3; --ui-surface: #fff; --ui-surface-2: #f8fafc; --ui-surface-3: #eef1f5; --ui-line: #e2e7ef; --ui-line-strong: #cdd5e1;
+  --ui-text-strong: #22385a; --ui-text: #4f6280; --ui-text-muted: #7a889c; --ui-text-faint: #a0aabc;
+  --ui-danger: #a45234; --ui-danger-bg: #fff3ec; --ui-danger-line: #eed9cd; --ui-warn: #a25f17; --ui-success: #4f7a5a; }
+
+/* アクセント色（ライト） */
+:root, :root[data-ui-theme="navy"] { --ui-accent: #263b60; --ui-accent-hover: #35517d; --ui-accent-ink: #2f4d78; --ui-accent-mid: #547bb7; --ui-accent-soft: #edf2f9; --ui-accent-line: #cfdbec; --ui-focus: #a6bfe4; }
+:root[data-ui-theme="teal"] { --ui-accent: #1f5a5e; --ui-accent-hover: #2b7276; --ui-accent-ink: #23676b; --ui-accent-mid: #3f9590; --ui-accent-soft: #e6f3f2; --ui-accent-line: #c5e1de; --ui-focus: #9fd0cb; }
+:root[data-ui-theme="green"] { --ui-accent: #2f5b3a; --ui-accent-hover: #3e744c; --ui-accent-ink: #356744; --ui-accent-mid: #5a9a68; --ui-accent-soft: #ebf4ec; --ui-accent-line: #cfe3d3; --ui-focus: #aed3b6; }
+:root[data-ui-theme="purple"] { --ui-accent: #3f3270; --ui-accent-hover: #54468c; --ui-accent-ink: #4b3d84; --ui-accent-mid: #7b6cc2; --ui-accent-soft: #f0edfa; --ui-accent-line: #dad4f0; --ui-focus: #c2b8ea; }
+:root[data-ui-theme="wine"] { --ui-accent: #6b2f45; --ui-accent-hover: #84405a; --ui-accent-ink: #7a3651; --ui-accent-mid: #b56a85; --ui-accent-soft: #f8ecf0; --ui-accent-line: #ecd2dc; --ui-focus: #e2b5c6; }
+:root[data-ui-theme="graphite"] { --ui-accent: #2f3640; --ui-accent-hover: #454e5a; --ui-accent-ink: #3a4350; --ui-accent-mid: #6b7686; --ui-accent-soft: #eef0f3; --ui-accent-line: #d6dae0; --ui-focus: #bcc3cd; }
+
+/* ダーク：地色と文字を入れ替え、アクセント色は各配色の中間色から作る（アクセントの定義より後に置く）。 */
+:root[data-ui-mode="dark"] { color-scheme: dark;
+  --ui-page: #14181f; --ui-canvas: #0f1217; --ui-surface: #1b2029; --ui-surface-2: #20262f; --ui-surface-3: #282f3a; --ui-line: #2f3743; --ui-line-strong: #445064;
+  --ui-text-strong: #e8edf4; --ui-text: #c6cfdc; --ui-text-muted: #9aa6b7; --ui-text-faint: #717d8f;
+  --ui-danger: #f2a68b; --ui-danger-bg: #3a2420; --ui-danger-line: #5e3b31; --ui-warn: #f0b867; --ui-success: #8fcf9f;
+  --ui-accent: color-mix(in srgb, var(--ui-accent-mid) 78%, #000); --ui-accent-hover: var(--ui-accent-mid);
+  --ui-accent-ink: color-mix(in srgb, var(--ui-accent-mid) 50%, #fff); --ui-accent-soft: color-mix(in srgb, var(--ui-accent-mid) 20%, #1b2029);
+  --ui-accent-line: color-mix(in srgb, var(--ui-accent-mid) 45%, #1b2029); --ui-focus: color-mix(in srgb, var(--ui-accent-mid) 70%, #fff);
+  /* 再生画面（style.css）の文字・罫線 */
+  --ink: var(--ui-text-strong); --muted: var(--ui-text-muted); --line: var(--ui-line); }
+:root[data-ui-mode="dark"] option, :root[data-ui-mode="dark"] optgroup { background: var(--ui-surface); color: var(--ui-text-strong); }
+:root[data-ui-mode="dark"] img.brand-mark, :root[data-ui-mode="dark"] img.editor-monogram { box-shadow: 0 0 0 1px #ffffff1f; border-radius: 9px; }
+
+/* 再生画面（style.css）のボタン色も同じ配色にそろえる。 */
+:root { --blue-dark: var(--ui-accent); --blue: var(--ui-focus); }
+
+/* ヘッダー右端の設定アイコン */
+a.settings-link { flex: none; display: inline-grid; place-items: center; width: 40px; height: 40px; padding: 0; margin-left: 4px; border: 1px solid var(--ui-accent-line); border-radius: 8px; color: var(--ui-accent-ink); background: var(--ui-surface); }
+a.settings-link:hover, a.settings-link[aria-current="page"] { background: var(--ui-accent-soft); border-color: var(--ui-accent-mid); }
+a.settings-link svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* メインメニュー（ライブラリ／編集／デザイン）：すべての画面のヘッダーで共通。いまの画面は aria-current="page"。 */
+nav.app-nav { flex: none; display: flex; align-items: center; gap: 2px; height: auto; padding: 3px; border-radius: 10px; background: var(--ui-surface-3); }
+nav.app-nav > a { display: inline-flex; align-items: center; gap: 6px; height: auto; padding: 7px 12px; border: 0; border-radius: 8px; font-size: 13px; font-weight: 700; line-height: 1.4; color: var(--ui-text-muted); text-decoration: none; white-space: nowrap; }
+nav.app-nav > a:hover { background: var(--ui-surface); color: var(--ui-text-strong); }
+nav.app-nav > a[aria-current="page"] { background: var(--ui-surface); color: var(--ui-accent-ink); box-shadow: 0 1px 3px #0000001f; cursor: default; }
+nav.app-nav > a[hidden] { display: none; }
+.nav-icon { width: 17px; height: 17px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.header-divider { flex: none; width: 1px; height: 28px; background: var(--ui-line); }
+.header-spacer { flex: 1; }
+@media (max-width: 1250px) { nav.app-nav > a { padding: 7px 9px; } }
+@media (max-width: 1100px) { nav.app-nav > a span { display: none; } nav.app-nav > a { padding: 7px; } }
+/* デザイン画面のヘッダーも、ほかの画面と同じ高さ・余白・間隔にそろえる（72px・24px・20px）。 */
+.design-header { height: 72px; padding: 0 24px; gap: 20px; justify-content: flex-start; }
+/* スマートフォンなど狭い画面：ロゴは印だけにし、余白と間隔を詰めて、メインメニューと設定を1行に収める。 */
+@media (max-width: 480px) { .design-header, .library-header, .studio-header { gap: 10px; padding: 0 12px; } .design-brand span, .library-header .brand > span, .studio-brand span { display: none; } nav.app-nav > a { padding: 6px; } a.settings-link { width: 36px; height: 36px; } }
+/* 設定画面で選んだ画面の書体。スライド本体（#stage）は独自の書体指定を持つので影響しない。 */
+:root[data-ui-font] body, :root[data-ui-font] .design-page { font-family: var(--ui-font); }
+/* 表示サイズはライブラリ・設定・デザインの画面だけ。編集・再生はマウス位置の計算があるため対象外。 */
+:root[data-ui-scale] body:not(.editor-app):not(.player-page) > :is(header, main, .library-layout, dialog) { zoom: var(--ui-scale); }

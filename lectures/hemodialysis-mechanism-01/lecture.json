@@ -1,0 +1,322 @@
+{
+  "version": 1,
+  "title": "血液透析の仕組み（Antigravity Argon）",
+  "number": "01",
+  "design": "llm",
+  "rules": "free",
+  "description": "血液透析の基本原理（体外循環の流れと、半透膜を介した拡散・限外濾過の2大メカニズム）を1枚で解説するスライド。",
+  "brand": "SAKUSURA",
+  "targetSeconds": 61,
+  "slides": [
+    {
+      "id": "001",
+      "layout": "flow",
+      "eyebrow": "血液透析の基本原理",
+      "title": "血液を体外の**半透膜**に通し、老廃物と水分を除く（Antigravity Argon）",
+      "narration": "血液透析は、低下した腎臓の働きを補うため、血液を体の外へ導いて浄化する治療です。まず、シャントなどのバスキュラーアクセスから血液を取り出し、血液ポンプでダイアライザへ送ります。ダイアライザの中では、無数の細いストロー状の中空糸半透膜をはさんで、血液と透析液が向かい合って流れています。ここで二つの仕組みが同時に働きます。一つ目は拡散です。濃度の差によって、尿素やカリウムなどの老廃物が血液側から透析液側へ移動します。二つ目は限外濾過です。膜にかける圧力の差によって、体にたまった余分な水分をこし出して除水します。血球やタンパク質は膜を通らないため血液中に保たれ、きれいになった血液は気泡を除いて再び体へ戻されます。",
+      "ttsText": "血液透析は、低下した腎臓の働きを補うため、血液を体の外へ導いて浄化する治療です。まず、シャントなどのバスキュラーアクセスから血液を取り出し、血液ポンプでダイアライザへ送ります。ダイアライザの中では、無数の細いストロー状の中空糸半透膜をはさんで、血液と透析液が向かい合って流れています。ここで二つの仕組みが同時に働きます。一つ目は拡散です。濃度の差によって、尿素やカリウムなどの老廃物が血液側から透析液側へ移動します。二つ目は、げんがいろか、です。膜にかける圧力の差によって、体にたまった余分な水分をこし出して除水します。血球やタンパク質は膜を通らないため血液中に保たれ、きれいになった血液は気泡を除いて再び体へ戻されます。",
+      "plannedSeconds": 61,
+      "gapAfter": 0,
+      "blocks": [
+        {
+          "id": "f1",
+          "icon": "blood",
+          "label": "1. 脱血",
+          "text": "シャントから血液を導き\n**血液ポンプ**で送り出す",
+          "detail": "体内 → 体外循環回路へ"
+        },
+        {
+          "id": "f2",
+          "icon": "diffusion",
+          "label": "2. 拡散（老廃物除去）",
+          "text": "**濃度差**で尿素・K⁺などの\n老廃物が透析液側へ移る",
+          "detail": "高濃度の血液 → 低濃度の透析液"
+        },
+        {
+          "id": "f3",
+          "icon": "filtration",
+          "label": "3. 限外濾過（除水）",
+          "text": "**圧力差**で体にたまった\n余分な水分をこし出す",
+          "detail": "膜の両側の圧力差（TMP）で除水"
+        },
+        {
+          "id": "f4",
+          "icon": "heart",
+          "label": "4. 返血",
+          "text": "浄化した血液から気泡を\n除いて静脈側へ**戻す**",
+          "detail": "血球・タンパク質は血液中に残る"
+        }
+      ],
+      "note": "血液と透析液は**半透膜**で隔てられ直接混ざらない。膜孔を通る老廃物と水分だけが移動する。",
+      "cues": [
+        {
+          "at": 0,
+          "target": "f1"
+        },
+        {
+          "at": 11.9,
+          "target": "f2"
+        },
+        {
+          "at": 27.7,
+          "target": "f3"
+        },
+        {
+          "at": 40.7,
+          "target": "f4"
+        },
+        {
+          "at": 50.8,
+          "target": "note"
+        }
+      ]
+    },
+    {
+      "id": "002",
+      "layout": "flow",
+      "eyebrow": "血液透析の基本原理",
+      "title": "血液透析は、半透膜を介して老廃物と水分を除く（Codex）",
+      "narration": "血液透析は、血液を体の外のダイアライザに通して、老廃物と余分な水分を除く治療です。バスキュラーアクセスから取り出した血液を、血液ポンプでダイアライザへ送ります。ダイアライザでは、半透膜をはさんで血液と透析液が流れます。拡散では、濃度差によって尿素などの老廃物が血液側から透析液側へ移動します。限外濾過では、膜の両側の圧力差によって余分な水分を血液側から取り除きます。血球は膜を通らず、血液側に保たれます。血液は再び体に戻り、使い終わった透析液は排液されます。血液と透析液は、半透膜で隔てられており、直接混ざりません。",
+      "plannedSeconds": 50.6,
+      "gapAfter": 0,
+      "blocks": [
+        {
+          "id": "out",
+          "label": "血液を取り出す",
+          "text": "バスキュラーアクセスから\n血液ポンプで送る",
+          "detail": "体 → 体外の回路"
+        },
+        {
+          "id": "dialyzer",
+          "label": "ダイアライザ",
+          "text": "**半透膜**をはさんで\n血液と透析液が流れる",
+          "detail": "血液の流れに対し、透析液は逆向き"
+        },
+        {
+          "id": "return",
+          "label": "血液を体へ戻す",
+          "text": "血球は膜を通らず\n血液側に保たれる",
+          "detail": "体外の回路 → 体"
+        },
+        {
+          "id": "diffusion",
+          "label": "ダイアライザで起こる、2つの移動",
+          "text": "**拡散** ＝ 濃度差で老廃物を除く\n尿素など：血液側 → 透析液側"
+        },
+        {
+          "id": "ultrafiltration",
+          "text": "**限外濾過** ＝ 圧力差で水分を除く\n余分な水分：血液側 → 透析液側"
+        }
+      ],
+      "note": "血液と透析液は混ざらない。移動するのは、膜を通れる物質と水分。",
+      "cues": [
+        {
+          "at": 0,
+          "target": "out"
+        },
+        {
+          "at": 2,
+          "target": "dialyzer"
+        },
+        {
+          "at": 5,
+          "target": "return"
+        },
+        {
+          "at": 9,
+          "target": "diffusion"
+        },
+        {
+          "at": 13,
+          "target": "ultrafiltration"
+        },
+        {
+          "at": 17,
+          "target": "note"
+        }
+      ],
+      "references": [
+        {
+          "title": "NIDDK — Hemodialysis",
+          "url": "https://www.niddk.nih.gov/health-information/kidney-disease/kidney-failure/hemodialysis"
+        },
+        {
+          "title": "National Kidney Foundation — Hemodialysis",
+          "url": "https://www.kidney.org/kidney-topics/hemodialysis"
+        },
+        {
+          "title": "Intermountain Health — Living with Kidney Disease, p.24",
+          "url": "https://intermountainhealthcare.org/ckr-ext/Dcmnt?ncid=529755748"
+        }
+      ],
+      "animation": {
+        "type": "flow",
+        "targets": [
+          "out",
+          "dialyzer",
+          "return"
+        ]
+      },
+      "appearance": {
+        "css": "/* 1920×1080。血液の循環を上段、膜を通る移動を下段に置く。 */\n#stage {\n  --paper: #fbfcfa;\n  --primary: #367f83 !important;\n  --accent: #dc866e !important;\n  --soft: #e7f1ef !important;\n  --marker: #e7f1ef !important;\n  --text-strong: #303b3d;\n  --text: #626d6e;\n  --text-meta: #626d6e;\n  --left: 112px;\n  --right: 112px;\n  --heading: 46px;\n  --body: 28px;\n}\n#stage::before { width: 12px; border: 0; box-shadow: none; }\n#stage .slide-header { top: 48px; font-size: 20px; }\n#stage #eyebrow { letter-spacing: .12em; }\n#stage #brand { font-size: 22px; letter-spacing: .2em; }\n#stage #slide-content { top: 120px; bottom: 142px; }\n#stage h1 { border: 0; padding: 0 0 30px; margin: 0; line-height: 1.5; letter-spacing: .01em; border-bottom: 2px solid #d9e3df; }\n#stage .section-number { display: none; }\n#stage strong { color: var(--text-strong); font-weight: 800; }\n#stage .layout-flow .blocks { position: relative; display: block; padding: 0; margin: 62px 0 0; height: 540px; flex: none; }\n#stage .layout-flow .blocks > .reveal { position: absolute; display: block; grid-row: auto; min-width: 0; }\n#stage .layout-flow .blocks > .reveal[data-block=\"out\"] { left: 0; top: 0; width: 392px; }\n#stage .layout-flow .blocks > .reveal[data-block=\"dialyzer\"] { left: 552px; top: 0; width: 592px; }\n#stage .layout-flow .blocks > .reveal[data-block=\"return\"] { right: 0; top: 0; width: 392px; }\n#stage .layout-flow .block-body { height: 230px; min-height: 0; padding: 30px 24px; border: 1.5px solid #c7d7d1; background: transparent; justify-content: center; gap: 18px; text-align: center; }\n#stage .layout-flow .block-label { font-size: 32px; font-weight: 800; line-height: 1.5; letter-spacing: .01em; }\n#stage .layout-flow .block-text { font-size: 28px; line-height: 1.65; }\n#stage .layout-flow .block-detail { font-size: 24px; line-height: 1.6; margin-top: 18px; padding: 0; }\n#stage .layout-flow .blocks > .reveal[data-block=\"dialyzer\"] .block-body { background: #e7f1ef; border: 2px solid var(--primary); }\n#stage .layout-flow .blocks > .reveal[data-block=\"return\"] .block-body { background: transparent; border: 1.5px solid #c7d7d1; }\n#stage .layout-flow .blocks > .reveal + .reveal .block-body::before { left: -136px; top: 111px; width: 108px; height: 5px; background: var(--accent); }\n#stage .layout-flow .blocks > .reveal + .reveal .block-body::after { left: -32px; top: 102px; border: 12px solid transparent; border-left: 18px solid var(--accent); border-right: 0; }\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] { left: 0; right: 0; top: 344px; width: auto; padding: 28px 0 0; border-top: 2px solid #d9e3df; }\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-body { display: block; height: auto; border: 0; padding: 0; background: transparent; text-align: left; }\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-body::before { content: none; }\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-body::after { content: none; }\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-label { font-size: 24px; font-weight: 700; margin-bottom: 24px; }\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-text { padding-left: 24px; border-left: 6px solid var(--primary); width: 808px; font-size: 30px; line-height: 1.9; }\n#stage .slide-note { padding: 22px 0 0; font-size: 28px; line-height: 1.65; border-top: 2px solid var(--primary); color: var(--text-strong); }\n#stage .slide-note::before { width: 72px; background: var(--accent); }\n#stage .slide-footer { bottom: 46px; border-top: 1px solid #d9e3df; padding-top: 18px; font-size: 20px; }\r\n\r\n\n/* 再生位置から与えられる --draw / --enter を使う。CSS独自の時計は使わない。 */\n#stage .motion-flow .blocks > .reveal[data-block=\"dialyzer\"] .block-body::before,\n#stage .motion-flow .blocks > .reveal[data-block=\"return\"] .block-body::before { width: calc(108px * var(--draw, 1)); }\n#stage .motion-flow .blocks > .reveal[data-block=\"dialyzer\"] .block-body::after,\n#stage .motion-flow .blocks > .reveal[data-block=\"return\"] .block-body::after { left: calc(-136px + 104px * var(--draw, 1)); opacity: calc(var(--draw, 1) * 100); }\n#stage .layout-flow .blocks > .reveal[data-block=\"ultrafiltration\"] { left: 864px; top: 434px; width: 832px; }\n#stage .layout-flow .blocks > .reveal[data-block=\"ultrafiltration\"] .block-body { display: block; height: auto; min-height: 0; padding: 0; border: 0; background: transparent; text-align: left; }\n#stage .layout-flow .blocks > .reveal[data-block=\"ultrafiltration\"] .block-body::before,\n#stage .layout-flow .blocks > .reveal[data-block=\"ultrafiltration\"] .block-body::after { content: none; }\n#stage .layout-flow .blocks > .reveal[data-block=\"ultrafiltration\"] .block-text { padding-left: 24px; border-left: 6px solid var(--accent); font-size: 30px; line-height: 1.9; }\n#stage .motion-flow .blocks > .reveal[data-block=\"diffusion\"] .block-text,\n#stage .motion-flow .blocks > .reveal[data-block=\"ultrafiltration\"] .block-text { position: relative; padding-bottom: 8px; background-image: linear-gradient(var(--soft), var(--soft)); background-position: left bottom; background-repeat: no-repeat; background-size: calc(var(--enter, 1) * 100%) 4px; }\n#stage .motion-flow .blocks > .reveal[data-block=\"diffusion\"] .block-text::after,\n#stage .motion-flow .blocks > .reveal[data-block=\"ultrafiltration\"] .block-text::after { content: ''; position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); bottom: 0; left: calc(var(--enter, 1) * 92%); opacity: calc(4 * var(--enter, 1) * (1 - var(--enter, 1))); }\n\r\n",
+        "category": "va"
+      }
+    },
+    {
+      "id": "003",
+      "layout": "flow",
+      "eyebrow": "血液透析のメカニズム",
+      "title": "血液透析は、半透膜を介して老廃物と水分を除く（Antigravity）",
+      "narration": "血液透析は、腎臓の代わりに体の外で血液を浄化し、余分な水分と老廃物を取り除く治療です。まずバスキュラーアクセスから血液を取り出し、血液ポンプでダイアライザへ送ります。ダイアライザの中では、無数の中空糸半透膜を挟んで、血液と透析液が向かい合って流れます。ここで二つの移動が起こります。一つ目は拡散です。濃度の差によって、尿素やカリウムなどの老廃物が血液側から透析液側へ移動します。二つ目は限外濾過です。膜の両側にかかる圧力差によって、体に溜まった余分な水分をこし出します。浄化された血液は、気泡を除去した上で再び体内へ戻されます。血液と透析液は直接混ざりません。",
+      "plannedSeconds": 54.9,
+      "gapAfter": 0,
+      "animation": {
+        "type": "flow",
+        "targets": [
+          "out",
+          "dialyzer",
+          "return"
+        ]
+      },
+      "blocks": [
+        {
+          "id": "out",
+          "icon": "blood",
+          "label": "脱血（血液を取り出す）",
+          "text": "シャント等のアクセスから\n血液ポンプで送り出す",
+          "detail": "体内 → 体外循環回路へ"
+        },
+        {
+          "id": "dialyzer",
+          "icon": "filter",
+          "label": "ダイアライザ（半透膜）",
+          "text": "**中空糸半透膜**を介して\n血液と透析液が対向して流れる",
+          "detail": "血液と透析液は直接混ざらない"
+        },
+        {
+          "id": "return",
+          "icon": "heart",
+          "label": "返血（血液を戻す）",
+          "text": "気泡を除去し、浄化された\nきれいな血液を体内へ戻す",
+          "detail": "体外循環回路 → 体内へ"
+        },
+        {
+          "id": "diffusion",
+          "icon": "diffusion",
+          "label": "拡散 ── 老廃物を除く",
+          "text": "**濃度差**により老廃物が移動\n（尿素・クレアチニン・カリウムなど）",
+          "detail": "血液側（高濃度） → 透析液側（低濃度）"
+        },
+        {
+          "id": "filtration",
+          "icon": "filtration",
+          "label": "限外濾過 ── 水分を除く",
+          "text": "**圧力差（TMP）**で水分をこし出す\n（体に溜まった余分な水分を除去）",
+          "detail": "膜にかかる圧力差で除水を行う"
+        }
+      ],
+      "note": "血液と透析液は半透膜で隔てられ混ざらない。膜孔を通る物質と水分のみが移動する。",
+      "cues": [
+        {
+          "at": 0,
+          "target": "out"
+        },
+        {
+          "at": 8.1,
+          "target": "dialyzer"
+        },
+        {
+          "at": 16.8,
+          "target": "return"
+        },
+        {
+          "at": 24.9,
+          "target": "diffusion"
+        },
+        {
+          "at": 34.1,
+          "target": "filtration"
+        },
+        {
+          "at": 43.2,
+          "target": "note"
+        }
+      ],
+      "appearance": {
+        "css": "/* ==========================================================================\n   血液透析の仕組み（Antigravity Exclusive Design & Animation）\n   ========================================================================== */\n\n@keyframes pulse-dialyzer {\n  0%, 100% {\n    box-shadow: 0 14px 36px rgba(0, 118, 133, 0.12), 0 0 0 1.5px rgba(0, 172, 193, 0.35);\n  }\n  50% {\n    box-shadow: 0 18px 44px rgba(0, 118, 133, 0.22), 0 0 0 3px rgba(0, 172, 193, 0.65);\n  }\n}\n\n@keyframes blood-pulse {\n  0%, 100% {\n    filter: drop-shadow(0 2px 6px rgba(211, 47, 47, 0.25));\n  }\n  50% {\n    filter: drop-shadow(0 4px 12px rgba(211, 47, 47, 0.45));\n  }\n}\n\n@keyframes diffuse-shimmer {\n  0%, 100% {\n    transform: translateY(0);\n    filter: drop-shadow(0 2px 5px rgba(245, 124, 0, 0.2));\n  }\n  50% {\n    transform: translateY(-2px);\n    filter: drop-shadow(0 4px 10px rgba(245, 124, 0, 0.4));\n  }\n}\n\n@keyframes filter-shimmer {\n  0%, 100% {\n    transform: translateY(0);\n    filter: drop-shadow(0 2px 5px rgba(2, 136, 209, 0.2));\n  }\n  50% {\n    transform: translateY(-2px);\n    filter: drop-shadow(0 4px 10px rgba(2, 136, 209, 0.4));\n  }\n}\n\n#stage {\n  --paper: #f6fafb !important;\n  --primary: #007685 !important;\n  --accent: #d32f2f !important;\n  --soft: #e0f2f1 !important;\n  --marker: #e0f2f1 !important;\n  --text-strong: #142329;\n  --text: #455a64;\n  --text-meta: #607d8b;\n  --blood: #d32f2f;\n  --blood-light: #ffebee;\n  --teal-deep: #005f6b;\n  --teal-light: #e6f6f7;\n  --card-bg: #ffffff;\n  --card-border: #cfd8dc;\n  background:\n    radial-gradient(circle at 10% 15%, rgba(211, 47, 47, 0.04) 0%, transparent 400px),\n    radial-gradient(circle at 90% 15%, rgba(0, 118, 133, 0.05) 0%, transparent 450px),\n    linear-gradient(180deg, #f8fcfe 0%, #f1f7f9 100%);\n  font-family: 'Noto Sans JP', 'BIZ UDPGothic', sans-serif;\n}\n\n/* 左端アクセントバー（血液の赤 → 透析膜のシアン → 浄化のティール） */\n#stage::before {\n  width: 14px;\n  border-right: 0;\n  box-shadow: 2px 0 10px rgba(0, 118, 133, 0.15);\n  background: linear-gradient(180deg, #c62828 0%, #e53935 32%, #00acc1 68%, #007685 100%);\n}\n\n/* ヘッダー */\n#stage .slide-header {\n  top: 40px;\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n}\n\n#stage #eyebrow {\n  display: inline-flex;\n  align-items: center;\n  padding: 6px 20px;\n  border-radius: 999px;\n  background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%);\n  color: #005f6b;\n  font-size: 19px;\n  font-weight: 800;\n  letter-spacing: .14em;\n  box-shadow: 0 2px 6px rgba(0, 95, 107, 0.08);\n}\n\n#stage #brand {\n  font-size: 22px;\n  font-weight: 900;\n  letter-spacing: .22em;\n  color: #007685;\n}\n\n/* スライドコンテンツ枠 */\n#stage #slide-content {\n  top: 104px;\n  bottom: 110px;\n}\n\n/* 見出し */\n#stage h1 {\n  position: relative;\n  border: 0;\n  padding: 4px 0 12px 28px;\n  margin: 0;\n  font-size: 44px;\n  font-weight: 900;\n  line-height: 1.35;\n  color: var(--text-strong);\n  letter-spacing: .02em;\n}\n\n#stage h1::before {\n  content: '';\n  position: absolute;\n  left: 0;\n  top: 6px;\n  bottom: 14px;\n  width: 8px;\n  border-radius: 4px;\n  background: linear-gradient(180deg, #e53935 0%, #007685 100%);\n}\n\n#stage h1 .section-number {\n  display: none;\n}\n\n#stage strong {\n  color: var(--text-strong);\n  font-weight: 800;\n}\n\n/* フロー図の全体コンテナ */\n#stage .layout-flow .blocks {\n  position: relative;\n  display: block;\n  margin: 22px 0 0;\n  height: 540px;\n  padding: 0;\n}\n\n/* デフォルト矢印を一旦全リセット（下段への意図しない表示を防ぐ） */\n#stage .layout-flow .reveal + .reveal .block-body::before,\n#stage .layout-flow .reveal + .reveal .block-body::after {\n  content: none !important;\n}\n\n/* 上段3ブロック（体外循環ルート）と下段2ブロック（除去原理）の配置 */\n#stage .layout-flow .blocks > .reveal {\n  position: absolute;\n  display: block;\n  min-width: 0;\n}\n\n/* 1. 脱血 */\n#stage .layout-flow .blocks > .reveal[data-block=\"out\"] {\n  left: 0;\n  top: 0;\n  width: 480px;\n}\n\n/* 2. ダイアライザ（主役・中央） */\n#stage .layout-flow .blocks > .reveal[data-block=\"dialyzer\"] {\n  left: 558px;\n  top: 0;\n  width: 580px;\n}\n\n/* 3. 返血 */\n#stage .layout-flow .blocks > .reveal[data-block=\"return\"] {\n  left: 1216px;\n  top: 0;\n  width: 480px;\n}\n\n/* 4. 拡散 */\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] {\n  left: 0;\n  top: 310px;\n  width: 820px;\n}\n\n/* 5. 限外濾過 */\n#stage .layout-flow .blocks > .reveal[data-block=\"filtration\"] {\n  left: 876px;\n  top: 310px;\n  width: 820px;\n}\n\n/* 上段カードの共通ボディ */\n#stage .layout-flow .blocks > .reveal[data-block=\"out\"] .block-body,\n#stage .layout-flow .blocks > .reveal[data-block=\"return\"] .block-body {\n  position: relative;\n  height: 228px;\n  padding: 22px 28px 20px;\n  background: #ffffff;\n  border: 1.5px solid #d6e2e6;\n  border-radius: 20px;\n  box-shadow: 0 10px 24px rgba(20, 35, 41, 0.05);\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: flex-start;\n  text-align: left;\n}\n\n/* 上段カードの上部アクセントライン */\n#stage .layout-flow .blocks > .reveal[data-block=\"out\"] .block-body::after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 5px;\n  background: linear-gradient(90deg, #c62828, #ef5350);\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"return\"] .block-body::after {\n  content: '';\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  height: 5px;\n  background: linear-gradient(90deg, #00acc1, #00897b);\n}\n\n/* 中央ダイアライザ：圧倒的ハイテク感・プレミアムカード */\n#stage .layout-flow .blocks > .reveal[data-block=\"dialyzer\"] .block-body {\n  position: relative;\n  height: 234px;\n  margin-top: -3px;\n  padding: 22px 30px 20px;\n  background: linear-gradient(135deg, #ffffff 0%, #f4fbfb 100%);\n  border: 2px solid #00acc1;\n  border-radius: 22px;\n  animation: pulse-dialyzer 3.5s ease-in-out infinite;\n  display: flex;\n  flex-direction: column;\n  justify-content: flex-start;\n  align-items: flex-start;\n  text-align: left;\n}\n\n/* ダイアライザの中空糸半透膜グラフィック（微細な透析中空糸のテクスチャ） */\n#stage .layout-flow .blocks > .reveal[data-block=\"dialyzer\"] .block-body::after {\n  content: '';\n  position: absolute;\n  right: 20px;\n  top: 20px;\n  width: 84px;\n  height: 84px;\n  border-radius: 14px;\n  background:\n    repeating-linear-gradient(0deg, transparent 0 6px, rgba(0, 172, 193, 0.16) 6px 8px),\n    repeating-linear-gradient(90deg, transparent 0 6px, rgba(0, 172, 193, 0.16) 6px 8px),\n    #e8f8f9;\n  border: 1.5px solid #80deea;\n  z-index: 0;\n  opacity: 0.85;\n}\n\n/* アイコン */\n#stage .layout-flow .block-icon {\n  width: 50px;\n  height: 50px;\n  margin-bottom: 10px;\n  border-radius: 12px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"out\"] .block-icon {\n  background: #ffebee;\n  color: #c62828;\n  animation: blood-pulse 2.8s ease-in-out infinite;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"dialyzer\"] .block-icon {\n  background: #e0f7fa;\n  color: #007685;\n  z-index: 1;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"return\"] .block-icon {\n  background: #e8f5e9;\n  color: #2e7d32;\n}\n\n/* 見出しラベル */\n#stage .layout-flow .block-label {\n  font-size: 26px;\n  font-weight: 800;\n  line-height: 1.35;\n  color: var(--text-strong);\n  margin-bottom: 6px;\n  letter-spacing: .02em;\n  z-index: 1;\n}\n\n/* 本文テキスト */\n#stage .layout-flow .block-text {\n  font-size: 22px;\n  line-height: 1.55;\n  color: var(--text);\n  z-index: 1;\n}\n\n/* 補足ディテール */\n#stage .layout-flow .block-detail {\n  font-size: 19px;\n  font-weight: 700;\n  margin-top: 10px;\n  padding: 4px 14px;\n  border-radius: 8px;\n  letter-spacing: .04em;\n  display: inline-block;\n  z-index: 1;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"out\"] .block-detail {\n  background: #fff0f0;\n  color: #c62828;\n  border: 1px solid #ffcdd2;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"dialyzer\"] .block-detail {\n  background: #e0f2f1;\n  color: #005f6b;\n  border: 1px solid #80cbc4;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"return\"] .block-detail {\n  background: #f1f8e9;\n  color: #2e7d32;\n  border: 1px solid #c8e6c9;\n}\n\n/* --------------------------------------------------------------------------\n   上段のフロー矢印とアニメーション（out → dialyzer → return のみ！）\n   -------------------------------------------------------------------------- */\n/* 矢印の線（左から伸びる） */\n#stage .motion-flow .reveal[data-block=\"dialyzer\"] .block-body::before,\n#stage .motion-flow .reveal[data-block=\"return\"] .block-body::before {\n  content: '' !important;\n  position: absolute;\n  left: -66px;\n  top: 50%;\n  transform: translateY(-50%);\n  width: calc(48px * var(--draw, 1));\n  height: 6px;\n  border-radius: 3px;\n  background: linear-gradient(90deg, #e53935, #00acc1);\n  box-shadow: 0 0 10px rgba(0, 172, 193, 0.45);\n  z-index: 1;\n}\n\n/* 矢印の矢尻（先端で光る） */\n#stage .motion-flow .reveal[data-block=\"dialyzer\"]::after,\n#stage .motion-flow .reveal[data-block=\"return\"]::after {\n  content: '';\n  position: absolute;\n  left: -24px;\n  top: 110px;\n  width: 0;\n  height: 0;\n  border-top: 11px solid transparent;\n  border-bottom: 11px solid transparent;\n  border-left: 17px solid #00acc1;\n  border-right: 0;\n  opacity: calc(var(--draw, 1) * 100);\n  translate: calc(-42px * (1 - var(--draw, 1))) 0;\n  filter: drop-shadow(0 0 calc(12px * var(--spark, 0)) var(--accent));\n  z-index: 2;\n}\n\n#stage .flow-packet {\n  position: absolute;\n  width: 26px;\n  height: 26px;\n  border-radius: 50%;\n  background: radial-gradient(circle, #ffffff 20%, #e53935 80%);\n  box-shadow: 0 0 18px 8px rgba(229, 57, 53, 0.65);\n  z-index: 20;\n  pointer-events: none;\n}\n\n/* --------------------------------------------------------------------------\n   下段2ブロック（拡散・限外濾過）のグラフィカルカード\n   -------------------------------------------------------------------------- */\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-body,\n#stage .layout-flow .blocks > .reveal[data-block=\"filtration\"] .block-body {\n  position: relative;\n  height: 160px;\n  padding: 20px 28px;\n  background: #ffffff;\n  border-radius: 20px;\n  box-shadow: 0 10px 24px rgba(20, 35, 41, 0.05);\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: flex-start;\n  text-align: left;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-body {\n  border: 1.5px solid #ffe082;\n  border-left: 8px solid #f57c00;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-icon {\n  position: absolute;\n  right: 24px;\n  top: 24px;\n  margin: 0;\n  background: #fff8e1;\n  color: #f57c00;\n  animation: diffuse-shimmer 3s ease-in-out infinite;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"filtration\"] .block-body {\n  border: 1.5px solid #81d4fa;\n  border-left: 8px solid #0288d1;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"filtration\"] .block-icon {\n  position: absolute;\n  right: 24px;\n  top: 24px;\n  margin: 0;\n  background: #e1f5fe;\n  color: #0288d1;\n  animation: filter-shimmer 3s ease-in-out infinite;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-label,\n#stage .layout-flow .blocks > .reveal[data-block=\"filtration\"] .block-label {\n  font-size: 24px;\n  font-weight: 800;\n  margin-bottom: 6px;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-label {\n  color: #b75300;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"filtration\"] .block-label {\n  color: #01579b;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-text,\n#stage .layout-flow .blocks > .reveal[data-block=\"filtration\"] .block-text {\n  font-size: 21px;\n  line-height: 1.5;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-detail,\n#stage .layout-flow .blocks > .reveal[data-block=\"filtration\"] .block-detail {\n  font-size: 18px;\n  margin-top: 8px;\n  padding: 3px 12px;\n  border-radius: 6px;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-detail {\n  background: #fff3e0;\n  color: #e65100;\n  border: 1px solid #ffe0b2;\n}\n\n#stage .layout-flow .blocks > .reveal[data-block=\"filtration\"] .block-detail {\n  background: #e1f5fe;\n  color: #01579b;\n  border: 1px solid #b3e5fc;\n}\n\n/* --------------------------------------------------------------------------\n   まとめの一文（note）\n   -------------------------------------------------------------------------- */\n#stage .slide-note {\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  padding: 16px 28px 16px 40px;\n  border-radius: 14px;\n  background: linear-gradient(90deg, #e0f2f1 0%, #edf7f6 100%);\n  border: 1px solid #b2dfdb;\n  border-left: 8px solid #007685;\n  color: #004d40;\n  font-size: 22px;\n  font-weight: 800;\n  line-height: 1.4;\n  letter-spacing: .02em;\n  box-shadow: 0 4px 14px rgba(0, 118, 133, 0.08);\n}\n\n#stage .slide-note::before {\n  content: none;\n}\n\n/* フッター */\n#stage .slide-footer {\n  bottom: 34px;\n  border-top: 1px solid #d9e6e8;\n  padding-top: 14px;\n  font-size: 19px;\n  color: var(--text-meta);\n}\n\n#stage #lecture-title {\n  font-weight: 700;\n  color: #455a64;\n}\n\n#stage #slide-number {\n  font-weight: 900;\n  color: #007685;\n}\n",
+        "category": "va"
+      }
+    },
+    {
+      "id": "004",
+      "layout": "flow",
+      "eyebrow": "血液透析の基本",
+      "title": "血液を体の外で**浄化**し、きれいにして体へ戻す",
+      "blocks": [
+        {
+          "id": "f1",
+          "icon": "blood",
+          "label": "脱血",
+          "text": "シャントから\n血液を取り出す",
+          "detail": "血液ポンプで回路へ送る"
+        },
+        {
+          "id": "f2",
+          "icon": "diffusion",
+          "label": "拡散",
+          "text": "老廃物が\n透析液側へ移る",
+          "detail": "濃度の差で移動する\n（尿素・カリウムなど）"
+        },
+        {
+          "id": "f3",
+          "icon": "filtration",
+          "label": "限外濾過",
+          "text": "余分な水分を\nこし出す",
+          "detail": "膜にかける圧力の差で\n除水する"
+        },
+        {
+          "id": "f4",
+          "icon": "heart",
+          "label": "返血",
+          "text": "浄化した血液を\n体へ戻す",
+          "detail": "気泡を除き、\n静脈側の針から戻す"
+        }
+      ],
+      "note": "**半透膜**を介した拡散と限外濾過で、腎臓の働きを補う",
+      "narration": "血液透析は、腎臓の代わりに、体の外で血液をきれいにする治療です。まず、シャントに刺した針から血液を取り出し、血液ポンプで回路へ送ります。次に、ダイアライザの中では、血液と透析液が、半透膜をはさんで流れています。尿素やカリウムなどの老廃物は、濃度の差によって透析液の側へ移ります。これが拡散です。同時に、膜にかける圧力の差で、体にたまった余分な水分をこし出します。これを限外濾過、つまり除水と呼びます。最後に、気泡を取り除いた血液を、静脈側の針から体へ戻します。半透膜を介した拡散と限外濾過。この二つで、腎臓の働きを補っているのです。",
+      "ttsText": "血液透析は、腎臓の代わりに、体の外で血液をきれいにする治療です。まず、シャントに刺した針から血液を取り出し、血液ポンプで回路へ送ります。次に、ダイアライザの中では、血液と透析液が、半透膜をはさんで流れています。尿素やカリウムなどの老廃物は、濃度の差によって透析液の側へ移ります。これが拡散です。同時に、膜にかける圧力の差で、体にたまった余分な水分をこし出します。これを、げんがいろか、つまり除水と呼びます。最後に、気泡を取り除いた血液を、静脈側の針から体へ戻します。半透膜を介した拡散と、げんがいろか。この二つで、腎臓の働きを補っているのです。",
+      "plannedSeconds": 53.3,
+      "gapAfter": 0,
+      "cues": [
+        {
+          "at": 0,
+          "target": "f1"
+        },
+        {
+          "at": 8.7,
+          "target": "f2"
+        },
+        {
+          "at": 23.3,
+          "target": "f3"
+        },
+        {
+          "at": 34.9,
+          "target": "f4"
+        },
+        {
+          "at": 42.6,
+          "target": "note"
+        }
+      ],
+      "appearance": {
+        "css": "/* 血液透析の仕組み（LLMにおまかせ）\n   コンセプト：透析液の淡い水色を地に、血液＝赤・ダイアライザ＝青緑の2色で「血液の通り道」を見せる。\n   左端の帯は赤→青緑のグラデーションで、汚れた血液がきれいになる流れを表す。\n   ダイアライザの中で起こる「拡散」「限外濾過」の2つの箱は、点線の枠でひとまとめにする。 */\n#stage {\n  --paper: #f3f8f9 !important;\n  --primary: #173b4f !important;\n  --accent: #c9443f !important;\n  --soft: #d4ebee !important;\n  --marker: #e2f1f3 !important;\n  --text-strong: #1f2b33;\n  --text: #4f5f68;\n  --text-meta: #6b7b83;\n  --rule: #d5e2e5;\n  --blood: #c9443f;\n  --blood-soft: #f8e4e2;\n  --teal: #2a8798;\n  --teal-soft: #dcf0f2;\n  background:\n    radial-gradient(circle at 96% 4%, #e1f1f3 0 300px, transparent 301px),\n    radial-gradient(circle at 88% 0%, #eaf5f6 0 520px, transparent 521px),\n    var(--paper);\n}\n#stage::before { width: 16px; border-right: 0; box-shadow: none; background: linear-gradient(180deg, #8e2b33 0%, var(--blood) 38%, var(--teal) 100%); }\n\n/* ヘッダー・フッター */\n#stage #eyebrow { padding: 6px 20px; border-radius: 999px; background: var(--teal-soft); color: #1d6676; font-weight: 700; letter-spacing: .12em; }\n#stage #brand { color: var(--primary); }\n#stage .slide-footer { border-top: 1px solid var(--rule); padding-top: 18px; }\n\n/* 見出し：2本線の帯をやめ、左の赤い縦線で区切る。1枚だけなので通し番号は出さない */\n#stage .layout-flow h1 { border: 0; border-left: 10px solid var(--blood); border-radius: 2px; padding: 6px 0 6px 30px; margin: 14px 0 0; font-size: 46px; line-height: 1.4; }\n#stage .layout-flow h1 .section-number { display: none; }\n#stage .layout-flow h1 strong { background: linear-gradient(transparent 62%, var(--blood-soft) 62%); padding: 0 4px; }\n\n/* フロー図：白い角丸の箱。上辺の色で血液（赤）とダイアライザ内（青緑）を分ける */\n#stage .layout-flow .blocks { position: relative; isolation: isolate; margin-top: 104px; gap: 0 76px; padding: 0 24px; }\n#stage .layout-flow .blocks::after {\n  content: 'ダイアライザの中（半透膜の両側を血液と透析液が流れる）';\n  position: absolute; grid-column: 2 / 4; grid-row: 1 / 2; inset: -64px -26px -26px; z-index: -1;\n  padding: 14px 26px; border: 3px dashed var(--teal); border-radius: 30px; background: rgba(220, 240, 242, .55);\n  font-size: 22px; font-weight: 700; letter-spacing: .06em; color: #1d6676; white-space: nowrap; font-feature-settings: 'palt';\n}\n#stage .layout-flow .block-body { min-height: 300px; padding: 30px 22px 34px; gap: 8px; border: 0; border-top: 10px solid var(--blood); border-radius: 22px; background: #fff; box-shadow: 0 14px 34px rgba(23, 59, 79, .10); }\n#stage .layout-flow .reveal[data-block=\"f2\"] .block-body,\n#stage .layout-flow .reveal[data-block=\"f3\"] .block-body { border-top-color: var(--teal); }\n#stage .layout-flow .block-label { font-size: 32px; letter-spacing: .08em; color: var(--text-strong); }\n#stage .layout-flow .block-text { line-height: 1.55; color: var(--text); }\n#stage .layout-flow .block-detail { margin-top: 22px; font-size: 22px; line-height: 1.55; color: var(--text-meta); }\n\n/* アイコン：血液の箱は淡い赤、ダイアライザ内の箱は淡い青緑の丸 */\n#stage .layout-flow .block-body > .block-icon { width: 108px; height: 108px; margin: -6px 0 8px; background: var(--blood-soft); color: #8e2b33; }\n#stage .layout-flow .reveal[data-block=\"f2\"] .block-icon,\n#stage .layout-flow .reveal[data-block=\"f3\"] .block-icon { background: var(--teal-soft); color: var(--primary); }\n#stage .layout-flow .reveal[data-block=\"f2\"] .block-icon .a,\n#stage .layout-flow .reveal[data-block=\"f3\"] .block-icon .a { stroke: var(--teal); }\n\n/* 矢印：太めの赤。箱の間隔に合わせて位置を詰める */\n#stage .layout-flow .reveal + .reveal .block-body::before { left: -62px; width: 34px; height: 6px; top: calc(50% - 3px); border-radius: 3px; background: var(--blood); }\n#stage .layout-flow .reveal + .reveal .block-body::after { left: -32px; top: calc(50% - 13px); border-width: 13px; border-left: 18px solid var(--blood); border-right: 0; }\n\n/* まとめの一文：淡い青緑の帯 */\n#stage .slide-note { padding: 22px 36px 22px 44px; border-top: 0; border-radius: 18px; background: var(--teal-soft); color: var(--text-strong); }\n#stage .slide-note::before { top: 0; left: 0; width: 10px; height: 100%; border-radius: 18px 0 0 18px; background: var(--teal); }\n#stage .slide-note strong { color: #11505e; }\n#stage .has-note .blocks { margin-bottom: 120px; }\n",
+        "category": "va"
+      }
+    }
+  ],
+  "theme": {
+    "css": "/* 血液透析の仕組み（LLMにおまかせデザイン）\n   セレクターはすべて #stage から始め、.reveal とアニメーションの仕組みを維持する。 */\n\n#stage {\n  --paper: #f4f8fa !important;\n  --primary: #144552 !important;\n  --accent: #c93b3b !important;\n  --soft: #d7eef2 !important;\n  --marker: #e3f3f6 !important;\n  --text-strong: #182a33;\n  --text: #3d525c;\n  --text-meta: #5a717d;\n  --rule: #cfe0e6;\n  --blood: #c93b3b;\n  --blood-soft: #fde8e8;\n  --diffuse: #0f766e;\n  --diffuse-soft: #dff5f2;\n  --filter: #0369a1;\n  --filter-soft: #e0f2fe;\n  --return: #1d6f58;\n  --return-soft: #e3f6ef;\n  background:\n    radial-gradient(circle at 92% 8%, rgba(15, 118, 110, 0.08) 0%, transparent 420px),\n    radial-gradient(circle at 8% 88%, rgba(201, 59, 59, 0.05) 0%, transparent 380px),\n    linear-gradient(180deg, #f7fbfc 0%, #eef5f8 100%);\n}\n\n/* 左端の帯：脱血（赤）→ ダイアライザ浄化（青緑）→ 返血（深緑）のグラデーション */\n#stage::before {\n  width: 16px;\n  border-right: 0;\n  box-shadow: 2px 0 12px rgba(20, 69, 82, 0.14);\n  background: linear-gradient(180deg, #b91c1c 0%, #dc2626 30%, #0284c7 65%, #0f766e 100%);\n}\n\n/* ヘッダー・フッター */\n#stage .slide-header {\n  top: 46px;\n  align-items: center;\n}\n\n#stage #eyebrow {\n  padding: 6px 22px;\n  border-radius: 999px;\n  background: linear-gradient(135deg, #dff5f2 0%, #ccebf0 100%);\n  border: 1px solid #99d5df;\n  color: #0f5257;\n  font-size: 20px;\n  font-weight: 800;\n  letter-spacing: .12em;\n}\n\n#stage #brand {\n  color: var(--primary);\n  font-weight: 900;\n  letter-spacing: .24em;\n}\n\n#stage #slide-content {\n  top: 118px;\n  bottom: 132px;\n}\n\n#stage .slide-footer {\n  bottom: 42px;\n  border-top: 1px solid var(--rule);\n  padding-top: 16px;\n}\n\n#stage #lecture-title {\n  color: var(--text);\n  font-weight: 700;\n}\n\n#stage #slide-number {\n  color: var(--primary);\n  font-weight: 900;\n}\n\n/* 見出し：1枚構成なので通し番号（01）は非表示にし、左のアクセントバーで引き締める */\n#stage .layout-flow h1 {\n  border: 0;\n  border-left: 10px solid var(--blood);\n  padding: 6px 0 6px 28px;\n  margin: 8px 0 0;\n  font-size: 44px;\n  line-height: 1.38;\n  color: var(--text-strong);\n}\n\n#stage .layout-flow h1 .section-number {\n  display: none;\n}\n\n#stage .layout-flow h1 strong {\n  color: #0b4f59;\n  background: linear-gradient(transparent 62%, #bfe8ee 62%, #bfe8ee 94%, transparent 94%);\n  padding: 0 6px;\n}\n\n/* フロー図（4ステップ＋中央2ステップをダイアライザ枠で囲む） */\n#stage .layout-flow .blocks {\n  position: relative;\n  isolation: isolate;\n  margin-top: 98px;\n  gap: 0 72px;\n  padding: 0 20px;\n}\n\n#stage .layout-flow .blocks::after {\n  content: 'ダイアライザ内部（中空糸半透膜を介して血液と透析液が対向流）';\n  position: absolute;\n  grid-column: 2 / 4;\n  grid-row: 1 / 2;\n  inset: -60px -24px -22px;\n  z-index: -1;\n  padding: 12px 26px;\n  border: 3px dashed #16808d;\n  border-radius: 28px;\n  background: linear-gradient(180deg, rgba(215, 242, 246, 0.72) 0%, rgba(224, 242, 254, 0.5) 100%);\n  font-size: 21px;\n  font-weight: 800;\n  letter-spacing: .05em;\n  color: #0f5257;\n  white-space: nowrap;\n  text-align: center;\n  font-feature-settings: 'palt';\n}\n\n/* 各ステップのカード */\n#stage .layout-flow .block-body {\n  min-height: 292px;\n  padding: 28px 20px 30px;\n  gap: 10px;\n  border: 1.5px solid #d5e4ea;\n  border-top: 9px solid var(--blood);\n  border-radius: 22px;\n  background: #ffffff;\n  box-shadow: 0 14px 32px rgba(20, 69, 82, 0.09);\n}\n\n#stage .layout-flow .reveal[data-block=\"f2\"] .block-body {\n  border-top-color: var(--diffuse);\n}\n\n#stage .layout-flow .reveal[data-block=\"f3\"] .block-body {\n  border-top-color: var(--filter);\n}\n\n#stage .layout-flow .reveal[data-block=\"f4\"] .block-body {\n  border-top-color: var(--return);\n  border-width: 1.5px;\n  border-top-width: 9px;\n}\n\n/* アイコンの色分け */\n#stage .layout-flow .block-body > .block-icon {\n  width: 96px;\n  height: 96px;\n  margin: -4px 0 6px;\n  background: var(--blood-soft);\n  color: var(--blood);\n}\n\n#stage .layout-flow .reveal[data-block=\"f2\"] .block-icon {\n  background: var(--diffuse-soft);\n  color: var(--diffuse);\n}\n\n#stage .layout-flow .reveal[data-block=\"f2\"] .block-icon .a {\n  stroke: #0d9488;\n}\n\n#stage .layout-flow .reveal[data-block=\"f2\"] .block-icon .d {\n  fill: #0d9488;\n}\n\n#stage .layout-flow .reveal[data-block=\"f3\"] .block-icon {\n  background: var(--filter-soft);\n  color: var(--filter);\n}\n\n#stage .layout-flow .reveal[data-block=\"f3\"] .block-icon .a {\n  stroke: #0284c7;\n}\n\n#stage .layout-flow .reveal[data-block=\"f4\"] .block-icon {\n  background: var(--return-soft);\n  color: var(--return);\n}\n\n#stage .layout-flow .reveal[data-block=\"f4\"] .block-icon .a {\n  stroke: #10b981;\n}\n\n/* カード内テキスト */\n#stage .layout-flow .block-label {\n  font-size: 27px;\n  font-weight: 800;\n  letter-spacing: .03em;\n  color: var(--text-strong);\n}\n\n#stage .layout-flow .block-text {\n  font-size: 25px;\n  line-height: 1.58;\n  color: var(--text);\n}\n\n#stage .layout-flow .block-text strong {\n  color: var(--text-strong);\n  font-weight: 800;\n}\n\n/* カード下の補足バッジ */\n#stage .layout-flow .block-detail {\n  margin-top: 22px;\n  padding: 7px 14px;\n  border-radius: 10px;\n  background: #f8e8e8;\n  border: 1px solid #f2c9c9;\n  font-size: 20px;\n  font-weight: 700;\n  line-height: 1.45;\n  color: #8f2424;\n}\n\n#stage .layout-flow .reveal[data-block=\"f2\"] .block-detail {\n  background: #dff5f2;\n  border-color: #a7e3db;\n  color: #0f5257;\n}\n\n#stage .layout-flow .reveal[data-block=\"f3\"] .block-detail {\n  background: #e0f2fe;\n  border-color: #bae6fd;\n  color: #075985;\n}\n\n#stage .layout-flow .reveal[data-block=\"f4\"] .block-detail {\n  background: #e3f6ef;\n  border-color: #b5e6d4;\n  color: #165946;\n}\n\n/* フロー矢印（motion-flow の --draw / --spark に対応） */\n#stage .layout-flow .reveal + .reveal .block-body::before {\n  left: -58px;\n  width: calc(32px * var(--draw, 1));\n  height: 6px;\n  top: calc(50% - 3px);\n  border-radius: 3px;\n  background: var(--accent);\n}\n\n#stage .layout-flow .reveal + .reveal .block-body::after {\n  left: -30px;\n  top: calc(50% - 12px);\n  border-width: 12px;\n  border-left: 17px solid var(--accent);\n  border-right: 0;\n}\n\n/* まとめの一文（note） */\n#stage .slide-note {\n  padding: 20px 34px 20px 44px;\n  border-top: 0;\n  border-radius: 16px;\n  background: linear-gradient(90deg, #dff1f5 0%, #eaf5f7 100%);\n  border: 1px solid #b5dce4;\n  color: var(--text-strong);\n  font-size: 27px;\n  box-shadow: 0 6px 18px rgba(20, 69, 82, 0.07);\n}\n\n#stage .slide-note::before {\n  top: 0;\n  left: 0;\n  width: 10px;\n  height: 100%;\n  border-radius: 16px 0 0 16px;\n  background: linear-gradient(180deg, var(--blood) 0%, #0f766e 100%);\n}\n\n#stage .slide-note strong {\n  color: #0b4f59;\n}\n\n#stage .has-note .blocks {\n  margin-bottom: 116px;\n}\n"
+  },
+  "slidesEdited": true
+}

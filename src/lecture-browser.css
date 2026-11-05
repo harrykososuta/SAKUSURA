@@ -1,0 +1,63 @@
+/* スライドの選択（src/lecture-browser.js）：編集・再生画面のヘッダーのボタンと、エクスプローラー風の選択画面 */
+.lecture-select-hidden { display: none; }
+:is(.editor-app, .player-page) .lecture-trigger { display: flex; align-items: center; gap: 9px; max-width: 460px; width: 100%; min-width: 0; padding: 8px 12px; border: 1px solid var(--ui-line); border-radius: 8px; background: var(--ui-surface-2); color: var(--ui-text-strong); font-size: 14px; font-weight: 700; text-align: left; }
+:is(.editor-app, .player-page) .lecture-trigger:hover:not(:disabled) { border-color: var(--ui-accent-line); background: var(--ui-accent-soft); }
+:is(.editor-app, .player-page) .lecture-trigger:disabled { opacity: .6; }
+.trigger-number { flex: none; font-size: 12.5px; color: var(--ui-accent-ink); font-variant-numeric: tabular-nums; }
+.trigger-number:empty { display: none; }
+.trigger-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.trigger-chevron { flex: none; width: 7px; height: 7px; border-right: 1.8px solid var(--ui-text-muted); border-bottom: 1.8px solid var(--ui-text-muted); transform: translateY(-2px) rotate(45deg); }
+.browser-dot { flex: none; width: 9px; height: 9px; border-radius: 3px; background: var(--category-color, #738097); }
+dialog.lecture-browser { width: min(1000px, calc(100vw - 32px)); height: min(680px, calc(100dvh - 48px)); max-width: none; padding: 0; border: 1px solid var(--ui-line); border-radius: 14px; background: var(--ui-surface); color: var(--ui-text-strong); overflow: hidden; }
+dialog.lecture-browser[open] { display: flex; flex-direction: column; }
+.browser-head { flex: none; display: flex; align-items: center; gap: 14px; padding: 16px 18px 14px; border-bottom: 1px solid var(--ui-line); }
+.browser-head h2 { margin: 0; font-size: 17px; white-space: nowrap; }
+.browser-search { flex: 1; display: flex; align-items: center; gap: 8px; max-width: 460px; margin-left: auto; padding: 7px 12px; border: 1px solid var(--ui-line); border-radius: 8px; background: var(--ui-surface-2); color: var(--ui-text-muted); }
+.browser-search:focus-within { border-color: var(--ui-accent-mid); box-shadow: 0 0 0 3px var(--ui-accent-soft); }
+:is(.editor-app, .player-page) .browser-search input[type="search"] { width: 100%; border: 0; outline: 0; padding: 0; background: transparent; font-size: 13.5px; color: var(--ui-text-strong); }
+:is(.editor-app, .player-page) .browser-search input[type="search"]:focus { outline: 0; }
+:is(.editor-app, .player-page) .browser-close { flex: none; width: 34px; height: 34px; padding: 0; border: 0; border-radius: 8px; background: transparent; font-size: 20px; color: var(--ui-text-muted); }
+:is(.editor-app, .player-page) .browser-close:hover { background: var(--ui-surface-3); color: var(--ui-text-strong); }
+.browser-body { flex: 1; min-height: 0; display: grid; grid-template-columns: 250px minmax(0, 1fr); }
+.browser-tree { overflow-y: auto; padding: 12px 8px; border-right: 1px solid var(--ui-line); background: var(--ui-surface-2); }
+.browser-tree-row { display: flex; align-items: center; gap: 2px; padding-left: calc(var(--depth, 0) * 14px); }
+:is(.editor-app, .player-page) .browser-toggle { flex: none; width: 20px; height: 26px; padding: 0; border: 0; background: transparent; display: grid; place-items: center; color: var(--ui-text-faint); }
+.browser-toggle::before { content: ''; width: 5px; height: 5px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg); transition: transform .12s; }
+.browser-toggle[aria-expanded="true"]::before { transform: rotate(45deg); }
+:is(.editor-app, .player-page) .browser-toggle:disabled { visibility: hidden; }
+:is(.editor-app, .player-page) .browser-tree-button { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; padding: 7px 9px; border: 0; border-radius: 6px; background: transparent; color: var(--ui-text); font-size: 13px; text-align: left; }
+:is(.editor-app, .player-page) .browser-tree-button:hover { background: var(--ui-surface-3); }
+:is(.editor-app, .player-page) .browser-tree-button[aria-current="true"] { background: var(--ui-accent-soft); color: var(--ui-accent-ink); font-weight: 700; }
+.browser-tree-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.browser-tree-button small { flex: none; font-size: 11px; color: var(--ui-text-faint); font-weight: 400; }
+.browser-all { width: 9px; font-size: 12px; color: var(--ui-text-muted); }
+.browser-folder-icon { flex: none; width: 16px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; color: var(--ui-text-muted); }
+.browser-main { min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+.browser-crumbs { flex: none; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 12px 18px; font-size: 12.5px; color: var(--ui-text-muted); border-bottom: 1px solid var(--ui-line); }
+:is(.editor-app, .player-page) .browser-crumb { border: 0; padding: 2px 4px; background: transparent; font-size: 12.5px; color: var(--ui-accent-ink); }
+:is(.editor-app, .player-page) .browser-crumb:hover { text-decoration: underline; background: transparent; }
+.browser-crumb-current { font-weight: 700; color: var(--ui-text-strong); }
+.browser-crumb-sep { color: var(--ui-text-faint); }
+.browser-list { flex: 1; min-height: 0; overflow-y: auto; padding: 8px 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.browser-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; cursor: pointer; user-select: none; border: 1px solid transparent; }
+.browser-row:hover { background: var(--ui-surface-2); }
+.browser-row[aria-selected="true"] { background: var(--ui-accent-soft); border-color: var(--ui-accent-line); }
+.browser-row-name { flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; }
+.browser-row.is-folder .browser-folder-icon { width: 22px; height: 19px; color: var(--ui-accent-mid); }
+.browser-row.is-folder strong { font-size: 14px; color: var(--ui-text-strong); }
+.browser-row-text { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.browser-row-text strong { font-size: 14px; color: var(--ui-text-strong); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.browser-row-text small { font-size: 12px; color: var(--ui-text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.browser-row-meta { flex: none; font-size: 12px; color: var(--ui-text-muted); }
+.browser-current { flex: none; font-size: 11.5px; font-weight: 700; color: var(--ui-accent-ink); background: var(--ui-accent-soft); border-radius: 999px; padding: 2px 9px; }
+.browser-empty { margin: 40px auto; font-size: 13px; color: var(--ui-text-muted); }
+.browser-foot { flex: none; display: flex; align-items: center; gap: 10px; padding: 12px 18px; border-top: 1px solid var(--ui-line); background: var(--ui-surface-2); }
+:is(.editor-app, .player-page) .browser-library { padding: 0; font-size: 12.5px; color: var(--ui-accent-ink); }
+.browser-selection { flex: 1; min-width: 0; text-align: right; font-size: 12.5px; color: var(--ui-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.browser-foot button { font-size: 13px; padding: 8px 18px; }
+@media (max-width: 760px) { .browser-body { grid-template-columns: 1fr; } .browser-tree { display: none; } .browser-head h2 { display: none; } }
+/* 汎用の dialog > div（ボタン行の右寄せ・上余白）をスライドの選択画面には当てない */
+dialog.lecture-browser > div { margin-top: 0; justify-content: normal; }
+/* 再生画面には編集画面の汎用 dialog の見た目がないので、ここで影と背景の暗さをそろえる */
+dialog.lecture-browser { box-shadow: 0 20px 60px #1e2a4730; }
+dialog.lecture-browser::backdrop { background: #1e2a4766; }

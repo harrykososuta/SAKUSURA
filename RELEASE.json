@@ -1,0 +1,21 @@
+{
+  "name": "SAKUSURA",
+  "version": "1.1.0",
+  "createdAt": "2026-11-05T06:36:23.515Z",
+  "license": "MIT",
+  "template": "design-9122c0b9-ba34-486e-bcf8-0758a5f70d22",
+  "lectures": [
+    "hemodialysis-mechanism-01",
+    "hemodialysis-mechanism",
+    "hemodialysis-mechanism-codex",
+    "va-hemodialysis-mechanism"
+  ],
+  "testFixtures": [
+    "demo",
+    "business-design",
+    "ai-motion-demo"
+  ],
+  "credentialsIncluded": false,
+  "voiceConfigured": false,
+  "audioIncluded": false
+}

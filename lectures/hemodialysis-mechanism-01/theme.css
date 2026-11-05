@@ -1,0 +1,291 @@
+/* 血液透析の仕組み（LLMにおまかせデザイン）
+   セレクターはすべて #stage から始め、.reveal とアニメーションの仕組みを維持する。 */
+
+#stage {
+  --paper: #f4f8fa !important;
+  --primary: #144552 !important;
+  --accent: #c93b3b !important;
+  --soft: #d7eef2 !important;
+  --marker: #e3f3f6 !important;
+  --text-strong: #182a33;
+  --text: #3d525c;
+  --text-meta: #5a717d;
+  --rule: #cfe0e6;
+  --blood: #c93b3b;
+  --blood-soft: #fde8e8;
+  --diffuse: #0f766e;
+  --diffuse-soft: #dff5f2;
+  --filter: #0369a1;
+  --filter-soft: #e0f2fe;
+  --return: #1d6f58;
+  --return-soft: #e3f6ef;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(15, 118, 110, 0.08) 0%, transparent 420px),
+    radial-gradient(circle at 8% 88%, rgba(201, 59, 59, 0.05) 0%, transparent 380px),
+    linear-gradient(180deg, #f7fbfc 0%, #eef5f8 100%);
+}
+
+/* 左端の帯：脱血（赤）→ ダイアライザ浄化（青緑）→ 返血（深緑）のグラデーション */
+#stage::before {
+  width: 16px;
+  border-right: 0;
+  box-shadow: 2px 0 12px rgba(20, 69, 82, 0.14);
+  background: linear-gradient(180deg, #b91c1c 0%, #dc2626 30%, #0284c7 65%, #0f766e 100%);
+}
+
+/* ヘッダー・フッター */
+#stage .slide-header {
+  top: 46px;
+  align-items: center;
+}
+
+#stage #eyebrow {
+  padding: 6px 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #dff5f2 0%, #ccebf0 100%);
+  border: 1px solid #99d5df;
+  color: #0f5257;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+#stage #brand {
+  color: var(--primary);
+  font-weight: 900;
+  letter-spacing: .24em;
+}
+
+#stage #slide-content {
+  top: 118px;
+  bottom: 132px;
+}
+
+#stage .slide-footer {
+  bottom: 42px;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+}
+
+#stage #lecture-title {
+  color: var(--text);
+  font-weight: 700;
+}
+
+#stage #slide-number {
+  color: var(--primary);
+  font-weight: 900;
+}
+
+/* 見出し：1枚構成なので通し番号（01）は非表示にし、左のアクセントバーで引き締める */
+#stage .layout-flow h1 {
+  border: 0;
+  border-left: 10px solid var(--blood);
+  padding: 6px 0 6px 28px;
+  margin: 8px 0 0;
+  font-size: 44px;
+  line-height: 1.38;
+  color: var(--text-strong);
+}
+
+#stage .layout-flow h1 .section-number {
+  display: none;
+}
+
+#stage .layout-flow h1 strong {
+  color: #0b4f59;
+  background: linear-gradient(transparent 62%, #bfe8ee 62%, #bfe8ee 94%, transparent 94%);
+  padding: 0 6px;
+}
+
+/* フロー図（4ステップ＋中央2ステップをダイアライザ枠で囲む） */
+#stage .layout-flow .blocks {
+  position: relative;
+  isolation: isolate;
+  margin-top: 98px;
+  gap: 0 72px;
+  padding: 0 20px;
+}
+
+#stage .layout-flow .blocks::after {
+  content: 'ダイアライザ内部（中空糸半透膜を介して血液と透析液が対向流）';
+  position: absolute;
+  grid-column: 2 / 4;
+  grid-row: 1 / 2;
+  inset: -60px -24px -22px;
+  z-index: -1;
+  padding: 12px 26px;
+  border: 3px dashed #16808d;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(215, 242, 246, 0.72) 0%, rgba(224, 242, 254, 0.5) 100%);
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: .05em;
+  color: #0f5257;
+  white-space: nowrap;
+  text-align: center;
+  font-feature-settings: 'palt';
+}
+
+/* 各ステップのカード */
+#stage .layout-flow .block-body {
+  min-height: 292px;
+  padding: 28px 20px 30px;
+  gap: 10px;
+  border: 1.5px solid #d5e4ea;
+  border-top: 9px solid var(--blood);
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 14px 32px rgba(20, 69, 82, 0.09);
+}
+
+#stage .layout-flow .reveal[data-block="f2"] .block-body {
+  border-top-color: var(--diffuse);
+}
+
+#stage .layout-flow .reveal[data-block="f3"] .block-body {
+  border-top-color: var(--filter);
+}
+
+#stage .layout-flow .reveal[data-block="f4"] .block-body {
+  border-top-color: var(--return);
+  border-width: 1.5px;
+  border-top-width: 9px;
+}
+
+/* アイコンの色分け */
+#stage .layout-flow .block-body > .block-icon {
+  width: 96px;
+  height: 96px;
+  margin: -4px 0 6px;
+  background: var(--blood-soft);
+  color: var(--blood);
+}
+
+#stage .layout-flow .reveal[data-block="f2"] .block-icon {
+  background: var(--diffuse-soft);
+  color: var(--diffuse);
+}
+
+#stage .layout-flow .reveal[data-block="f2"] .block-icon .a {
+  stroke: #0d9488;
+}
+
+#stage .layout-flow .reveal[data-block="f2"] .block-icon .d {
+  fill: #0d9488;
+}
+
+#stage .layout-flow .reveal[data-block="f3"] .block-icon {
+  background: var(--filter-soft);
+  color: var(--filter);
+}
+
+#stage .layout-flow .reveal[data-block="f3"] .block-icon .a {
+  stroke: #0284c7;
+}
+
+#stage .layout-flow .reveal[data-block="f4"] .block-icon {
+  background: var(--return-soft);
+  color: var(--return);
+}
+
+#stage .layout-flow .reveal[data-block="f4"] .block-icon .a {
+  stroke: #10b981;
+}
+
+/* カード内テキスト */
+#stage .layout-flow .block-label {
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: .03em;
+  color: var(--text-strong);
+}
+
+#stage .layout-flow .block-text {
+  font-size: 25px;
+  line-height: 1.58;
+  color: var(--text);
+}
+
+#stage .layout-flow .block-text strong {
+  color: var(--text-strong);
+  font-weight: 800;
+}
+
+/* カード下の補足バッジ */
+#stage .layout-flow .block-detail {
+  margin-top: 22px;
+  padding: 7px 14px;
+  border-radius: 10px;
+  background: #f8e8e8;
+  border: 1px solid #f2c9c9;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.45;
+  color: #8f2424;
+}
+
+#stage .layout-flow .reveal[data-block="f2"] .block-detail {
+  background: #dff5f2;
+  border-color: #a7e3db;
+  color: #0f5257;
+}
+
+#stage .layout-flow .reveal[data-block="f3"] .block-detail {
+  background: #e0f2fe;
+  border-color: #bae6fd;
+  color: #075985;
+}
+
+#stage .layout-flow .reveal[data-block="f4"] .block-detail {
+  background: #e3f6ef;
+  border-color: #b5e6d4;
+  color: #165946;
+}
+
+/* フロー矢印（motion-flow の --draw / --spark に対応） */
+#stage .layout-flow .reveal + .reveal .block-body::before {
+  left: -58px;
+  width: calc(32px * var(--draw, 1));
+  height: 6px;
+  top: calc(50% - 3px);
+  border-radius: 3px;
+  background: var(--accent);
+}
+
+#stage .layout-flow .reveal + .reveal .block-body::after {
+  left: -30px;
+  top: calc(50% - 12px);
+  border-width: 12px;
+  border-left: 17px solid var(--accent);
+  border-right: 0;
+}
+
+/* まとめの一文（note） */
+#stage .slide-note {
+  padding: 20px 34px 20px 44px;
+  border-top: 0;
+  border-radius: 16px;
+  background: linear-gradient(90deg, #dff1f5 0%, #eaf5f7 100%);
+  border: 1px solid #b5dce4;
+  color: var(--text-strong);
+  font-size: 27px;
+  box-shadow: 0 6px 18px rgba(20, 69, 82, 0.07);
+}
+
+#stage .slide-note::before {
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 100%;
+  border-radius: 16px 0 0 16px;
+  background: linear-gradient(180deg, var(--blood) 0%, #0f766e 100%);
+}
+
+#stage .slide-note strong {
+  color: #0b4f59;
+}
+
+#stage .has-note .blocks {
+  margin-bottom: 116px;
+}

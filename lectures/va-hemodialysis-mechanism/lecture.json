@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "title": "血液透析の仕組み（Claude）",
+  "number": "00",
+  "design": "llm",
+  "rules": "free",
+  "description": "血液透析の基本原理（脱血→拡散→限外濾過→返血）を1枚で示す図解スライド。",
+  "brand": "SAKUSURA",
+  "targetSeconds": 55,
+  "slides": [
+    {
+      "id": "001",
+      "layout": "flow",
+      "eyebrow": "血液透析の基本",
+      "title": "血液を体の外で**浄化**し、きれいにして体へ戻す",
+      "blocks": [
+        {
+          "id": "f1",
+          "icon": "blood",
+          "label": "脱血",
+          "text": "シャントから\n血液を取り出す",
+          "detail": "血液ポンプで回路へ送る"
+        },
+        {
+          "id": "f2",
+          "icon": "diffusion",
+          "label": "拡散",
+          "text": "老廃物が\n透析液側へ移る",
+          "detail": "濃度の差で移動する\n（尿素・カリウムなど）"
+        },
+        {
+          "id": "f3",
+          "icon": "filtration",
+          "label": "限外濾過",
+          "text": "余分な水分を\nこし出す",
+          "detail": "膜にかける圧力の差で\n除水する"
+        },
+        {
+          "id": "f4",
+          "icon": "heart",
+          "label": "返血",
+          "text": "浄化した血液を\n体へ戻す",
+          "detail": "気泡を除き、\n静脈側の針から戻す"
+        }
+      ],
+      "note": "**半透膜**を介した拡散と限外濾過で、腎臓の働きを補う",
+      "narration": "血液透析は、腎臓の代わりに、体の外で血液をきれいにする治療です。まず、シャントに刺した針から血液を取り出し、血液ポンプで回路へ送ります。次に、ダイアライザの中では、血液と透析液が、半透膜をはさんで流れています。尿素やカリウムなどの老廃物は、濃度の差によって透析液の側へ移ります。これが拡散です。同時に、膜にかける圧力の差で、体にたまった余分な水分をこし出します。これを限外濾過、つまり除水と呼びます。最後に、気泡を取り除いた血液を、静脈側の針から体へ戻します。半透膜を介した拡散と限外濾過。この二つで、腎臓の働きを補っているのです。",
+      "ttsText": "血液透析は、腎臓の代わりに、体の外で血液をきれいにする治療です。まず、シャントに刺した針から血液を取り出し、血液ポンプで回路へ送ります。次に、ダイアライザの中では、血液と透析液が、半透膜をはさんで流れています。尿素やカリウムなどの老廃物は、濃度の差によって透析液の側へ移ります。これが拡散です。同時に、膜にかける圧力の差で、体にたまった余分な水分をこし出します。これを、げんがいろか、つまり除水と呼びます。最後に、気泡を取り除いた血液を、静脈側の針から体へ戻します。半透膜を介した拡散と、げんがいろか。この二つで、腎臓の働きを補っているのです。",
+      "plannedSeconds": 53.3,
+      "gapAfter": 0,
+      "cues": [
+        {
+          "at": 0,
+          "target": "f1"
+        },
+        {
+          "at": 8.7,
+          "target": "f2"
+        },
+        {
+          "at": 23.3,
+          "target": "f3"
+        },
+        {
+          "at": 34.9,
+          "target": "f4"
+        },
+        {
+          "at": 42.6,
+          "target": "note"
+        }
+      ]
+    }
+  ],
+  "theme": {
+    "css": "/* 血液透析の仕組み（LLMにおまかせ）\n   コンセプト：透析液の淡い水色を地に、血液＝赤・ダイアライザ＝青緑の2色で「血液の通り道」を見せる。\n   左端の帯は赤→青緑のグラデーションで、汚れた血液がきれいになる流れを表す。\n   ダイアライザの中で起こる「拡散」「限外濾過」の2つの箱は、点線の枠でひとまとめにする。 */\n#stage {\n  --paper: #f3f8f9 !important;\n  --primary: #173b4f !important;\n  --accent: #c9443f !important;\n  --soft: #d4ebee !important;\n  --marker: #e2f1f3 !important;\n  --text-strong: #1f2b33;\n  --text: #4f5f68;\n  --text-meta: #6b7b83;\n  --rule: #d5e2e5;\n  --blood: #c9443f;\n  --blood-soft: #f8e4e2;\n  --teal: #2a8798;\n  --teal-soft: #dcf0f2;\n  background:\n    radial-gradient(circle at 96% 4%, #e1f1f3 0 300px, transparent 301px),\n    radial-gradient(circle at 88% 0%, #eaf5f6 0 520px, transparent 521px),\n    var(--paper);\n}\n#stage::before { width: 16px; border-right: 0; box-shadow: none; background: linear-gradient(180deg, #8e2b33 0%, var(--blood) 38%, var(--teal) 100%); }\n\n/* ヘッダー・フッター */\n#stage #eyebrow { padding: 6px 20px; border-radius: 999px; background: var(--teal-soft); color: #1d6676; font-weight: 700; letter-spacing: .12em; }\n#stage #brand { color: var(--primary); }\n#stage .slide-footer { border-top: 1px solid var(--rule); padding-top: 18px; }\n\n/* 見出し：2本線の帯をやめ、左の赤い縦線で区切る。1枚だけなので通し番号は出さない */\n#stage .layout-flow h1 { border: 0; border-left: 10px solid var(--blood); border-radius: 2px; padding: 6px 0 6px 30px; margin: 14px 0 0; font-size: 46px; line-height: 1.4; }\n#stage .layout-flow h1 .section-number { display: none; }\n#stage .layout-flow h1 strong { background: linear-gradient(transparent 62%, var(--blood-soft) 62%); padding: 0 4px; }\n\n/* フロー図：白い角丸の箱。上辺の色で血液（赤）とダイアライザ内（青緑）を分ける */\n#stage .layout-flow .blocks { position: relative; isolation: isolate; margin-top: 104px; gap: 0 76px; padding: 0 24px; }\n#stage .layout-flow .blocks::after {\n  content: 'ダイアライザの中（半透膜の両側を血液と透析液が流れる）';\n  position: absolute; grid-column: 2 / 4; grid-row: 1 / 2; inset: -64px -26px -26px; z-index: -1;\n  padding: 14px 26px; border: 3px dashed var(--teal); border-radius: 30px; background: rgba(220, 240, 242, .55);\n  font-size: 22px; font-weight: 700; letter-spacing: .06em; color: #1d6676; white-space: nowrap; font-feature-settings: 'palt';\n}\n#stage .layout-flow .block-body { min-height: 300px; padding: 30px 22px 34px; gap: 8px; border: 0; border-top: 10px solid var(--blood); border-radius: 22px; background: #fff; box-shadow: 0 14px 34px rgba(23, 59, 79, .10); }\n#stage .layout-flow .reveal[data-block=\"f2\"] .block-body,\n#stage .layout-flow .reveal[data-block=\"f3\"] .block-body { border-top-color: var(--teal); }\n#stage .layout-flow .block-label { font-size: 32px; letter-spacing: .08em; color: var(--text-strong); }\n#stage .layout-flow .block-text { line-height: 1.55; color: var(--text); }\n#stage .layout-flow .block-detail { margin-top: 22px; font-size: 22px; line-height: 1.55; color: var(--text-meta); }\n\n/* アイコン：血液の箱は淡い赤、ダイアライザ内の箱は淡い青緑の丸 */\n#stage .layout-flow .block-body > .block-icon { width: 108px; height: 108px; margin: -6px 0 8px; background: var(--blood-soft); color: #8e2b33; }\n#stage .layout-flow .reveal[data-block=\"f2\"] .block-icon,\n#stage .layout-flow .reveal[data-block=\"f3\"] .block-icon { background: var(--teal-soft); color: var(--primary); }\n#stage .layout-flow .reveal[data-block=\"f2\"] .block-icon .a,\n#stage .layout-flow .reveal[data-block=\"f3\"] .block-icon .a { stroke: var(--teal); }\n\n/* 矢印：太めの赤。箱の間隔に合わせて位置を詰める */\n#stage .layout-flow .reveal + .reveal .block-body::before { left: -62px; width: 34px; height: 6px; top: calc(50% - 3px); border-radius: 3px; background: var(--blood); }\n#stage .layout-flow .reveal + .reveal .block-body::after { left: -32px; top: calc(50% - 13px); border-width: 13px; border-left: 18px solid var(--blood); border-right: 0; }\n\n/* まとめの一文：淡い青緑の帯 */\n#stage .slide-note { padding: 22px 36px 22px 44px; border-top: 0; border-radius: 18px; background: var(--teal-soft); color: var(--text-strong); }\n#stage .slide-note::before { top: 0; left: 0; width: 10px; height: 100%; border-radius: 18px 0 0 18px; background: var(--teal); }\n#stage .slide-note strong { color: #11505e; }\n#stage .has-note .blocks { margin-bottom: 120px; }\n"
+  }
+}

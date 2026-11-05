@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>スライド編集 | SAKUSURA</title>
+  <link rel="icon" href="/sakusura.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/src/style.css">
+  <script src="/src/theme.js"></script>
+  <link rel="stylesheet" href="/src/editor.css">
+<link rel="stylesheet" href="/src/lecture-browser.css">
+  <link rel="stylesheet" href="/src/theme.css">
+  <script type="module" src="/src/editor.js"></script>
+</head>
+<body class="editor-app">
+  <header class="editor-header">
+    <a class="editor-brand" href="/library" aria-label="SAKUSURA スライドライブラリへ"><img class="editor-monogram" src="/sakusura.svg" width="40" height="40" alt=""><div><strong>SAKUSURA</strong><small>サクッとスライド</small></div></a>
+    <nav class="app-nav" aria-label="メインメニュー"><a id="library-link" href="/library"><svg class="nav-icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="3" width="6" height="6" rx="1.2"/><rect x="11" y="3" width="6" height="6" rx="1.2"/><rect x="3" y="11" width="6" height="6" rx="1.2"/><rect x="11" y="11" width="6" height="6" rx="1.2"/></svg><span>ライブラリ</span></a><a aria-current="page" title="いまの画面（編集）"><svg class="nav-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 16.2 5 12l8-8 3.1 3.1-8 8z"/><path d="m11.2 5.8 3 3"/></svg><span>編集</span></a><a id="design-link" href="/design"><svg class="nav-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3a7 7 0 1 0 0 14c1 0 1.5-.6 1.5-1.4 0-.9-.8-1.2-.8-2s.6-1.3 1.6-1.3H15a2.5 2.5 0 0 0 2.5-2.5C17.5 6 14.2 3 10 3z"/><circle cx="6.5" cy="9.2" r=".9"/><circle cx="9" cy="6.2" r=".9"/><circle cx="12.8" cy="6.6" r=".9"/></svg><span>デザイン</span></a></nav>
+    <span class="header-divider" aria-hidden="true"></span>
+    <div class="project-picker"><span id="lecture-label">スライド</span><button id="lecture-trigger" class="lecture-trigger" type="button" aria-haspopup="dialog" aria-labelledby="lecture-label lecture-trigger-title" disabled><span class="browser-dot" aria-hidden="true"></span><span class="trigger-number"></span><span id="lecture-trigger-title" class="trigger-title">読み込み中…</span><span class="trigger-chevron" aria-hidden="true"></span></button><select id="lecture-select" class="lecture-select-hidden" aria-label="編集するスライド" tabindex="-1" aria-hidden="true"></select></div>
+    <div class="header-actions"><span id="save-status" role="status">読み込み中</span><a id="player-link" class="header-button" href="/" target="_blank" rel="noopener" title="再生画面を新しいタブで開きます"><svg class="nav-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 4.5v11l9-5.5z"/></svg><span>再生</span><span class="external-mark" aria-hidden="true">↗</span></a><button id="save" class="primary" disabled>保存する <kbd>Ctrl S</kbd></button>
+      <details id="header-more" class="header-more"><summary aria-label="その他の操作" title="その他の操作"><svg class="nav-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="4.5" r="1.3"/><circle cx="10" cy="10" r="1.3"/><circle cx="10" cy="15.5" r="1.3"/></svg></summary><div class="more-menu" role="menu"><button id="download" role="menuitem" type="button"><strong>JSONを控える</strong><small>編集中のデータをファイルに保存します（保存とは別）</small></button><button id="save-template" role="menuitem" type="button" hidden><strong>デザインをテンプレートとして保存</strong><small>この講義のデザイン（CSS）を「デザイン」画面に登録し、次の作成で選べるようにします</small></button><a role="menuitem" href="/library"><strong>ライブラリで整理する</strong><small>フォルダー分け・削除・復元</small></a><a role="menuitem" href="/settings"><strong>設定</strong><small>外観・配色・編集画面の初期値</small></a></div></details></div>
+    <a class="settings-link" href="/settings" title="設定（配色など）" aria-label="設定"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></a>
+  </header>
+  <div class="editor-toolbar">
+    <div class="toolbar-group"><button id="undo" title="元に戻す Ctrl+Z" disabled><svg class="tool-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4 3.5 8l4 4"/><path d="M3.5 8h8.5a4.5 4.5 0 0 1 0 9H9"/></svg><span>元に戻す</span></button><button id="redo" title="やり直す Ctrl+Shift+Z" aria-label="やり直す" disabled><svg class="tool-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="m12.5 4 4 4-4 4"/><path d="M16.5 8H8a4.5 4.5 0 0 0 0 9h3"/></svg></button></div>
+    <span class="toolbar-divider"></span><div class="toolbar-group add-shapes" role="group" aria-label="図形・文字を追加"><span class="toolbar-label">追加</span><button data-add-shape="text" title="文字ボックスを追加"><svg class="tool-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4.5h12M10 4.5v11.5"/></svg>文字</button><button data-add-shape="rect" title="四角（囲み）を追加"><svg class="tool-icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="5" width="14" height="10" rx="1.5"/></svg>四角</button><button data-add-shape="circle" title="丸（囲み）を追加"><svg class="tool-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/></svg>丸</button><button data-add-shape="arrow" title="矢印を追加"><svg class="tool-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 16.5 16 4M9 4h7v7"/></svg>矢印</button><button data-add-shape="line" title="線を追加"><svg class="tool-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 16.5 16.5 3.5"/></svg>線</button></div>
+    <span class="toolbar-divider"></span><button id="element-delete" type="button" aria-label="選択要素を削除" title="選択した本文・画像・図形を削除（Delete / Backspace）" disabled><svg class="tool-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 5.5h13M8 3h4M5.5 5.5l1 11h7l1-11M8.5 8.5v5M11.5 8.5v5"/></svg><span>選択要素を削除</span></button><span id="slide-label">スライド</span><span id="layout-label" class="layout-chip"></span>
+    <span class="toolbar-spacer"></span><label class="snap-label"><input type="checkbox" id="snap" checked> 8px刻みで移動</label><button id="fit"><svg class="tool-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 7.5V3h4.5M12.5 3H17v4.5M17 12.5V17h-4.5M7.5 17H3v-4.5"/></svg>画面に合わせる</button><div class="zoom-controls" role="group" aria-label="表示倍率"><button id="zoom-out" title="縮小（Ctrl+ホイールでも変更できます）" aria-label="縮小">−</button><span id="zoom-label">—</span><button id="zoom-in" title="拡大（Ctrl+ホイールでも変更できます）" aria-label="拡大">＋</button></div>
+  </div>
+  <div id="editor-error" role="alert" hidden></div>
+  <div id="external-change" class="external-change" role="alert" hidden><span>AIまたは別の画面で、この講義が変更されました。未保存の変更があるため、自動では読み込んでいません。</span><button id="external-reload">変更を破棄して最新を読み込む</button><button id="external-dismiss" class="text-button">このまま編集を続ける</button></div>
+  <main class="editor-workspace">
+    <aside class="slides-sidebar" aria-label="スライド一覧"><div class="panel-heading"><strong>スライド</strong><span class="slides-heading-tools"><span id="slide-count"></span><button id="slide-insert" class="slide-insert" type="button" title="スライドを挿入（他の講義・この講義から選ぶ）"><svg class="tool-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4.5v11M4.5 10h11"/></svg><span>挿入</span></button></span></div><nav id="slide-list" aria-label="スライドの並び（右クリックでコピー・貼り付け・削除、ドラッグで並べ替え）"></nav><div class="sidebar-foot">1920 × 1080 <span>16:9</span></div></aside>
+    <div id="slide-menu" class="slide-menu" role="menu" aria-label="スライドの操作" hidden>
+      <button type="button" role="menuitem" data-slide-action="insert"><span>スライドを挿入…</span><kbd>ここに</kbd></button>
+      <hr>
+      <button type="button" role="menuitem" data-slide-action="cut"><span>切り取り</span><kbd>Ctrl X</kbd></button>
+      <button type="button" role="menuitem" data-slide-action="copy"><span>コピー</span><kbd>Ctrl C</kbd></button>
+      <button type="button" role="menuitem" data-slide-action="paste"><span>貼り付け</span><kbd>Ctrl V</kbd></button>
+      <button type="button" role="menuitem" data-slide-action="duplicate"><span>複製</span><kbd>Ctrl D</kbd></button>
+      <hr>
+      <button type="button" role="menuitem" data-slide-action="up"><span>前へ移動</span><kbd>Ctrl ↑</kbd></button>
+      <button type="button" role="menuitem" data-slide-action="down"><span>後ろへ移動</span><kbd>Ctrl ↓</kbd></button>
+      <hr>
+      <button type="button" role="menuitem" data-slide-action="delete" class="is-danger"><span>削除</span><kbd>Delete</kbd></button>
+    </div>
+    <div id="slides-resizer" role="separator" aria-orientation="vertical" aria-label="スライド一覧の幅" aria-valuemin="140" aria-valuemax="480" tabindex="0" title="ドラッグで幅を変更・ダブルクリックで元に戻す"></div>
+    <section class="editor-center" aria-label="編集キャンバス">
+      <div class="canvas-area" id="canvas-area">
+        <div class="canvas-caption"><span id="canvas-title">スライドを読み込んでいます</span><span>文字・画像を選択して配置</span></div>
+        <div id="stage-shell" tabindex="0" aria-label="スライド編集領域">
+          <section id="stage" aria-label="講義スライド">
+            <div class="slide-header"><span id="eyebrow"></span><strong id="brand">SAKUSURA</strong></div>
+            <div id="slide-content"></div>
+            <footer class="slide-footer"><span id="lecture-title"></span><span id="slide-number"></span></footer>
+            <div class="film-progress"><div id="film-fill"></div></div>
+          </section>
+          <div id="canvas-tip" role="status" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.6v.1"/></svg><div><strong>自動で入る文字です</strong><p id="canvas-tip-text"></p><button id="canvas-tip-action" type="button" hidden></button></div><button id="canvas-tip-close" class="canvas-tip-close" type="button" aria-label="閉じる">×</button></div>
+          <div id="selection-box" hidden><span id="selection-caption"></span><button id="resize-handle" aria-label="選択要素のサイズ変更"></button></div>
+        </div>
+        <p class="canvas-help">ドラッグで移動 <span>·</span> ダブルクリックで文字を編集 <span>·</span> 矢印キーで微調整 <span>·</span> Deleteで選択要素を削除 <span>·</span> Escで選択解除</p>
+      </div>
+      <section class="audio-panel" aria-label="音声とナレーション">
+        <div class="audio-heading"><strong>音声と表示タイミング</strong><span id="audio-status"></span><label><input id="cue-preview" type="checkbox"> 再生位置に合わせて表示</label><button id="audio-toggle" class="audio-toggle" aria-expanded="true" aria-controls="audio-body" title="ナレーション欄をたたんで、スライドを大きく表示します"><span>原稿をたたむ</span></button></div>
+        <div class="audio-transport"><button id="audio-play" aria-label="音声を再生">▶ 試聴</button><span id="audio-time">0:00 / 0:00</span><input id="audio-seek" type="range" min="0" max="1" step="0.01" value="0" aria-label="音声の再生位置"></div>
+        <div id="audio-body"><div class="narration-row"><label for="narration-input">ナレーション<small>この欄の原稿で音声を生成します</small></label><textarea id="narration-input" rows="3" placeholder="読み上げ原稿"></textarea></div>
+        <details id="display-narration-details" hidden><summary>表示用の原稿（音声には使いません）</summary><p>再生画面の原稿欄に表示する文章です。音声に使う文章や読み仮名は、上のナレーション欄で修正してください。</p><textarea id="display-narration-input" rows="3" aria-label="再生画面に表示する原稿"></textarea></details>
+        <div class="tts-actions"><label>生成する範囲<select id="tts-scope"><option value="slide">このスライド</option><option value="changed">変更・未生成のスライド</option></select></label><button id="tts-prepare">音声を生成・更新</button><span id="tts-progress" role="status"></span></div></div>
+      </section>
+    </section>
+    <div id="props-resizer" role="separator" aria-orientation="vertical" aria-label="右パネルの幅" aria-valuemin="260" aria-valuemax="720" tabindex="0" title="ドラッグで幅を変更・ダブルクリックで元に戻す"></div>
+    <aside class="properties-sidebar" aria-label="要素の設定">
+      <div class="panel-heading"><strong>編集パネル</strong><span class="fixed-badge">共通デザイン</span></div>
+      <div id="properties-panel" class="properties-content">
+        <label class="field">編集する文字・画像<select id="element-select" aria-label="編集する文字・画像"></select></label>
+        <div id="properties-empty">スライド上の文字や画像を選ぶと、文章や配置を変更できます。</div>
+        <div id="element-properties" hidden>
+          <div id="text-fields"></div>
+          <section id="shape-fields" class="property-section" hidden><h2>追加した図形・文字 <small>色と文字サイズは共通デザインから選びます</small></h2><div class="number-grid"><label>色<select id="shape-color" aria-label="図形・文字の色"></select></label><label id="shape-size-field">文字の大きさ<select id="shape-size" aria-label="文字の大きさ"><option value="28">28px（本文）</option><option value="40">40px（見出し）</option></select></label><label id="shape-angle-field">角度（度）<input id="shape-angle" type="number" min="-180" max="180" step="15"></label></div><button id="shape-delete" class="danger-button">この図形・文字を削除</button></section>
+          <section class="property-section"><h2>配置 <small id="geometry-note">元の位置からの移動量</small></h2><div class="number-grid"><label><span id="position-x-label">左右の移動（px）</span><input id="position-x" type="number" step="1" min="-1920" max="1920"></label><label><span id="position-y-label">上下の移動（px）</span><input id="position-y" type="number" step="1" min="-1080" max="1080"></label><label>幅（px）<input id="element-width" type="number" step="8" min="64" max="1920" placeholder="元の幅"></label><label id="height-field">高さ（px）<input id="element-height" type="number" step="8" min="64" max="1080"></label></div><div class="alignment-buttons"><button data-align="left" title="左に揃える">左揃え</button><button data-align="center" title="中央に揃える">中央揃え</button><button data-align="right" title="右に揃える">右揃え</button></div><button id="reset-position" class="text-button">選択した文字・画像の配置を元に戻す</button></section>
+          <section id="cue-field" class="property-section" hidden><h2>表示タイミング</h2><label class="field">表示を始める時刻（秒）<input id="cue-at" type="number" min="0" step="0.1"></label><p id="cue-state" class="cue-state" hidden>未設定：スライドの最初から表示します。最終チェックで確認をお知らせします。</p><button id="cue-now">試聴中の時刻に合わせる</button><button id="cue-clear" class="text-button" hidden>タイミングを外す（最初から表示）</button></section>
+        </div>
+        <section class="property-section slide-properties"><h2>このスライドの設定</h2><label class="field">見出し上の補足文<input id="eyebrow-input" type="text"></label><div class="number-grid"><label>音声未生成時の表示時間（秒）<input id="planned-seconds" type="number" min="0.1" step="0.1"></label><label>次のスライドまでの間隔（秒）<input id="gap-after" type="number" min="0" step="0.1"></label></div><button id="reset-slide" class="text-button">このスライドの配置を元に戻す</button></section>
+        <section class="property-section lecture-properties"><h2>講義全体の設定 <small>全スライド共通</small></h2><label class="field">カテゴリ<select id="category-select" aria-label="講義カテゴリ"></select></label><label class="field">動き <small>多めは線と登場の動きがつき、1枚の情報量を増やせる</small><select id="motion-select" aria-label="講義の動き"><option value="">標準</option><option value="rich">多め</option></select></label><label class="field">演題番号 <small>1枚目のサムネイルの #番号</small><input id="number-input" type="number" min="0" max="9999" step="1" inputmode="numeric" aria-label="演題番号"></label></section>
+        <p class="format-note">文字の大きさや色、ロゴ、ページ番号は共通デザインを使います。<strong>**重要な言葉**</strong> のように入力すると太字になります。</p>
+      </div>
+    </aside>
+  </main>
+<dialog id="lecture-browser" class="lecture-browser" aria-labelledby="browser-title">
+  <div class="browser-head"><h2 id="browser-title">スライドを開く</h2><label class="browser-search"><span aria-hidden="true">⌕</span><input id="browser-search" type="search" placeholder="スライド名・演題番号・フォルダー名で検索" aria-label="スライドを検索" autocomplete="off"></label><button id="browser-close" class="browser-close" type="button" aria-label="閉じる">×</button></div>
+  <div class="browser-body"><nav id="browser-tree" class="browser-tree" aria-label="カテゴリとフォルダー"></nav><section class="browser-main" aria-label="この場所のスライド"><nav id="browser-crumbs" class="browser-crumbs" aria-label="現在の場所"></nav><div id="browser-list" class="browser-list" role="listbox" aria-label="スライド"></div></section></div>
+  <div class="browser-foot"><a href="/library" class="browser-library">ライブラリで整理する ↗</a><span id="browser-selection" class="browser-selection"></span><button id="browser-cancel" type="button">キャンセル</button><button id="browser-open" class="primary" type="button" disabled>開く</button></div>
+</dialog>
+  <dialog id="leave-dialog"><h2>保存していない変更があります</h2><p>講義を切り替える前に、変更の扱いを選んでください。</p><div><button id="leave-cancel">編集を続ける</button><button id="leave-discard">変更を破棄して切り替え</button><button id="leave-save" class="primary">保存して切り替え</button></div></dialog>
+<dialog id="template-dialog" aria-labelledby="template-title"><h2 id="template-title">デザインをテンプレートとして保存</h2><p>この講義のデザイン（LLMが作ったCSS）を「デザイン」画面に登録します。次からスライドを作るときに選べます。講義の内容や音声は保存しません。</p><label class="field">テンプレート名<input id="template-name" type="text" maxlength="60" required></label><label class="field">説明（任意）<input id="template-description" type="text" maxlength="200"></label><p id="template-status" class="template-status" role="status"></p><div><button id="template-cancel" type="button">やめる</button><button id="template-save" class="primary" type="button">保存する</button></div></dialog>
+<dialog id="insert-dialog" class="insert-dialog" aria-labelledby="insert-title">
+  <div class="insert-head"><div><h2 id="insert-title">スライドを挿入</h2><p>講義を選んで、使いたいスライドをクリック</p></div><button id="insert-close" class="browser-close" type="button" aria-label="閉じる">×</button></div>
+  <div class="insert-navigation">
+    <button id="insert-back" class="insert-nav-button" type="button" aria-label="前の場所に戻る" title="前の場所に戻る" disabled>←</button>
+    <button id="insert-up" class="insert-nav-button" type="button" aria-label="上のフォルダーへ" title="上のフォルダーへ" disabled>↑</button>
+    <nav id="insert-crumbs" class="browser-crumbs" aria-label="挿入元の場所"></nav>
+    <label class="browser-search"><svg class="tool-icon" viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="m13 13 4 4"/></svg><input id="insert-search" type="search" placeholder="すべての講義を検索" aria-label="講義名・演題番号・フォルダー名で検索" autocomplete="off"></label>
+  </div>
+  <select id="insert-source" class="lecture-select-hidden" aria-label="挿入元の講義" tabindex="-1"></select>
+  <div class="insert-workspace">
+    <aside id="insert-tree" class="browser-tree" aria-label="挿入元のカテゴリとフォルダー"></aside>
+    <section class="insert-sources" aria-label="挿入元の講義一覧"><div class="insert-pane-heading"><strong>講義</strong><span id="insert-source-count" role="status"></span></div><div id="insert-current" class="insert-current" aria-label="編集中の講義"></div><div id="insert-lectures" class="insert-lectures"></div><p id="insert-library-status" role="status" hidden></p></section>
+    <section class="insert-preview" aria-label="選んだ講義のスライド">
+      <div class="insert-preview-heading"><strong id="insert-source-title">スライド</strong><span id="insert-count" role="status"></span></div>
+      <fieldset class="insert-design"><legend>挿入後のデザイン</legend><label><input id="insert-design-source" type="radio" name="insert-design" value="source" checked><span>挿入元を保持する</span></label><label><input id="insert-design-destination" type="radio" name="insert-design" value="destination"><span>編集中の講義に合わせる</span></label><small>プレビューに反映</small></fieldset>
+      <div class="insert-tools"><button id="insert-all" type="button">すべて選択</button><button id="insert-none" type="button">選択を解除</button><label class="insert-pages">ページ指定<input id="insert-pages" type="text" inputmode="numeric" placeholder="例：3, 5-7" autocomplete="off" aria-label="挿入するページ（例：3, 5-7）" aria-describedby="insert-page-error"></label></div>
+      <p id="insert-page-error" class="insert-page-error" role="status" hidden>存在するページを「3, 5-7」のように指定してください。</p>
+      <div id="insert-grid" class="insert-grid" role="listbox" aria-multiselectable="true" aria-label="挿入するスライド（クリックで選択・Shiftで範囲選択）"></div>
+      <p class="insert-preview-help">クリックで複数選択 · Shiftで範囲選択</p>
+    </section>
+  </div>
+  <div class="insert-foot"><div class="insert-destination"><label for="insert-position">挿入する位置</label><select id="insert-position" aria-label="挿入する位置"></select><p class="insert-note">画像と音声も引き継ぎます。</p></div><button id="insert-cancel" type="button">キャンセル</button><button id="insert-confirm" class="primary" type="button" disabled>挿入する</button></div>
+</dialog>
+<dialog id="tts-dialog"><h2>音声の生成内容を確認</h2><p id="tts-plan-summary"></p><ul id="tts-plan-slides"></ul><p id="tts-plan-note"></p><p class="tts-cost-note">Gemini APIの利用料金がかかります。生成済みの音声は、原稿や設定に変更があるスライドだけ更新します。</p><div><button id="tts-cancel">キャンセル</button><button id="tts-start" class="primary">生成を開始</button></div></dialog>
+</body>
+</html>

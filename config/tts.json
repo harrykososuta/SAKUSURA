@@ -1,0 +1,11 @@
+{
+  "model": "gemini-3.8-flash-lite-tts",
+  "voice": {
+    "alias": "clonevoice",
+    "displayName": "未設定（自分の声を登録してください）",
+    "id": "voice_not_configured",
+    "type": "replicated"
+  },
+  "defaultStyle": "Calm, clear Japanese educational narration. Speak naturally at an unhurried pace.",
+  "timeoutMs": 120000
+}

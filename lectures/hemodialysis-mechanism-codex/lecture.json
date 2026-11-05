@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "title": "血液透析の仕組み（Codex）",
+  "number": "01",
+  "design": "llm",
+  "rules": "free",
+  "description": "血液透析の基本を学ぶ人向け。体外循環と、拡散・限外濾過の違いを1枚で説明。TTSなし。",
+  "brand": "SAKUSURA",
+  "targetSeconds": 50.6,
+  "slides": [
+    {
+      "id": "001",
+      "layout": "flow",
+      "eyebrow": "血液透析の基本原理",
+      "title": "血液透析は、半透膜を介して老廃物と水分を除く（Codex）",
+      "narration": "血液透析は、血液を体の外のダイアライザに通して、老廃物と余分な水分を除く治療です。バスキュラーアクセスから取り出した血液を、血液ポンプでダイアライザへ送ります。ダイアライザでは、半透膜をはさんで血液と透析液が流れます。拡散では、濃度差によって尿素などの老廃物が血液側から透析液側へ移動します。限外濾過では、膜の両側の圧力差によって余分な水分を血液側から取り除きます。血球は膜を通らず、血液側に保たれます。血液は再び体に戻り、使い終わった透析液は排液されます。血液と透析液は、半透膜で隔てられており、直接混ざりません。",
+      "plannedSeconds": 50.6,
+      "gapAfter": 0,
+      "blocks": [
+        {
+          "id": "out",
+          "label": "血液を取り出す",
+          "text": "バスキュラーアクセスから\n血液ポンプで送る",
+          "detail": "体 → 体外の回路"
+        },
+        {
+          "id": "dialyzer",
+          "label": "ダイアライザ",
+          "text": "**半透膜**をはさんで\n血液と透析液が流れる",
+          "detail": "血液の流れに対し、透析液は逆向き"
+        },
+        {
+          "id": "return",
+          "label": "血液を体へ戻す",
+          "text": "血球は膜を通らず\n血液側に保たれる",
+          "detail": "体外の回路 → 体"
+        },
+        {
+          "id": "diffusion",
+          "label": "ダイアライザで起こる、2つの移動",
+          "text": "**拡散** ＝ 濃度差で老廃物を除く\n尿素など：血液側 → 透析液側"
+        },
+        {
+          "id": "ultrafiltration",
+          "text": "**限外濾過** ＝ 圧力差で水分を除く\n余分な水分：血液側 → 透析液側"
+        }
+      ],
+      "note": "血液と透析液は混ざらない。移動するのは、膜を通れる物質と水分。",
+      "cues": [
+        {
+          "at": 0,
+          "target": "out"
+        },
+        {
+          "at": 2,
+          "target": "dialyzer"
+        },
+        {
+          "at": 5,
+          "target": "return"
+        },
+        {
+          "at": 9,
+          "target": "diffusion"
+        },
+        {
+          "at": 13,
+          "target": "ultrafiltration"
+        },
+        {
+          "at": 17,
+          "target": "note"
+        }
+      ],
+      "references": [
+        {
+          "title": "NIDDK — Hemodialysis",
+          "url": "https://www.niddk.nih.gov/health-information/kidney-disease/kidney-failure/hemodialysis"
+        },
+        {
+          "title": "National Kidney Foundation — Hemodialysis",
+          "url": "https://www.kidney.org/kidney-topics/hemodialysis"
+        },
+        {
+          "title": "Intermountain Health — Living with Kidney Disease, p.24",
+          "url": "https://intermountainhealthcare.org/ckr-ext/Dcmnt?ncid=529755748"
+        }
+      ],
+      "animation": {
+        "type": "flow",
+        "targets": [
+          "out",
+          "dialyzer",
+          "return"
+        ]
+      }
+    }
+  ],
+  "theme": {
+    "css": "/* 1920×1080。血液の循環を上段、膜を通る移動を下段に置く。 */\n#stage {\n  --paper: #fbfcfa;\n  --primary: #367f83 !important;\n  --accent: #dc866e !important;\n  --soft: #e7f1ef !important;\n  --marker: #e7f1ef !important;\n  --text-strong: #303b3d;\n  --text: #626d6e;\n  --text-meta: #626d6e;\n  --left: 112px;\n  --right: 112px;\n  --heading: 46px;\n  --body: 28px;\n}\n#stage::before { width: 12px; border: 0; box-shadow: none; }\n#stage .slide-header { top: 48px; font-size: 20px; }\n#stage #eyebrow { letter-spacing: .12em; }\n#stage #brand { font-size: 22px; letter-spacing: .2em; }\n#stage #slide-content { top: 120px; bottom: 142px; }\n#stage h1 { border: 0; padding: 0 0 30px; margin: 0; line-height: 1.5; letter-spacing: .01em; border-bottom: 2px solid #d9e3df; }\n#stage .section-number { display: none; }\n#stage strong { color: var(--text-strong); font-weight: 800; }\n#stage .layout-flow .blocks { position: relative; display: block; padding: 0; margin: 62px 0 0; height: 540px; flex: none; }\n#stage .layout-flow .blocks > .reveal { position: absolute; display: block; grid-row: auto; min-width: 0; }\n#stage .layout-flow .blocks > .reveal[data-block=\"out\"] { left: 0; top: 0; width: 392px; }\n#stage .layout-flow .blocks > .reveal[data-block=\"dialyzer\"] { left: 552px; top: 0; width: 592px; }\n#stage .layout-flow .blocks > .reveal[data-block=\"return\"] { right: 0; top: 0; width: 392px; }\n#stage .layout-flow .block-body { height: 230px; min-height: 0; padding: 30px 24px; border: 1.5px solid #c7d7d1; background: transparent; justify-content: center; gap: 18px; text-align: center; }\n#stage .layout-flow .block-label { font-size: 32px; font-weight: 800; line-height: 1.5; letter-spacing: .01em; }\n#stage .layout-flow .block-text { font-size: 28px; line-height: 1.65; }\n#stage .layout-flow .block-detail { font-size: 24px; line-height: 1.6; margin-top: 18px; padding: 0; }\n#stage .layout-flow .blocks > .reveal[data-block=\"dialyzer\"] .block-body { background: #e7f1ef; border: 2px solid var(--primary); }\n#stage .layout-flow .blocks > .reveal[data-block=\"return\"] .block-body { background: transparent; border: 1.5px solid #c7d7d1; }\n#stage .layout-flow .blocks > .reveal + .reveal .block-body::before { left: -136px; top: 111px; width: 108px; height: 5px; background: var(--accent); }\n#stage .layout-flow .blocks > .reveal + .reveal .block-body::after { left: -32px; top: 102px; border: 12px solid transparent; border-left: 18px solid var(--accent); border-right: 0; }\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] { left: 0; right: 0; top: 344px; width: auto; padding: 28px 0 0; border-top: 2px solid #d9e3df; }\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-body { display: block; height: auto; border: 0; padding: 0; background: transparent; text-align: left; }\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-body::before { content: none; }\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-body::after { content: none; }\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-label { font-size: 24px; font-weight: 700; margin-bottom: 24px; }\n#stage .layout-flow .blocks > .reveal[data-block=\"diffusion\"] .block-text { padding-left: 24px; border-left: 6px solid var(--primary); width: 808px; font-size: 30px; line-height: 1.9; }\n#stage .slide-note { padding: 22px 0 0; font-size: 28px; line-height: 1.65; border-top: 2px solid var(--primary); color: var(--text-strong); }\n#stage .slide-note::before { width: 72px; background: var(--accent); }\n#stage .slide-footer { bottom: 46px; border-top: 1px solid #d9e3df; padding-top: 18px; font-size: 20px; }\r\n\r\n\n/* 再生位置から与えられる --draw / --enter を使う。CSS独自の時計は使わない。 */\n#stage .motion-flow .blocks > .reveal[data-block=\"dialyzer\"] .block-body::before,\n#stage .motion-flow .blocks > .reveal[data-block=\"return\"] .block-body::before { width: calc(108px * var(--draw, 1)); }\n#stage .motion-flow .blocks > .reveal[data-block=\"dialyzer\"] .block-body::after,\n#stage .motion-flow .blocks > .reveal[data-block=\"return\"] .block-body::after { left: calc(-136px + 104px * var(--draw, 1)); opacity: calc(var(--draw, 1) * 100); }\n#stage .layout-flow .blocks > .reveal[data-block=\"ultrafiltration\"] { left: 864px; top: 434px; width: 832px; }\n#stage .layout-flow .blocks > .reveal[data-block=\"ultrafiltration\"] .block-body { display: block; height: auto; min-height: 0; padding: 0; border: 0; background: transparent; text-align: left; }\n#stage .layout-flow .blocks > .reveal[data-block=\"ultrafiltration\"] .block-body::before,\n#stage .layout-flow .blocks > .reveal[data-block=\"ultrafiltration\"] .block-body::after { content: none; }\n#stage .layout-flow .blocks > .reveal[data-block=\"ultrafiltration\"] .block-text { padding-left: 24px; border-left: 6px solid var(--accent); font-size: 30px; line-height: 1.9; }\n#stage .motion-flow .blocks > .reveal[data-block=\"diffusion\"] .block-text,\n#stage .motion-flow .blocks > .reveal[data-block=\"ultrafiltration\"] .block-text { position: relative; padding-bottom: 8px; background-image: linear-gradient(var(--soft), var(--soft)); background-position: left bottom; background-repeat: no-repeat; background-size: calc(var(--enter, 1) * 100%) 4px; }\n#stage .motion-flow .blocks > .reveal[data-block=\"diffusion\"] .block-text::after,\n#stage .motion-flow .blocks > .reveal[data-block=\"ultrafiltration\"] .block-text::after { content: ''; position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); bottom: 0; left: calc(var(--enter, 1) * 92%); opacity: calc(4 * var(--enter, 1) * (1 - var(--enter, 1))); }\n\r\n"
+  }
+}

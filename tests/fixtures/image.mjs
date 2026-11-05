@@ -1,0 +1,2 @@
+// 公開用の1×1 PNG。テストで実際の教材・個人の画像を参照しない。
+export const TEST_PNG = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=', 'base64');

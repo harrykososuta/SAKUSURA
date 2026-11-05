@@ -1,0 +1,62 @@
+/* 1920×1080。血液の循環を上段、膜を通る移動を下段に置く。 */
+#stage {
+  --paper: #fbfcfa;
+  --primary: #367f83 !important;
+  --accent: #dc866e !important;
+  --soft: #e7f1ef !important;
+  --marker: #e7f1ef !important;
+  --text-strong: #303b3d;
+  --text: #626d6e;
+  --text-meta: #626d6e;
+  --left: 112px;
+  --right: 112px;
+  --heading: 46px;
+  --body: 28px;
+}
+#stage::before { width: 12px; border: 0; box-shadow: none; }
+#stage .slide-header { top: 48px; font-size: 20px; }
+#stage #eyebrow { letter-spacing: .12em; }
+#stage #brand { font-size: 22px; letter-spacing: .2em; }
+#stage #slide-content { top: 120px; bottom: 142px; }
+#stage h1 { border: 0; padding: 0 0 30px; margin: 0; line-height: 1.5; letter-spacing: .01em; border-bottom: 2px solid #d9e3df; }
+#stage .section-number { display: none; }
+#stage strong { color: var(--text-strong); font-weight: 800; }
+#stage .layout-flow .blocks { position: relative; display: block; padding: 0; margin: 62px 0 0; height: 540px; flex: none; }
+#stage .layout-flow .blocks > .reveal { position: absolute; display: block; grid-row: auto; min-width: 0; }
+#stage .layout-flow .blocks > .reveal[data-block="out"] { left: 0; top: 0; width: 392px; }
+#stage .layout-flow .blocks > .reveal[data-block="dialyzer"] { left: 552px; top: 0; width: 592px; }
+#stage .layout-flow .blocks > .reveal[data-block="return"] { right: 0; top: 0; width: 392px; }
+#stage .layout-flow .block-body { height: 230px; min-height: 0; padding: 30px 24px; border: 1.5px solid #c7d7d1; background: transparent; justify-content: center; gap: 18px; text-align: center; }
+#stage .layout-flow .block-label { font-size: 32px; font-weight: 800; line-height: 1.5; letter-spacing: .01em; }
+#stage .layout-flow .block-text { font-size: 28px; line-height: 1.65; }
+#stage .layout-flow .block-detail { font-size: 24px; line-height: 1.6; margin-top: 18px; padding: 0; }
+#stage .layout-flow .blocks > .reveal[data-block="dialyzer"] .block-body { background: #e7f1ef; border: 2px solid var(--primary); }
+#stage .layout-flow .blocks > .reveal[data-block="return"] .block-body { background: transparent; border: 1.5px solid #c7d7d1; }
+#stage .layout-flow .blocks > .reveal + .reveal .block-body::before { left: -136px; top: 111px; width: 108px; height: 5px; background: var(--accent); }
+#stage .layout-flow .blocks > .reveal + .reveal .block-body::after { left: -32px; top: 102px; border: 12px solid transparent; border-left: 18px solid var(--accent); border-right: 0; }
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] { left: 0; right: 0; top: 344px; width: auto; padding: 28px 0 0; border-top: 2px solid #d9e3df; }
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] .block-body { display: block; height: auto; border: 0; padding: 0; background: transparent; text-align: left; }
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] .block-body::before { content: none; }
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] .block-body::after { content: none; }
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] .block-label { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+#stage .layout-flow .blocks > .reveal[data-block="diffusion"] .block-text { padding-left: 24px; border-left: 6px solid var(--primary); width: 808px; font-size: 30px; line-height: 1.9; }
+#stage .slide-note { padding: 22px 0 0; font-size: 28px; line-height: 1.65; border-top: 2px solid var(--primary); color: var(--text-strong); }
+#stage .slide-note::before { width: 72px; background: var(--accent); }
+#stage .slide-footer { bottom: 46px; border-top: 1px solid #d9e3df; padding-top: 18px; font-size: 20px; }
+
+
+/* 再生位置から与えられる --draw / --enter を使う。CSS独自の時計は使わない。 */
+#stage .motion-flow .blocks > .reveal[data-block="dialyzer"] .block-body::before,
+#stage .motion-flow .blocks > .reveal[data-block="return"] .block-body::before { width: calc(108px * var(--draw, 1)); }
+#stage .motion-flow .blocks > .reveal[data-block="dialyzer"] .block-body::after,
+#stage .motion-flow .blocks > .reveal[data-block="return"] .block-body::after { left: calc(-136px + 104px * var(--draw, 1)); opacity: calc(var(--draw, 1) * 100); }
+#stage .layout-flow .blocks > .reveal[data-block="ultrafiltration"] { left: 864px; top: 434px; width: 832px; }
+#stage .layout-flow .blocks > .reveal[data-block="ultrafiltration"] .block-body { display: block; height: auto; min-height: 0; padding: 0; border: 0; background: transparent; text-align: left; }
+#stage .layout-flow .blocks > .reveal[data-block="ultrafiltration"] .block-body::before,
+#stage .layout-flow .blocks > .reveal[data-block="ultrafiltration"] .block-body::after { content: none; }
+#stage .layout-flow .blocks > .reveal[data-block="ultrafiltration"] .block-text { padding-left: 24px; border-left: 6px solid var(--accent); font-size: 30px; line-height: 1.9; }
+#stage .motion-flow .blocks > .reveal[data-block="diffusion"] .block-text,
+#stage .motion-flow .blocks > .reveal[data-block="ultrafiltration"] .block-text { position: relative; padding-bottom: 8px; background-image: linear-gradient(var(--soft), var(--soft)); background-position: left bottom; background-repeat: no-repeat; background-size: calc(var(--enter, 1) * 100%) 4px; }
+#stage .motion-flow .blocks > .reveal[data-block="diffusion"] .block-text::after,
+#stage .motion-flow .blocks > .reveal[data-block="ultrafiltration"] .block-text::after { content: ''; position: absolute; width: 14px; height: 14px; border-radius: 50%; background: var(--accent); bottom: 0; left: calc(var(--enter, 1) * 92%); opacity: calc(4 * var(--enter, 1) * (1 - var(--enter, 1))); }
+

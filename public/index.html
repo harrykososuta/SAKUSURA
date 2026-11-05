@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>再生 | SAKUSURA</title>
+  <script src="/src/theme.js"></script>
+  <link rel="stylesheet" href="/src/style.css">
+  <link rel="stylesheet" href="/src/lecture-browser.css">
+  <link rel="stylesheet" href="/src/theme.css">
+  <script type="module" src="/src/player.js"></script>
+</head>
+<body class="player-page">
+  <header class="studio-header" data-ui>
+    <a class="studio-brand" href="/library" aria-label="SAKUSURA スライドライブラリへ"><img src="/sakusura.svg" width="40" height="40" alt=""><span><strong>SAKUSURA</strong><small>サクッとスライド</small></span></a>
+    <nav class="app-nav" aria-label="メインメニュー"><a id="library-link" href="/library"><svg class="nav-icon" viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="3" width="6" height="6" rx="1.2"/><rect x="11" y="3" width="6" height="6" rx="1.2"/><rect x="3" y="11" width="6" height="6" rx="1.2"/><rect x="11" y="11" width="6" height="6" rx="1.2"/></svg><span>ライブラリ</span></a><a id="edit-link" href="/editor"><svg class="nav-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 16.2 5 12l8-8 3.1 3.1-8 8z"/><path d="m11.2 5.8 3 3"/></svg><span>編集</span></a><a href="/design"><svg class="nav-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3a7 7 0 1 0 0 14c1 0 1.5-.6 1.5-1.4 0-.9-.8-1.2-.8-2s.6-1.3 1.6-1.3H15a2.5 2.5 0 0 0 2.5-2.5C17.5 6 14.2 3 10 3z"/><circle cx="6.5" cy="9.2" r=".9"/><circle cx="9" cy="6.2" r=".9"/><circle cx="12.8" cy="6.6" r=".9"/></svg><span>デザイン</span></a></nav>
+    <span class="header-divider" aria-hidden="true"></span>
+    <div class="studio-picker"><span id="lecture-label">再生するスライド</span><button id="lecture-trigger" class="lecture-trigger" type="button" aria-haspopup="dialog" aria-labelledby="lecture-label lecture-trigger-title" disabled><span class="browser-dot" aria-hidden="true"></span><span class="trigger-number"></span><span id="lecture-trigger-title" class="trigger-title">読み込み中…</span><span class="trigger-chevron" aria-hidden="true"></span></button><select id="lecture-select" class="lecture-select-hidden" aria-label="再生するスライド" tabindex="-1" aria-hidden="true"></select></div>
+    <a class="settings-link" href="/settings" title="設定（配色など）" aria-label="設定"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></a>
+  </header>
+  <main class="player-layout">
+    <div class="player-frame">
+      <div class="player-canvas">
+      <div id="stage-shell" tabindex="-1">
+        <section id="stage" aria-label="講義スライド">
+          <div class="slide-header"><span id="eyebrow"></span><strong id="brand">SAKUSURA</strong></div>
+          <div id="slide-content"></div>
+          <footer class="slide-footer"><span id="lecture-title"></span><span id="slide-number"></span></footer>
+          <div class="film-progress"><div id="film-fill"></div></div>
+          <svg id="sketch-layer" viewBox="0 0 1920 1080" aria-hidden="true"></svg>
+        </section>
+      </div>
+      </div>
+      <section class="player-controls" aria-label="再生操作" data-ui>
+        <div class="now-playing"><span id="slide-counter">-- / --</span><strong id="slide-title"></strong><span id="status" role="status">講義を読み込んでいます…</span><span id="total-time">全体 0:00 / 0:00</span></div>
+        <div id="chapters" class="chapters" aria-hidden="true"></div>
+        <div class="scrubber"><span id="slide-time">0:00 / 0:00</span><input id="seek" type="range" min="0" max="1" step="0.01" value="0" aria-label="スライド内の再生位置"></div>
+        <div class="control-row">
+          <div class="control-group">
+            <button id="restart" class="icon-button" title="最初から" aria-label="最初から"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+            <button id="prev" class="icon-button" title="前のスライド（←）" aria-label="前のスライド"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14"/><path d="M19 5 9 12l10 7z"/></svg></button>
+            <button id="play" class="play-button" data-mode="play" title="再生 / 一時停止（Space）"><svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg><svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg><span id="play-label">再生</span></button>
+            <button id="next" class="icon-button" title="次のスライド（→）" aria-label="次のスライド"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14"/><path d="M5 5l10 7-10 7z"/></svg></button>
+          </div>
+          <div class="control-group control-actions">
+            <label class="switch" title="音声を流さず、予定の表示時間で進めます"><input id="preview" type="checkbox"><span class="switch-track" aria-hidden="true"></span><span>無音リハーサル</span></label>
+            <button id="fullscreen" class="action-button" title="全画面で発表（→・クリックで1項目ずつ表示、Lでレーザーポインター、Pでペン、Zで拡大）"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>全画面プレゼン</span><kbd>F</kbd></button>
+            <button id="record" class="action-button" title="操作画面を隠して録画用の表示にします"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle class="dot" cx="12" cy="12" r="3.2"/></svg><span>録画モード</span><kbd>R</kbd></button>
+            <details id="export-menu" class="export-menu">
+              <summary class="action-button" title="サムネイル画像・PDF・動画の書き出し"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14"/></svg><span id="export-menu-label">書き出し</span><svg class="chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5"/></svg></summary>
+              <div class="menu-panel" role="menu">
+                <button id="thumbnail" role="menuitem" title="1枚目（サムネイル）を 1920×1080 の JPG で保存します">サムネイルをJPGで保存</button>
+                <button id="pdf" role="menuitem" title="全スライドを、要点をすべて表示した状態で1スライド1ページのPDFにします（文字は選択・検索できます）">PDFを書き出す</button>
+                <button id="export" role="menuitem" title="npm run render と同じ処理で MP4 を書き出します（画面を触らずに待つ必要はありません）">動画を書き出す</button>
+                <button id="export-silent" role="menuitem" title="ナレーション音声なしで、各スライドの表示時間どおりに MP4 を書き出します（npm run render -- --silent と同じ）" hidden>無音で動画を書き出す</button>
+              </div>
+            </details>
+          </div>
+        </div>
+        <div class="export-line"><span id="export-status" role="status"></span><button id="open-exports" class="text-link" hidden>書き出し先を開く</button></div>
+        <p class="error" id="error" role="alert" hidden></p>
+      </section>
+    </div>
+    <aside class="player-side" aria-label="ナレーションとスライド一覧" data-ui>
+      <div class="side-inner">
+        <section class="side-card narration-card">
+          <div class="side-head"><h2>ナレーション</h2><span id="narration-slide"></span></div>
+          <p id="narration"></p>
+        </section>
+        <section class="side-card slides-card">
+          <div class="side-head"><h2>スライド</h2><span id="slide-total"></span></div>
+          <ol id="slide-list" class="slide-list"></ol>
+        </section>
+        <div class="side-foot">
+          <p id="readiness"></p>
+          <details class="shortcuts">
+            <summary>キーボード操作</summary>
+            <dl>
+              <dt><kbd>Space</kbd></dt><dd>再生 / 停止</dd>
+              <dt><kbd>←</kbd><kbd>→</kbd></dt><dd>前 / 次のスライド</dd>
+              <dt><kbd>F</kbd></dt><dd>全画面プレゼン。<kbd>→</kbd>・クリックで1項目ずつ表示、<kbd>←</kbd>・右クリックで戻る（音声なし）。Spaceで音声付き自動再生</dd>
+              <dt>マウス</dt><dd>全画面中に動かすと左下に操作バーを表示（送り・ペン・拡大など）</dd>
+              <dt><kbd>L</kbd></dt><dd>全画面中のレーザーポインター入 / 切。カーソルはマウスを動かすと表示（音声付き再生中は表示しない）</dd>
+              <dt><kbd>G</kbd></dt><dd>全画面中のスライド一覧を開く / 閉じる。選ぶとそのスライドへ移動</dd>
+              <dt><kbd>P</kbd></dt><dd>全画面中のペン入 / 切。ドラッグで描く。<kbd>1</kbd>〜<kbd>5</kbd>で色（赤・青・緑・黒・白）、<kbd>Ctrl</kbd>+<kbd>Z</kbd>で1本戻す、<kbd>E</kbd>でこのスライドの線を全消去</dd>
+              <dt><kbd>Z</kbd></dt><dd>全画面中の拡大 / 解除。ホイールで1〜4倍、拡大中はドラッグで移動</dd>
+              <dt><kbd>R</kbd></dt><dd>録画モード（操作画面を隠す）</dd>
+              <dt><kbd>Esc</kbd></dt><dd>全画面・録画モードを解除</dd>
+            </dl>
+          </details>
+        </div>
+      </div>
+    </aside>
+  </main>
+  <div id="laser-pointer" aria-hidden="true" hidden></div>
+  <div id="presentation-bar" role="toolbar" aria-label="プレゼンテーションの操作">
+    <button type="button" data-command="prev" title="前へ（←）" aria-label="前へ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+    <span data-counter></span>
+    <button type="button" data-command="next" title="次へ（→・クリック）" aria-label="次へ"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+    <button type="button" data-command="overview" title="スライド一覧（G）" aria-label="スライド一覧"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/></svg></button>
+    <span class="bar-divider" aria-hidden="true"></span>
+    <button type="button" data-command="play" title="音声付きで再生（Space）" aria-label="音声付きで再生"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg></button>
+    <span class="bar-divider" aria-hidden="true"></span>
+    <button type="button" data-command="laser" data-state="laser" title="レーザーポインター（L）" aria-label="レーザーポインター" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg></button>
+    <button type="button" data-command="pen" data-state="pen" title="ペン（P）" aria-label="ペン" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-5L16 4l4 4L9 19z"/><path d="m14 6 4 4"/></svg></button>
+    <span data-colors></span>
+    <button type="button" data-command="undo" title="線を1本戻す（Ctrl+Z）" aria-label="線を1本戻す"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7 4 12l5 5"/><path d="M4 12h10a6 6 0 0 1 6 6v1"/></svg></button>
+    <button type="button" data-command="clear" title="このスライドの線を全消去（E）" aria-label="このスライドの線を全消去"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 20-5-5L14 4l7 7-9 9z"/><path d="M8 20h13M9 9l7 7"/></svg></button>
+    <button type="button" data-command="zoom" data-state="zoomed" title="拡大 / 解除（Z・ホイールで調整、ドラッグで移動）" aria-label="拡大" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4M11 8v6M8 11h6"/></svg></button>
+    <span class="bar-divider" aria-hidden="true"></span>
+    <button type="button" data-command="exit" title="全画面を終了（Esc）" aria-label="全画面を終了"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button>
+  </div>
+  <dialog id="slide-overview" aria-labelledby="overview-title">
+    <div class="overview-head"><h2 id="overview-title">スライド一覧</h2><button type="button" data-overview-close title="閉じる（G）" aria-label="閉じる">×</button></div>
+    <div class="overview-grid" data-overview-grid></div>
+  </dialog>
+  <noscript>このプレイヤーにはJavaScriptが必要です。</noscript>
+<dialog id="lecture-browser" class="lecture-browser" aria-labelledby="browser-title">
+  <div class="browser-head"><h2 id="browser-title">スライドを開く</h2><label class="browser-search"><span aria-hidden="true">⌕</span><input id="browser-search" type="search" placeholder="スライド名・演題番号・フォルダー名で検索" aria-label="スライドを検索" autocomplete="off"></label><button id="browser-close" class="browser-close" type="button" aria-label="閉じる">×</button></div>
+  <div class="browser-body"><nav id="browser-tree" class="browser-tree" aria-label="カテゴリとフォルダー"></nav><section class="browser-main" aria-label="この場所のスライド"><nav id="browser-crumbs" class="browser-crumbs" aria-label="現在の場所"></nav><div id="browser-list" class="browser-list" role="listbox" aria-label="スライド"></div></section></div>
+  <div class="browser-foot"><a href="/library" class="browser-library">ライブラリで整理する ↗</a><span id="browser-selection" class="browser-selection"></span><button id="browser-cancel" type="button">キャンセル</button><button id="browser-open" class="primary" type="button" disabled>開く</button></div>
+</dialog>
+</body>
+</html>

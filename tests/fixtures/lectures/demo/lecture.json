@@ -1,0 +1,106 @@
+{
+  "version": 1,
+  "title": "xxxxサンプル文サンプル文サン",
+  "description": "サンプル文サンプル文サンプル文サンプル文サンプ。",
+  "brand": "SAKUSURA",
+  "targetSeconds": 46,
+  "slides": [
+    {
+      "id": "001",
+      "layout": "title",
+      "title": "xxxxサンプル文サンプ\nル文サン",
+      "eyebrow": "サンプル文サンプ / ル文サンプル",
+      "narration": "サンプル文サンプル文、サンプル文サンプル文サンプル文サンプ、ル文サンプル文サンプ。ル文サンプル文サンプル文サン、プル文サンプル文サンプル文サンプル文。",
+      "plannedSeconds": 13,
+      "gapAfter": 0.5,
+      "blocks": [
+        {
+          "id": "intro",
+          "label": "サンプル文サンプル文サ",
+          "text": "サンプル文サンプル文サンプル文サ"
+        }
+      ],
+      "cues": [
+        {
+          "at": 0,
+          "target": "intro"
+        }
+      ]
+    },
+    {
+      "id": "002",
+      "layout": "steps",
+      "title": "サンプル文サンプル文サ",
+      "eyebrow": "サンプル文サンプル文サン",
+      "narration": "サンプル文サンプル文サンプル文サンプ。ル文、サンプル文サンプル文サンプル文サンプル文サ。ンプル文サンプ、ル文サンプル文サンプル文サンプ。",
+      "plannedSeconds": 15,
+      "gapAfter": 0.5,
+      "blocks": [
+        {
+          "id": "audio",
+          "label": "xx",
+          "text": "サンプル文サンプル",
+          "detail": "サンプルxxx文サン"
+        },
+        {
+          "id": "cue",
+          "label": "xx",
+          "text": "サンプル文サン",
+          "detail": "サンプル文サンプル文"
+        },
+        {
+          "id": "next",
+          "label": "xx",
+          "text": "サンプル文サン",
+          "detail": "サンプル文サンプ"
+        }
+      ],
+      "cues": [
+        {
+          "at": 0,
+          "target": "audio"
+        },
+        {
+          "at": 5,
+          "target": "cue"
+        },
+        {
+          "at": 10,
+          "target": "next"
+        }
+      ]
+    },
+    {
+      "id": "003",
+      "layout": "statement",
+      "title": "サンプル文サンプル",
+      "eyebrow": "xxx xxxxxxサンプ",
+      "narration": "サンプル、文サンプル文サンプル文サンプル文サンプ。ル文サンプル文サンプル文サンプル。xxx文サンプル文サ、ンプル文サンプル文サン、プル文サンプル文サンプル文サンプ。",
+      "plannedSeconds": 18,
+      "gapAfter": 0,
+      "blocks": [
+        {
+          "id": "check",
+          "label": "サンプル文サ",
+          "text": "サン・プル・文サンプル文サンプル"
+        },
+        {
+          "id": "record",
+          "label": "サンプル文",
+          "text": "サンプル文サンプ、ル文サンプル文サ"
+        }
+      ],
+      "cues": [
+        {
+          "at": 0,
+          "target": "check"
+        },
+        {
+          "at": 6,
+          "target": "record"
+        }
+      ]
+    }
+  ],
+  "demo": true
+}

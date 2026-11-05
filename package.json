@@ -1,0 +1,43 @@
+{
+  "name": "html-slide-recording-harness",
+  "version": "1.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node tools/launch.mjs",
+    "serve": "node tools/server.mjs",
+    "shortcut": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/desktop-shortcut.ps1 -Force",
+    "new": "node tools/new-lecture.mjs",
+    "designs": "node tools/designs.mjs",
+    "theme": "node tools/theme.mjs",
+    "design:save": "node tools/design-save.mjs",
+    "voices": "node tools/voices.mjs",
+    "tts": "node tools/tts.mjs",
+    "tts:status": "node tools/tts-status.mjs",
+    "timing": "node tools/timing.mjs",
+    "check": "node tools/qa.mjs",
+    "test": "node tools/run-tests.mjs",
+    "qa:browser": "node tools/browser-qa.mjs",
+    "qa:motion": "node tools/motion-qa.mjs",
+    "qa:design": "node tools/design-qa.mjs",
+    "qa:design-gallery": "node tools/design-gallery-qa.mjs",
+    "qa:design-editor": "node tools/design-editor-qa.mjs",
+    "qa:design-pdf": "node tools/design-pdf-qa.mjs",
+    "qa:design-customize": "node tools/design-customize-qa.mjs",
+    "design:import": "node tools/design-import.mjs",
+    "design:pdf": "node tools/design-pdf-native.mjs",
+    "harness": "node tools/harness.mjs",
+    "inputs": "node tools/inputs.mjs",
+    "images": "node tools/image-requests.mjs",
+    "images:task": "node tools/orca-images.mjs",
+    "extract": "node tools/extract.mjs",
+    "render": "node tools/render.mjs",
+    "thumbnail": "node tools/thumbnail.mjs",
+    "pdf": "node tools/pdf.mjs"
+  },
+  "description": "SAKUSURA: local HTML slide editor, PDF design library and video export",
+  "license": "MIT"
+}
