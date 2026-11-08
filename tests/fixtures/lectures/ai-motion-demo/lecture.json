@@ -1,0 +1,447 @@
+{
+  "version": 1,
+  "demo": true,
+  "title": "xx xxxxx サンプル文サンプル",
+  "description": "xx xxxxx サンプル文（サンプル・文サンプ・ル文サン）プル文サンプル文サン。プル文サンプル文サンプル。",
+  "brand": "SAKUSURA",
+  "category": "ai",
+  "number": 0,
+  "targetSeconds": 60,
+  "slides": [
+    {
+      "id": "001",
+      "layout": "title",
+      "title": "xxサンプル文\nサンプル文サ",
+      "eyebrow": "xx xxxxx / サンプル文サンプル",
+      "narration": "xx xxxxxサンプル文、サンプル文サンプル文サ。ンプル文、サンプル、文サンプル文サンプル文サン。",
+      "plannedSeconds": 8,
+      "gapAfter": 0.5,
+      "blocks": [
+        {
+          "id": "intro",
+          "label": "サンプル文サ",
+          "text": "サンプル・文サンプ・ル文サン"
+        }
+      ],
+      "cues": [
+        {
+          "at": 0,
+          "target": "intro"
+        }
+      ]
+    },
+    {
+      "id": "002",
+      "layout": "flow",
+      "title": "サンプル文サン**プル文・サンプ・ル文サン**",
+      "eyebrow": "サンプル文サン",
+      "narration": "xxサンプル文サン、プル文サンプル文サンプ。ル文、サンプル文サンプル文サン。プル文、サンプル文サンプル文サンプ。ル文サ、ンプル文サンプル文サンプル。",
+      "plannedSeconds": 16,
+      "gapAfter": 0.5,
+      "blocks": [
+        {
+          "id": "ask",
+          "label": "サン",
+          "text": "サンプル文サン\nプル文サ"
+        },
+        {
+          "id": "plan",
+          "label": "サン",
+          "text": "サンプ\nル文サ"
+        },
+        {
+          "id": "tool",
+          "label": "サンプ",
+          "text": "サンプル文サ\nンプル文"
+        },
+        {
+          "id": "check",
+          "label": "サン",
+          "text": "サンプル文サン\nプル文"
+        }
+      ],
+      "cues": [
+        {
+          "at": 0,
+          "target": "ask"
+        },
+        {
+          "at": 3,
+          "target": "plan"
+        },
+        {
+          "at": 5.5,
+          "target": "tool"
+        },
+        {
+          "at": 8.5,
+          "target": "check"
+        }
+      ]
+    },
+    {
+      "id": "003",
+      "layout": "chat",
+      "title": "xxサ**xンプル文**サンプル文サンプ",
+      "eyebrow": "サンプル文サン",
+      "narration": "サンプル文サンプ、xxル文サンプル文サ、ンプル文サンプル文サンプル文サンプル。文サンプル、文サンプル文サンプル文サン。",
+      "plannedSeconds": 14,
+      "gapAfter": 0.5,
+      "blocks": [
+        {
+          "id": "q",
+          "role": "user",
+          "text": "サンプル文サxンプル文サン"
+        },
+        {
+          "id": "a",
+          "role": "ai",
+          "text": "**サンプル**：文サンプル文サンプル文サンプル文\n**サン**：プル文サンプル文サンプル\n**文サ**：ンプル文サンプル文サンプ"
+        }
+      ],
+      "cues": [
+        {
+          "at": 0,
+          "target": "q"
+        },
+        {
+          "at": 3,
+          "target": "a"
+        }
+      ]
+    },
+    {
+      "id": "004",
+      "layout": "bars",
+      "title": "サンプルxx文サンプル**文サンプル文サンプ**",
+      "eyebrow": "サンプル文サン（プル文サンプル文サン）",
+      "narration": "サンプル文、サンプル文サンプル文サンプル文。サンプル文サン、xxプル文サンプル文サンプル文サン、プル文サンプル文サンプ。",
+      "plannedSeconds": 13,
+      "gapAfter": 0.5,
+      "note": "サンプル文サンプル文サン",
+      "blocks": [
+        {
+          "id": "manual",
+          "label": "サンプ",
+          "text": "サンプル文サンプル文",
+          "value": 60,
+          "unit": "分"
+        },
+        {
+          "id": "ai",
+          "label": "xxサンプル",
+          "text": "サンプルxx・文サンプ",
+          "value": 20,
+          "unit": "分",
+          "highlight": true
+        }
+      ],
+      "cues": [
+        {
+          "at": 0.5,
+          "target": "manual"
+        },
+        {
+          "at": 4,
+          "target": "ai"
+        },
+        {
+          "at": 8,
+          "target": "note"
+        }
+      ]
+    },
+    {
+      "id": "006",
+      "layout": "code",
+      "title": "サンプ**xxxル文サン**プル文",
+      "eyebrow": "サンプル文サ",
+      "narration": "サンプル文サンプル、文サンプル文サンプル文サンプ。",
+      "plannedSeconds": 14,
+      "gapAfter": 0.5,
+      "blocks": [
+        {
+          "id": "srv",
+          "label": "xxxxxx.xx",
+          "code": "// xxxxサンプル文サンプル文\nxxxxx xxxx = xxxxxxx(\"xxxx\");\nxxxx.xxxxxxxxxxxx((xxx, xxx) => {\n  xxx.xxx(\"xxxxx xxxx xx xxxxxx!\");\n}).xxxxxx(xxxx);",
+          "command": "xxxx xxxxxx.xx",
+          "output": "サンプル文 xxxxxxxxx:xxxx サンプル文サ",
+          "text": "**サン**プル文サンプル文サン"
+        }
+      ],
+      "cues": [
+        {
+          "at": 0.5,
+          "target": "srv"
+        }
+      ]
+    },
+    {
+      "id": "007",
+      "layout": "timeline",
+      "title": "サンプ**ル文サンプ**ル文サンプル文",
+      "eyebrow": "サンプル文",
+      "narration": "サンプ、ル文サンプ、ル文サンプル文サンプ。",
+      "plannedSeconds": 16,
+      "gapAfter": 0.5,
+      "blocks": [
+        {
+          "id": "y1",
+          "label": "xxxx",
+          "text": "xxxx.xx サン"
+        },
+        {
+          "id": "y2",
+          "label": "xxxx",
+          "text": "xxx サン"
+        },
+        {
+          "id": "y3",
+          "label": "xxxx",
+          "text": "サンプル xx.xx"
+        },
+        {
+          "id": "y4",
+          "label": "xxxx",
+          "text": "サンプ・ル文サン"
+        },
+        {
+          "id": "y5",
+          "label": "xxxx",
+          "text": "xxxx サンプ"
+        },
+        {
+          "id": "y6",
+          "label": "xxxx",
+          "text": "xxxxxx xxxxxxxxxx"
+        },
+        {
+          "id": "y7",
+          "label": "xxxx〜",
+          "text": "xxx サンプ"
+        }
+      ],
+      "cues": [
+        {
+          "at": 0.5,
+          "target": "y1"
+        },
+        {
+          "at": 2,
+          "target": "y2"
+        },
+        {
+          "at": 3.5,
+          "target": "y3"
+        },
+        {
+          "at": 5,
+          "target": "y4"
+        },
+        {
+          "at": 6.5,
+          "target": "y5"
+        },
+        {
+          "at": 8,
+          "target": "y6"
+        },
+        {
+          "at": 9.5,
+          "target": "y7"
+        }
+      ]
+    },
+    {
+      "id": "008",
+      "layout": "cycle",
+      "title": "サンプル文サンプ**ル文サンプ**",
+      "eyebrow": "サンプル文サ",
+      "center": "サンプル文サン",
+      "narration": "サンプル、文サンプル文サンプル、文サンプル文サン。",
+      "plannedSeconds": 18,
+      "gapAfter": 0.5,
+      "blocks": [
+        {
+          "id": "c1",
+          "label": "サンプル文",
+          "text": "サンプル文サ"
+        },
+        {
+          "id": "c2",
+          "label": "サンプ",
+          "text": "サンプxxxxxル"
+        },
+        {
+          "id": "c3",
+          "label": "サンプル文サ",
+          "text": "サンプル文サ"
+        },
+        {
+          "id": "c4",
+          "label": "サンプル",
+          "text": "サンプル文サ"
+        }
+      ],
+      "cues": [
+        {
+          "at": 0.5,
+          "target": "c1"
+        },
+        {
+          "at": 2.5,
+          "target": "c2"
+        },
+        {
+          "at": 4.5,
+          "target": "c3"
+        },
+        {
+          "at": 6.5,
+          "target": "c4"
+        }
+      ]
+    },
+    {
+      "id": "009",
+      "layout": "stack",
+      "title": "xxxx.xxサ**ンプル文サ**ンプル文サ",
+      "eyebrow": "サンプル文サ",
+      "narration": "サンプル、文サンプル文サンプル文。",
+      "plannedSeconds": 12,
+      "gapAfter": 0.5,
+      "blocks": [
+        {
+          "id": "os",
+          "label": "xx",
+          "text": "サンプル・文サンプル文",
+          "row": 1
+        },
+        {
+          "id": "v8",
+          "label": "xx",
+          "text": "xxxxxxxxxxサンプル文",
+          "row": 2
+        },
+        {
+          "id": "uv",
+          "label": "xxxxx",
+          "text": "サンプル文サンプル文",
+          "row": 2
+        },
+        {
+          "id": "api",
+          "label": "xxxx.xx xxx",
+          "text": "xx・xxxxサン",
+          "row": 3
+        },
+        {
+          "id": "app",
+          "label": "サンプル文サン",
+          "text": "xxxxxxxxxx",
+          "row": 4
+        }
+      ],
+      "cues": [
+        {
+          "at": 0.5,
+          "target": "os"
+        },
+        {
+          "at": 1.5,
+          "target": "v8"
+        },
+        {
+          "at": 2.2,
+          "target": "uv"
+        },
+        {
+          "at": 3.2,
+          "target": "api"
+        },
+        {
+          "at": 4.2,
+          "target": "app"
+        }
+      ]
+    },
+    {
+      "id": "010",
+      "layout": "statement",
+      "title": "xx xxxxxサ**xンプル文サ**ンプル文サ",
+      "eyebrow": "サンプル文",
+      "narration": "サンプ、ル文サンプル文サンプル文サンプ。",
+      "plannedSeconds": 12,
+      "gapAfter": 0.5,
+      "blocks": [
+        {
+          "id": "r1",
+          "label": "サンx",
+          "text": "サンプル文サンプ**ル文サンプ**"
+        },
+        {
+          "id": "r2",
+          "label": "サンx",
+          "text": "サンプル文サンプ**ル文サンプ**"
+        },
+        {
+          "id": "r3",
+          "label": "サンx",
+          "text": "サンプル文サンプ**ル文サンプ**"
+        },
+        {
+          "id": "r4",
+          "label": "サンx",
+          "text": "サンプル文サンプ**ル文サンプ**"
+        },
+        {
+          "id": "r5",
+          "label": "サンx",
+          "text": "サンプル文サンプ**ル文サンプ**"
+        },
+        {
+          "id": "r6",
+          "label": "サンx",
+          "text": "サンプル文サンプ**ル文サンプ**"
+        }
+      ],
+      "cues": [
+        {
+          "at": 0.8,
+          "target": "r1"
+        },
+        {
+          "at": 1.6,
+          "target": "r2"
+        },
+        {
+          "at": 2.4000000000000004,
+          "target": "r3"
+        },
+        {
+          "at": 3.2,
+          "target": "r4"
+        },
+        {
+          "at": 4,
+          "target": "r5"
+        },
+        {
+          "at": 4.800000000000001,
+          "target": "r6"
+        }
+      ]
+    },
+    {
+      "id": "005",
+      "layout": "message",
+      "title": "サンプル文サンプ\n**ル文サンプル**",
+      "eyebrow": "サンプ",
+      "narration": "サンプル文サンプル、文サンプル文サ。",
+      "plannedSeconds": 5,
+      "gapAfter": 0,
+      "blocks": [],
+      "cues": []
+    }
+  ]
+}

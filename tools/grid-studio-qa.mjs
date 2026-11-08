@@ -1,0 +1,73 @@
+import assert from 'node:assert/strict';
+import {mkdir,writeFile} from 'node:fs/promises';
+import {join} from 'node:path';
+import {ROOT} from './lib/project.mjs';
+import {createDesignStore} from './lib/design-store.mjs';
+import {createStudioServer} from './server.mjs';
+import {launchBrowser,until} from './lib/browser.mjs';
+import {DESIGN_SAMPLES} from '../src/design-catalog.js';
+import {standardDesign} from '../src/design-theme.js';
+const entry=(await createDesignStore().list()).designs.find(e=>e.id==='design-9122c0b9-ba34-486e-bcf8-0758a5f70d22');
+assert.ok(entry);
+assert.deepEqual(entry.design.settings.colors,standardDesign().settings.colors);
+for(const key of Object.keys(standardDesign().settings.categories))assert.deepEqual(entry.design.settings.categories[key],standardDesign().settings.categories[key]);
+const dir=join(ROOT,'reports/grid-studio');await mkdir(dir,{recursive:true});
+let server,session;
+const report={passed:false,pages:[],checks:[]};
+try{
+  server=await createStudioServer({port:0});const base=`http://127.0.0.1:${server.address().port}`;
+  session=await launchBrowser();const{cdp,sessionId}=session,send=(m,p)=>cdp.send(m,p,sessionId),evaluate=e=>cdp.evaluate(e);
+  async function capture(url,file){
+    await send('Page.navigate',{url:base+url});
+    await until(()=>evaluate("!!document.querySelector('#stage[data-custom-design] .heading-text') && document.querySelectorAll('#stage [data-block]:not(.visible)').length===0"),'preview not ready');
+    await evaluate('document.fonts.ready');
+    await evaluate("Promise.all([...document.images].map(i=>i.decode().catch(()=>{})))");
+    await evaluate('new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)))');
+    const data=await evaluate(`(()=>{const s=document.querySelector('#stage'),r=s.getBoundingClientRect();const nodes=[...s.querySelectorAll('.heading-text,.block-label,.block-text,.block-detail,.slide-note')].filter(e=>e.textContent.trim()&&e.getBoundingClientRect().width);return{title:s.querySelector('.heading-text').textContent,overflow:nodes.filter(e=>{const q=e.getBoundingClientRect();return q.left<r.left+25||q.right>r.right-25||q.top<r.top+25||q.bottom>r.bottom-25}).map(e=>e.textContent),blocks:s.querySelectorAll('[data-block]').length,links:s.querySelectorAll('.composition-links>g').length}})()`);
+    const shot=await send('Page.captureScreenshot',{format:'png'});await writeFile(join(dir,file),Buffer.from(shot.data,'base64'));
+    report.pages.push({file,...data});assert.deepEqual(data.overflow,[],`${file} text outside frame`);return data;
+  }
+  for(const [i,slot]of entry.design.deck.slides.entries())await capture(`/design/preview?theme=${entry.id}&category=ai&layout=${slot.layout}&slot=${i}`,`slide-${String(i+1).padStart(2,'0')}.png`);
+  report.checks.push('12枚のプレビュー・全テキストの画面内配置');
+  for(const sample of DESIGN_SAMPLES)await capture(`/design/preview?theme=${entry.id}&category=ai&layout=${sample.layout}`,`layout-${sample.layout}.png`);
+  report.checks.push('共通16レイアウトへのテーマ適用');
+  assert.equal(await evaluate("getComputedStyle(document.querySelector('#stage')).backgroundImage"),'none');
+  assert.equal(await evaluate("getComputedStyle(document.querySelector('#stage'),'::before').borderTopWidth"),'0px');
+  report.checks.push('Standardの配色一致・方眼紙と閉じた外枠なし');
+  await capture(`/design/preview?theme=${entry.id}&category=ai&layout=flow&slot=3`,'system-final.png');
+  await evaluate(`(async()=>{const {makeDesignSample}=await import('/src/design-sample.js'),{applyMotion}=await import('/src/motion.js');const d=await(await fetch('/api/designs?id=${entry.id}')).json();window.motionSample=makeDesignSample(d.design,'flow',d.design.deck.slides[3]);window.seekComposition=t=>applyMotion(document.querySelector('#stage'),{category:'ai'},motionSample,t,60);})()`);
+  await evaluate('seekComposition(2.5)');
+  assert.equal(await evaluate("document.querySelector('[data-block=b3] .block-body').style.opacity"),'0');
+  const before=await evaluate("document.querySelector('#slide-content').outerHTML");
+  await evaluate('seekComposition(9);seekComposition(2.5)');
+  assert.equal(await evaluate("document.querySelector('#slide-content').outerHTML"),before);
+  await evaluate('seekComposition(2.95)');
+  assert.equal(await evaluate("document.querySelector('[data-block=b3] .block-body').style.opacity"),'1');
+  report.checks.push('矢印→要素の順序・巻き戻し時の描画一致');
+  await send('Page.navigate',{url:`${base}/design/edit?theme=${entry.id}&category=ai&layout=flow&slot=3`});
+  await until(()=>evaluate("document.body?.dataset.ready==='true'&&document.body?.dataset.previewReady==='true'"),'editor not ready');
+  const editor=await evaluate("({pages:document.querySelectorAll('[data-slot]').length,patterns:document.querySelectorAll('select[aria-label$=配置パターン]').length,composition:document.querySelector('#theme-preview-frame').contentDocument.querySelector('#slide-content').dataset.composition})");
+  assert.equal(editor.composition,'system');assert.equal(editor.patterns,12);
+  await evaluate(`(()=>{const select=document.querySelector('select[aria-label="4枚目の配置パターン"]');select.value='lanes';select.dispatchEvent(new Event('change',{bubbles:true}));})()`);
+  await until(()=>evaluate("document.querySelector('#theme-preview-frame').contentDocument.querySelector('#slide-content')?.dataset.composition==='lanes'"),'pattern switch failed');
+  await evaluate(`(()=>{const select=document.querySelector('select[aria-label="4枚目の配置パターン"]');select.value='system';select.dispatchEvent(new Event('change',{bubbles:true}));})()`);
+  await until(()=>evaluate("document.querySelector('#theme-preview-frame').contentDocument.querySelector('#slide-content')?.dataset.composition==='system'"),'pattern restore failed');
+  const shot=await send('Page.captureScreenshot',{format:'png'});await writeFile(join(dir,'editor.png'),Buffer.from(shot.data,'base64'));
+  report.checks.push('編集画面の12ページと配置パターンの切り替え');
+  await send('Emulation.setDeviceMetricsOverride',{width:1440,height:1000,deviceScaleFactor:1,mobile:false});
+  await send('Page.navigate',{url:`${base}/design/detail?theme=${entry.id}&category=va&slot=3`});
+  await until(()=>evaluate("document.body?.dataset.ready==='true'"),'detail not ready');
+  assert.equal(await evaluate("(()=>{const a=document.querySelector('.structure-sidebar').getBoundingClientRect(),b=document.querySelector('.preview-panel').getBoundingClientRect();return a.right<=b.left&&Math.abs(a.top-b.top)<3})()"),true);
+  const beforeScroll=await evaluate('scrollY');
+  await evaluate("document.querySelectorAll('.deck-map .deck-page')[11].click()");
+  await until(()=>evaluate("document.querySelector('#design-frame')?.contentDocument?.querySelector('.heading-text')?.textContent==='Take Home Message'"),'last page not shown');
+  assert.equal(await evaluate('scrollY'),beforeScroll);
+  const detailShot=await send('Page.captureScreenshot',{format:'png'});await writeFile(join(dir,'detail-sidebar.png'),Buffer.from(detailShot.data,'base64'));
+  for(const width of [1000,390,320]){
+    await send('Emulation.setDeviceMetricsOverride',{width,height:1000,deviceScaleFactor:1,mobile:false});
+    await until(()=>evaluate('document.documentElement.scrollWidth<=innerWidth'),`detail overflow ${width}`);
+  }
+  report.checks.push('詳細の一覧をスライド左へ配置・ページ切替で本文スクロールなし・1000/390/320px表示');
+  report.passed=true;
+}finally{await writeFile(join(dir,'qa.json'),JSON.stringify(report,null,2));await session?.close();await new Promise(r=>server?server.close(r):r());}
+console.log(JSON.stringify({passed:report.passed,pages:report.pages.length,checks:report.checks}));

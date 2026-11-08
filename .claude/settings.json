@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(npm test)",
+      "Bash(npm run check:*)",
+      "Bash(npm run harness:*)",
+      "Bash(npm run qa:browser:*)",
+      "Bash(npm run new:*)",
+      "Bash(npm run voices)",
+      "Bash(npm run designs:*)",
+      "Bash(npm run theme:*)",
+      "Bash(npm run tts:status:*)",
+      "Bash(npm run timing:*)",
+      "Bash(npm run tts -- --lecture * --check)",
+      "Bash(npm run render:*)",
+      "Bash(npm run images)",
+      "Bash(npm run images -- --lecture *)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/tools/hooks/check-lecture.mjs\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/tools/hooks/design-reminder.mjs\"",
+            "timeout": 20
+          }
+        ]
+      }
+    ]
+  }
+}

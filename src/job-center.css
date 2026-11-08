@@ -1,0 +1,34 @@
+/* 作業状況の通知欄（src/job-center.js）。画面の配色（--ui-*、ライト／ダーク）に合わせる。 */
+.jobs-center { position: relative; flex: none; margin-right: 8px; }
+.jobs-center .jobs-button { position: relative; display: grid; place-items: center; width: 40px; height: 40px; padding: 0; border: 1px solid var(--ui-line, #e2e7ef); border-radius: 10px; background: var(--ui-surface, #fff); color: var(--ui-text-muted, #7a889c); cursor: pointer; }
+.jobs-center .jobs-button:hover { color: var(--ui-text-strong, #22385a); border-color: var(--ui-line-strong, #cdd5e1); background: var(--ui-surface, #fff); }
+.jobs-button svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.jobs-button.is-running { color: var(--ui-accent-ink, #2f4d78); border-color: var(--ui-accent-mid, #547bb7); }
+.jobs-button.is-running svg { animation: jobs-ring 1.6s ease-in-out infinite; transform-origin: 50% 20%; }
+@keyframes jobs-ring { 0%, 60%, 100% { rotate: 0deg; } 10% { rotate: 12deg; } 20% { rotate: -10deg; } 30% { rotate: 6deg; } 40% { rotate: -3deg; } }
+@media (prefers-reduced-motion: reduce) { .jobs-button.is-running svg { animation: none; } }
+.jobs-badge { position: absolute; top: -5px; right: -5px; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 9px; background: var(--ui-accent, #263b60); color: #fff; font: 700 11px/18px inherit; text-align: center; }
+.jobs-badge[hidden], .jobs-panel[hidden] { display: none; }
+.jobs-panel { position: absolute; right: 0; top: calc(100% + 8px); z-index: 1200; width: min(420px, calc(100vw - 24px)); max-height: min(560px, calc(100dvh - 100px)); overflow-y: auto; border: 1px solid var(--ui-line, #e2e7ef); border-radius: 12px; background: var(--ui-surface, #fff); color: var(--ui-text-strong, #22385a); box-shadow: 0 18px 50px #0f172a33; text-align: left; }
+.jobs-title { display: flex; align-items: baseline; gap: 10px; padding: 14px 16px 10px; border-bottom: 1px solid var(--ui-line, #e2e7ef); }
+.jobs-title strong { font-size: 15px; }
+.jobs-title small { font-size: 12px; color: var(--ui-text-muted, #7a889c); }
+.jobs-list { padding: 6px; }
+.jobs-empty { margin: 0; padding: 20px 12px; font-size: 13px; line-height: 1.7; color: var(--ui-text-muted, #7a889c); }
+.jobs-item { padding: 10px 10px 8px; border-radius: 8px; }
+.jobs-item + .jobs-item { border-top: 1px solid var(--ui-line, #e2e7ef); border-radius: 0; }
+.jobs-head { display: flex; flex-direction: column; gap: 2px; }
+.jobs-kind { font-size: 11px; font-weight: 700; color: var(--ui-text-muted, #7a889c); }
+.jobs-head strong { font-size: 14px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.jobs-line { margin: 4px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--ui-text, #4f6280); overflow-wrap: anywhere; }
+.jobs-item.is-running .jobs-line { color: var(--ui-accent-ink, #2f4d78); font-weight: 700; }
+.jobs-item.is-completed .jobs-line { color: var(--ui-success, #4f7a5a); }
+.jobs-item.is-failed .jobs-line { color: var(--ui-danger, #a45234); }
+.jobs-bar { height: 5px; margin-top: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--ui-accent-mid, #547bb7) var(--progress, 0%), var(--ui-surface-3, #eef1f5) var(--progress, 0%)); }
+.jobs-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; font-size: 12px; }
+.jobs-actions a, .jobs-actions button { padding: 0; border: 0; background: none; color: var(--ui-accent-ink, #2f4d78); font: 700 12px/1.6 inherit; text-decoration: none; cursor: pointer; }
+.jobs-actions a:hover, .jobs-actions button:hover { text-decoration: underline; background: none; }
+.jobs-toasts { position: fixed; right: 18px; bottom: 18px; z-index: 2147482000; display: flex; flex-direction: column; gap: 8px; max-width: min(420px, calc(100vw - 36px)); }
+.jobs-toast { padding: 12px 16px; border-radius: 10px; background: #1f2a3c; color: #fff; font: 600 13.5px/1.6 'Noto Sans JP', 'Yu Gothic UI', 'Meiryo', sans-serif; box-shadow: 0 12px 36px #0006; border-left: 4px solid #4fc28a; cursor: pointer; }
+.jobs-toast.is-failed { border-left-color: #ef5a4f; }
+body.recording .jobs-toasts { display: none; }

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8"><script src="/src/studio-status.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>発表者ビュー | SAKUSURA</title>
+  <link rel="stylesheet" href="/src/style.css">
+  <link rel="stylesheet" href="/src/presenter.css">
+  <script type="module" src="/src/presenter.js"></script>
+</head>
+<body class="presenter-page">
+  <header class="pv-top">
+    <div class="pv-timer" aria-label="経過時間">
+      <span id="pv-elapsed" class="pv-elapsed">00:00</span>
+      <button id="pv-timer-toggle" class="pv-chip" type="button" title="タイマーを一時停止 / 再開（T）">開始</button>
+      <button id="pv-timer-reset" class="pv-chip" type="button" title="タイマーを0に戻す（ここまでの時間を記録として残します）">リセット</button>
+      <button id="pv-records-button" class="pv-chip" type="button" title="スライドごとの時間（目安・前回・今回）">記録</button>
+    </div>
+    <span id="pv-pace" class="pv-pace" data-kind="idle">送ると開始</span>
+    <div class="pv-stats">
+      <span class="pv-stat"><small>予定</small><b id="pv-planned">--:--</b></span>
+      <span class="pv-stat"><small>このスライド</small><b id="pv-slide-time">00:00</b><small id="pv-slide-plan"></small></span>
+      <span class="pv-stat"><small>時刻</small><b id="pv-clock">--:--</b></span>
+    </div>
+    <div class="pv-status">
+      <span id="pv-mode" class="pv-mode"></span>
+      <span id="pv-link" class="pv-link" data-state="waiting">接続中…</span>
+      <button id="pv-help" class="pv-chip pv-help" type="button" aria-expanded="false" aria-controls="pv-guide" title="使い方（?）">?</button>
+    </div>
+  </header>
+
+  <div id="pv-tab-alert" class="pv-tab-alert" role="alert" hidden>
+    <strong>⚠ スライド画面がこの発表者ビューの裏に隠れています</strong>
+    <span>同じウィンドウのタブになっているか、同じ位置・大きさのウィンドウの裏にあります。このままでは送ってもZoom・Meetの共有画面が変わりません。<br>
+    スライド画面のタブを<b>ウィンドウの外へドラッグして別のウィンドウ</b>にし、発表者ビューと並べて置いてください。</span>
+  </div>
+  <div id="pv-tip" class="pv-tip" role="status" hidden><span id="pv-tip-text"></span><button id="pv-tip-close" type="button" title="閉じる" aria-label="案内を閉じる">×</button></div>
+  <main class="pv-main" id="pv-main">
+    <section class="pv-current" aria-label="表示中のスライド">
+      <div class="pv-label"><span><b id="pv-counter">-- / --</b><span id="pv-title"></span></span><span id="pv-steps" class="pv-steps"></span></div>
+      <div class="pv-stage-box">
+        <div class="pv-screen" id="pv-current" data-tool="none">
+          <div id="pv-laser" class="pv-laser" hidden></div>
+          <span id="pv-zoom-badge" class="pv-zoom-badge" hidden></span>
+          <div id="pv-cover" class="pv-cover" hidden></div>
+        </div>
+      </div>
+      <div class="pv-palette" role="toolbar" aria-label="発表の操作">
+        <div class="pv-group">
+          <button id="pv-prev" class="pv-tool pv-wide" type="button" title="前へ（← / PageUp）"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg><span>前へ</span></button>
+          <button id="pv-next-button" class="pv-tool pv-primary" type="button" title="次へ（→ / Space / Enter / PageDown・スライドをクリック）"><span>次へ</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+        </div>
+        <div class="pv-group">
+          <button id="pv-laser-tool" class="pv-tool" type="button" aria-pressed="false" title="レーザーポインター（L）：このスライドの上でマウスを動かすと、スライド画面に赤い点が出ます"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg><span>レーザー</span></button>
+          <button id="pv-pen-tool" class="pv-tool" type="button" aria-pressed="false" title="ペン（P）：このスライドの上でドラッグすると、スライド画面に線が出ます。1〜5で色"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1-5L16 4l4 4L9 19z"/><path d="m14 6 4 4"/></svg><span>ペン</span></button>
+          <span id="pv-colors" class="pv-colors" hidden></span>
+          <button id="pv-undo" class="pv-tool pv-icon" type="button" title="線を1本戻す（Ctrl+Z）" aria-label="線を1本戻す"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7 4 12l5 5"/><path d="M4 12h10a6 6 0 0 1 6 6v1"/></svg></button>
+          <button id="pv-clear" class="pv-tool pv-icon" type="button" title="このスライドの線を全消去（E）" aria-label="このスライドの線を全消去"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 20-5-5L14 4l7 7-9 9z"/><path d="M8 20h13M9 9l7 7"/></svg></button>
+          <button id="pv-zoom" class="pv-tool" type="button" aria-pressed="false" title="拡大 / 解除（Z）。スライドの上でホイールでも拡大、拡大中はドラッグで移動"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4M11 8v6M8 11h6"/></svg><span>拡大</span></button>
+        </div>
+        <div class="pv-group">
+          <button id="pv-black" class="pv-tool" type="button" aria-pressed="false" title="スライド画面を黒にする / 戻す（B）"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="13" rx="1.5" fill="currentColor"/></svg><span>黒</span></button>
+          <button id="pv-white" class="pv-tool" type="button" aria-pressed="false" title="スライド画面を白にする / 戻す（W）"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="13" rx="1.5"/></svg><span>白</span></button>
+          <button id="pv-overview" class="pv-tool" type="button" title="スライド一覧から移動（G）"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/></svg><span>一覧</span></button>
+          <button id="pv-play" class="pv-tool" type="button" title="音声付きで自動再生 / 停止（スライド画面から音が出ます）"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg><span id="pv-play-label">自動再生</span></button>
+        </div>
+      </div>
+    </section>
+    <div id="pv-splitter" class="pv-splitter" role="separator" aria-orientation="vertical" aria-label="スライドと原稿の幅" tabindex="0" title="ドラッグで幅を変えます（ダブルクリックで元に戻す）"></div>
+    <aside class="pv-side">
+      <div class="pv-label"><span id="pv-next-label">次</span></div>
+      <div class="pv-screen" id="pv-next"><div id="pv-end" class="pv-end" hidden>最後のスライドです</div></div>
+      <div class="pv-label"><span>原稿 <small class="pv-hint">全文を枠に合わせて表示</small></span><span class="pv-font"><button id="pv-font-down" class="pv-chip" type="button" title="文字の上限を小さく（−）" aria-label="原稿の文字を小さく">A−</button><button id="pv-font-up" class="pv-chip" type="button" title="文字の上限を大きく（＋）" aria-label="原稿の文字を大きく">A＋</button></span></div>
+      <div id="pv-notes" class="pv-notes-body" tabindex="0"></div>
+    </aside>
+  </main>
+
+  <section id="pv-guide" class="pv-guide" hidden aria-label="使い方">
+    <h2>発表者ビューの使い方</h2>
+    <div class="pv-guide-grid">
+      <div>
+        <h3>外部モニター・プロジェクター</h3>
+        <ol>
+          <li>Windowsの表示設定を「拡張」にします（<kbd>Win</kbd>+<kbd>P</kbd>）。</li>
+          <li>スライド画面を外部モニターへドラッグし、<kbd>F</kbd> で全画面にします。</li>
+          <li>この発表者ビューは手元の画面に置きます。</li>
+        </ol>
+        <p>Chromeで「ウィンドウの管理」を許可すると、次からは <kbd>S</kbd> を押すだけでスライドが外部モニターに全画面で出ます。</p>
+      </div>
+      <div>
+        <h3>Zoom・Teams・Meet で共有</h3>
+        <ol>
+          <li>共有では「画面全体」ではなく、<strong>スライド画面のウィンドウ</strong>を選びます。</li>
+          <li>この発表者ビューは共有されないので、原稿は参加者に見えません。</li>
+          <li>モニターが1台のときは、スライド画面を<strong>完全には隠さない</strong>ように置いてください。完全に隠れると、Chromeがスライド画面の描画を止め、共有の映像も止まります（上に「隠れています」と出ます）。</li>
+          <li>スライド画面と発表者ビューを<strong>同じウィンドウのタブにしない</strong>でください。裏のタブは描画が止まり、送っても共有画面が変わりません。</li>
+        </ol>
+        <p><strong>スライドを全画面で共有する順番</strong>（タブやブックマークバーを映さない）</p>
+        <ol>
+          <li>先に発表者ビューを開きます（<kbd>S</kbd> か「発表を始める」）。</li>
+          <li>スライド画面をクリックして <kbd>F</kbd> で全画面にします。</li>
+          <li><kbd>Alt</kbd>+<kbd>Tab</kbd> でこの発表者ビューに戻って操作します。スライドは裏で全画面のまま共有されます。</li>
+        </ol>
+        <p>全画面のまま発表者ビューを開くと、Chromeの仕様で全画面が外れます。そのときは2からやり直してください。Meetでは共有で「Chromeタブ」を選び、スライド画面のタブを指定しても、スライドだけが映ります。</p>
+      </div>
+      <div>
+        <h3>キー操作（この画面）</h3>
+        <dl>
+          <dt><kbd>→</kbd> <kbd>Space</kbd> <kbd>Enter</kbd></dt><dd>次へ（スライドをクリックでも）</dd>
+          <dt><kbd>←</kbd> <kbd>Backspace</kbd></dt><dd>前へ</dd>
+          <dt><kbd>L</kbd> / <kbd>P</kbd></dt><dd>レーザーポインター / ペン（<kbd>1</kbd>〜<kbd>5</kbd>で色、<kbd>Esc</kbd>で解除）</dd>
+          <dt><kbd>Ctrl</kbd>+<kbd>Z</kbd> / <kbd>E</kbd></dt><dd>線を1本戻す / 全消去</dd>
+          <dt><kbd>Z</kbd></dt><dd>マウスの位置を拡大 / 解除（ホイールで1〜4倍、ドラッグで移動）</dd>
+          <dt><kbd>B</kbd> / <kbd>W</kbd></dt><dd>黒画面 / 白画面</dd>
+          <dt><kbd>G</kbd> / <kbd>T</kbd></dt><dd>スライド一覧 / タイマーの一時停止</dd>
+          <dt><kbd>＋</kbd> <kbd>−</kbd></dt><dd>原稿の文字の上限（全文が入るよう自動で縮みます）</dd>
+        </dl>
+      </div>
+    </div>
+    <button id="pv-guide-close" class="pv-tool pv-wide" type="button">閉じる</button>
+  </section>
+
+  <section id="pv-records" class="pv-records" hidden aria-labelledby="pv-records-title">
+    <div class="pv-records-head"><h2 id="pv-records-title">リハーサルの記録</h2><p id="pv-records-note"></p></div>
+    <div class="pv-records-scroll"><table><thead><tr><th>No.</th><th>スライド</th><th>目安</th><th>前回</th><th>今回</th></tr></thead><tbody id="pv-records-body"></tbody></table></div>
+    <p class="pv-records-hint">タイマーが動いている間の時間を、スライドごとに数えます。目安より3割以上長いスライドは色を付けています。リセット・発表者ビューを閉じたとき・「今回を記録する」で前回の記録になります（30秒未満は残しません）。</p>
+    <div class="pv-records-actions"><button id="pv-records-save" class="pv-tool pv-wide" type="button">今回を記録する</button><button id="pv-records-close" class="pv-tool pv-wide" type="button">閉じる</button></div>
+  </section>
+  <p id="pv-error" class="pv-error" role="alert" hidden></p>
+
+  <dialog id="slide-overview" aria-labelledby="overview-title">
+    <div class="overview-head"><h2 id="overview-title">スライド一覧</h2><button type="button" data-overview-close title="閉じる（G）" aria-label="閉じる">×</button></div>
+    <div class="overview-grid" data-overview-grid></div>
+  </dialog>
+  <noscript>発表者ビューにはJavaScriptが必要です。</noscript>
+</body>
+</html>

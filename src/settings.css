@@ -1,0 +1,62 @@
+/* 設定ページ。ヘッダー・ボタンなどの基本は library.css を使う。 */
+main.settings-main { flex: 1; min-height: 0; max-width: none; padding: 32px 32px 48px; }
+.settings-inner { max-width: 860px; margin: 0 auto; }
+.settings-lead { color: var(--ui-text); font-size: 13.5px; line-height: 1.9; margin: 0 0 6px; }
+#settings-status { min-height: 22px; margin: 0 0 14px; font-size: 13px; color: var(--ui-success); }
+#settings-status.is-error { color: var(--ui-danger); }
+.settings-card { background: var(--ui-surface); border: 1px solid var(--ui-line); border-radius: 10px; padding: 24px 26px; margin-bottom: 18px; }
+.settings-card h2 { font-size: 17px; margin: 0 0 8px; color: var(--ui-text-strong); }
+.settings-help { font-size: 13px; color: var(--ui-text-muted); line-height: 1.8; margin: 0 0 18px; }
+.mode-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.mode-option { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid var(--ui-line); border-radius: 9px; cursor: pointer; background: var(--ui-surface); }
+.mode-option:hover { border-color: var(--ui-line-strong); }
+.mode-option:has(input:checked) { border-color: var(--ui-accent-mid); box-shadow: 0 0 0 2px var(--ui-accent-soft), inset 0 0 0 1px var(--ui-accent-mid); }
+.mode-option:has(input:focus-visible) { outline: 3px solid var(--ui-focus); outline-offset: 2px; }
+.mode-option input { position: absolute; opacity: 0; pointer-events: none; }
+.mode-option strong { font-size: 14px; color: var(--ui-text-strong); margin-top: 6px; }
+.mode-option small { font-size: 12px; color: var(--ui-text-muted); }
+.mode-option:has(input:checked) strong::after { content: '選択中'; white-space: nowrap; margin-left: 8px; font-size: 11px; font-weight: 700; color: var(--ui-accent-ink); background: var(--ui-accent-soft); border-radius: 4px; padding: 2px 6px; }
+.mode-preview { display: grid; grid-template-columns: 26% 1fr; height: 64px; border-radius: 6px; overflow: hidden; border: 1px solid #00000014; }
+.mode-preview i, .mode-preview b { display: block; }
+.mode-light .mode-preview i { background: #fff; border-right: 1px solid #e2e7ef; } .mode-light .mode-preview b { background: linear-gradient(#f6f7fa 0 30%, #fff 30% 100%); }
+.mode-dark .mode-preview i { background: #1b2029; border-right: 1px solid #2f3743; } .mode-dark .mode-preview b { background: linear-gradient(#14181f 0 30%, #1b2029 30% 100%); }
+.mode-system .mode-preview { background: linear-gradient(135deg, #f6f7fa 0 50%, #1b2029 50% 100%); } .mode-system .mode-preview i, .mode-system .mode-preview b { display: none; }
+.theme-options { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+.theme-option { position: relative; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 6px 12px; padding: 14px 16px; border: 1px solid var(--ui-line); border-radius: 9px; cursor: pointer; background: var(--ui-surface); }
+.theme-option:hover { border-color: var(--ui-line-strong); }
+.theme-option:has(input:checked) { border-color: var(--ui-accent-mid); box-shadow: 0 0 0 2px var(--ui-accent-soft), inset 0 0 0 1px var(--ui-accent-mid); }
+.theme-option input { position: absolute; opacity: 0; pointer-events: none; }
+.theme-option:has(input:focus-visible) { outline: 3px solid var(--ui-focus); outline-offset: 2px; }
+.theme-swatch { grid-row: span 2; display: flex; }
+.theme-swatch span { width: 18px; height: 34px; border: 1px solid #0000000d; }
+.theme-swatch span:first-child { border-radius: 5px 0 0 5px; }
+.theme-swatch span:last-child { border-radius: 0 5px 5px 0; }
+.theme-option strong { font-size: 14px; color: var(--ui-text-strong); }
+.theme-option small { font-size: 11.5px; color: var(--ui-text-muted); }
+.theme-option:has(input:checked) strong::after { content: '選択中'; white-space: nowrap; margin-left: 8px; font-size: 11px; font-weight: 700; color: var(--ui-accent-ink); background: var(--ui-accent-soft); border-radius: 4px; padding: 2px 6px; }
+.setting-row, .reset-row { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-top: 1px solid var(--ui-line); }
+.settings-card h2 + .setting-row, .settings-card h2 + .reset-row { border-top: 0; padding-top: 6px; }
+.setting-row { cursor: pointer; }
+.setting-row input[type="checkbox"] { width: 18px; height: 18px; flex: none; }
+.setting-row > span, .reset-row > span { flex: 1; min-width: 0; }
+.setting-row strong, .reset-row strong { display: block; font-size: 14px; color: var(--ui-text-strong); }
+.setting-row small, .reset-row small { display: block; font-size: 12.5px; color: var(--ui-text-muted); line-height: 1.7; margin-top: 3px; }
+.select-row select { flex: none; font-size: 13px; padding: 9px 12px; }
+.reset-row button { flex: none; font-size: 13px; padding: 9px 14px; }
+@media (max-width: 650px) { .mode-options { grid-template-columns: 1fr; } .setting-row.select-row, .reset-row { flex-direction: column; align-items: flex-start; } .settings-card { padding: 20px 18px; } }
+/* 左のカテゴリメニュー（グループ見出し＋アイコン付きの項目）と、選んだ項目の設定 */
+.settings-layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 36px; align-items: start; max-width: 1650px; }
+.settings-layout .settings-inner { margin: 0; max-width: none; }
+.settings-nav { position: sticky; top: 0; display: flex; flex-direction: column; gap: 2px; padding-top: 4px; }
+.settings-nav-group { margin: 22px 10px 8px; font-size: 11px; font-weight: 700; letter-spacing: .12em; color: var(--ui-text-faint); }
+.settings-nav-group:first-child { margin-top: 0; }
+.settings-nav a { display: flex; align-items: center; gap: 11px; padding: 9px 10px; border-radius: 7px; font-size: 14px; color: var(--ui-text); }
+.settings-nav a:hover { background: var(--ui-accent-soft); color: var(--ui-accent-ink); }
+.settings-nav a[aria-current="page"] { background: var(--ui-accent-soft); color: var(--ui-accent-ink); font-weight: 700; }
+.settings-nav svg { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 900px) {
+  .settings-layout { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .settings-nav { position: static; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px; }
+  .settings-nav-group { display: none; }
+  .settings-nav a { padding: 8px 12px; font-size: 13px; border: 1px solid var(--ui-line); background: var(--ui-surface); }
+}

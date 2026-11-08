@@ -1,0 +1,44 @@
+/* 検索パレット（src/command-palette.js）。画面の配色（--ui-*、ライト／ダーク）に合わせる。 */
+nav.app-nav > .cmdk-launcher { display: inline-flex; align-items: center; gap: 6px; height: auto; margin-left: 4px; padding: 6px 8px 6px 10px; border: 1px solid var(--ui-line, #e2e7ef); border-radius: 8px; background: var(--ui-surface, #fff); color: var(--ui-text-muted, #7a889c); font: 700 13px/1.4 inherit; white-space: nowrap; cursor: pointer; }
+nav.app-nav > .cmdk-launcher:hover { color: var(--ui-text-strong, #22385a); border-color: var(--ui-line-strong, #cdd5e1); background: var(--ui-surface, #fff); }
+.cmdk-launcher svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.cmdk-launcher kbd { padding: 0 5px; border: 1px solid var(--ui-line-strong, #cdd5e1); border-radius: 4px; font: 700 10px/1.6 inherit; color: var(--ui-text-faint, #a0aabc); }
+@media (max-width: 1100px) { .cmdk-launcher span, .cmdk-launcher kbd { display: none; } }
+
+dialog.cmdk { width: min(680px, calc(100vw - 32px)); max-height: min(620px, calc(100dvh - 120px)); margin: 12vh auto auto; padding: 0; border: 1px solid var(--ui-line, #e2e7ef); border-radius: 14px; background: var(--ui-surface, #fff); color: var(--ui-text-strong, #22385a); box-shadow: 0 24px 70px #0f172a4d; overflow: hidden; font-family: var(--ui-font, 'Noto Sans JP', 'Yu Gothic UI', 'Meiryo', sans-serif); }
+dialog.cmdk[open] { display: flex; flex-direction: column; }
+dialog.cmdk::backdrop { background: #0f172a59; }
+.cmdk-search { display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--ui-line, #e2e7ef); }
+.cmdk-search svg { width: 20px; height: 20px; flex: none; fill: none; stroke: var(--ui-text-muted, #7a889c); stroke-width: 2; stroke-linecap: round; }
+.cmdk-search input { flex: 1; min-width: 0; padding: 4px 0; border: 0; outline: none; background: transparent; color: inherit; font: 500 17px/1.5 inherit; }
+.cmdk-search input::-webkit-search-cancel-button { display: none; }
+.cmdk kbd { display: inline-block; min-width: 16px; padding: 0 5px; border: 1px solid var(--ui-line-strong, #cdd5e1); border-bottom-width: 2px; border-radius: 4px; font: 700 11px/1.5 inherit; text-align: center; color: var(--ui-text-muted, #7a889c); background: var(--ui-surface-2, #f8fafc); }
+.cmdk-list { flex: 1; min-height: 0; overflow-y: auto; padding: 6px; }
+.cmdk-group { padding: 10px 10px 4px; font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--ui-text-faint, #a0aabc); }
+.cmdk-item { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: 8px; cursor: pointer; }
+.cmdk-item[aria-selected="true"] { background: var(--ui-accent-soft, #edf2f9); box-shadow: inset 3px 0 0 var(--ui-accent-mid, #547bb7); }
+.cmdk-text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.cmdk-text strong { font-size: 14px; font-weight: 700; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.cmdk-text small { font-size: 12px; color: var(--ui-text-muted, #7a889c); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.cmdk-actions { display: flex; gap: 4px; flex: none; opacity: .45; }
+.cmdk-item[aria-selected="true"] .cmdk-actions, .cmdk-item:hover .cmdk-actions { opacity: 1; }
+.cmdk-actions button { padding: 4px 10px; border: 1px solid var(--ui-line-strong, #cdd5e1); border-radius: 6px; background: var(--ui-surface, #fff); color: var(--ui-text-strong, #22385a); font: 700 12px/1.4 inherit; cursor: pointer; }
+.cmdk-actions button:first-child { background: var(--ui-accent, #263b60); border-color: var(--ui-accent, #263b60); color: #fff; }
+.cmdk-empty { margin: 0; padding: 28px 12px; text-align: center; font-size: 13px; color: var(--ui-text-muted, #7a889c); }
+.cmdk-foot { display: flex; gap: 16px; flex-wrap: wrap; padding: 9px 16px; border-top: 1px solid var(--ui-line, #e2e7ef); background: var(--ui-surface-2, #f8fafc); font-size: 12px; color: var(--ui-text-muted, #7a889c); }
+.cmdk-count { margin-left: auto; }
+/* 画面ごとのダイアログ・入力欄の共通指定（例：編集画面の dialog > div、input の枠）を打ち消す。 */
+dialog.cmdk { max-width: none; }
+dialog.cmdk > div { margin: 0; justify-content: normal; }
+dialog.cmdk > .cmdk-list { display: block; }
+dialog.cmdk > .cmdk-search { display: flex; gap: 10px; }
+dialog.cmdk > .cmdk-foot { display: flex; gap: 16px; }
+dialog.cmdk .cmdk-search input[type="search"]:not([hidden]), dialog.cmdk .cmdk-search input[type="search"]:not([hidden]):focus { width: auto; height: auto; margin: 0; padding: 4px 0; border: 0; border-radius: 0; box-shadow: none; outline: none; background: transparent; color: inherit; font: 500 17px/1.5 inherit; }
+dialog.cmdk p { line-height: 1.6; }
+/* ? キーのキー操作の一覧 */
+.cmdk-help-title { flex: 1; font-size: 16px; }
+dialog.cmdk-help > .cmdk-list { padding: 8px 18px 14px; }
+.cmdk-keys { display: grid; grid-template-columns: minmax(150px, max-content) 1fr; gap: 9px 18px; margin: 0; font-size: 13.5px; line-height: 1.6; }
+.cmdk-keys dt { font-weight: 700; color: var(--ui-text-strong, #22385a); white-space: nowrap; }
+.cmdk-keys dd { margin: 0; color: var(--ui-text, #4f6280); }
+@media (max-width: 640px) { .cmdk-keys { grid-template-columns: 1fr; } .cmdk-keys dt { white-space: normal; } }

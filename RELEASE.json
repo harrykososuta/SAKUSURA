@@ -1,0 +1,16 @@
+{
+  "name": "SAKUSURA",
+  "version": "1.2.3",
+  "createdAt": "2026-11-08T13:15:58.326Z",
+  "license": "MIT",
+  "template": "design-9122c0b9-ba34-486e-bcf8-0758a5f70d22",
+  "lectures": [],
+  "testFixtures": [
+    "demo",
+    "business-design",
+    "ai-motion-demo"
+  ],
+  "credentialsIncluded": false,
+  "voiceConfigured": false,
+  "audioIncluded": false
+}
